@@ -9,145 +9,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f5f0; --surface:#ffffff; --surface-2:#f0ede6; --line:#ddd7cc;
+  --bg:#f7f5f0; --surface:#fff; --surface-2:#f0ede6; --line:#ddd7cc;
   --text:#1f1d1a; --muted:#6d675d; --accent:#1f5f4e; --accent-soft:#e3f0ea;
   --warn:#a8502a; --warn-soft:#fbeade; --good:#1f5f4e; --shadow:0 1px 3px rgba(0,0,0,.07);
-  --serif:"Noto Serif JP",'Hiragino Mincho ProN',serif;
+  --serif:"Noto Serif JP",'Hiragino Mincho ProN','Yu Mincho',serif;
   --sans:"Noto Sans JP",'Hiragino Kaku Gothic ProN',system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#16181a; --surface:#1f2225; --surface-2:#282c30; --line:#3a3f45;
-    --text:#e8e6e1; --muted:#9aa0a6; --accent:#6fc2a5; --accent-soft:#1d3a33;
-    --warn:#e0975f; --warn-soft:#3a2a1c; --good:#6fc2a5; --shadow:none;
-  }
-}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16181a;--surface:#1f2225;--surface-2:#282c30;--line:#3a3f45;--text:#e8e6e1;--muted:#9aa0a6;
+  --accent:#6fc2a5;--accent-soft:#1d3a33;--warn:#e0975f;--warn-soft:#3a2a1c;--good:#6fc2a5;--shadow:none;}}
 :root[data-theme="dark"]{
-  --bg:#16181a; --surface:#1f2225; --surface-2:#282c30; --line:#3a3f45;
-  --text:#e8e6e1; --muted:#9aa0a6; --accent:#6fc2a5; --accent-soft:#1d3a33;
-  --warn:#e0975f; --warn-soft:#3a2a1c; --good:#6fc2a5; --shadow:none;
-}
+  --bg:#16181a;--surface:#1f2225;--surface-2:#282c30;--line:#3a3f45;--text:#e8e6e1;--muted:#9aa0a6;
+  --accent:#6fc2a5;--accent-soft:#1d3a33;--warn:#e0975f;--warn-soft:#3a2a1c;--good:#6fc2a5;--shadow:none;}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
-body{
-  background:var(--bg); color:var(--text); font-family:var(--sans);
-  font-size:16px; line-height:1.7; padding-bottom:calc(72px + env(safe-area-inset-bottom));
-  overflow-x:hidden;
-}
-header{
-  position:sticky; top:0; z-index:20; background:var(--surface);
-  border-bottom:1px solid var(--line); padding:10px 16px;
-  display:flex; align-items:center; gap:10px;
-}
-header h1{font-size:15px;margin:0;font-weight:700;letter-spacing:.02em;flex:1}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.7;
+ padding-bottom:calc(72px + env(safe-area-inset-bottom));overflow-x:hidden}
+header{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);
+ padding:10px 16px;display:flex;align-items:center;gap:8px}
+header h1{font-size:15px;margin:0;font-weight:700;flex:1}
 header .sub{font-size:11px;color:var(--muted);font-weight:400}
 main{padding:16px;max-width:680px;margin:0 auto}
-.view{display:none}
-.view.on{display:block}
+.view{display:none}.view.on{display:block}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
 .card h2{font-size:15px;margin:0 0 4px}
-.card h3{font-size:13px;margin:16px 0 6px;color:var(--muted);font-weight:700;letter-spacing:.04em}
+.card h3{font-size:12px;margin:14px 0 6px;color:var(--muted);font-weight:700;letter-spacing:.04em}
 .card p{margin:6px 0;font-size:14px}
 .muted{color:var(--muted);font-size:13px}
-.tiny{font-size:12px;color:var(--muted);line-height:1.6}
+.tiny{font-size:12px;color:var(--muted);line-height:1.65}
 button{font-family:var(--sans);font-size:15px;cursor:pointer}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  background:var(--accent);color:#fff;border:0;border-radius:10px;
-  padding:12px 16px;font-weight:700;width:100%;margin-top:8px;
-}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--accent);color:#fff;
+ border:0;border-radius:10px;padding:12px 16px;font-weight:700;width:100%;margin-top:8px}
 .btn.sec{background:var(--surface-2);color:var(--text);border:1px solid var(--line)}
-.btn.sm{width:auto;padding:8px 14px;font-size:13px;margin-top:0}
+.btn.sm{width:auto;padding:8px 13px;font-size:13px;margin-top:0}
 .btn:disabled{opacity:.45}
 .row{display:flex;gap:8px;flex-wrap:wrap}
-.row .btn{width:auto;flex:1;min-width:120px}
-.pill{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--muted);margin:0 4px 4px 0}
+.row .btn{width:auto;flex:1;min-width:110px}
+.pill{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;
+ padding:3px 10px;font-size:11px;color:var(--muted);margin:0 4px 4px 0}
 .pill.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--surface);
-  border-top:1px solid var(--line);display:flex;
-  padding-bottom:env(safe-area-inset-bottom);
-}
-nav button{
-  flex:1;background:none;border:0;padding:9px 2px 10px;color:var(--muted);
-  font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:500;
-}
+.sel{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.sel button{background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:13px;color:var(--text)}
+.sel button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
+ display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:0;padding:9px 2px 10px;color:var(--muted);font-size:10px;
+ display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:500}
 nav button .n{font-size:17px;font-weight:700;line-height:1.1;font-family:var(--serif)}
 nav button.on{color:var(--accent)}
-table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0}
 th,td{border-bottom:1px solid var(--line);padding:7px 4px;text-align:left}
 th{color:var(--muted);font-size:11px;font-weight:700}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
-.hl{background:var(--accent-soft);border-radius:6px}
+.hl{background:var(--accent-soft)}
+.note{background:var(--warn-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.7}
+textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;font-family:var(--sans);
+ font-size:15px;background:var(--surface-2);color:var(--text);resize:vertical;min-height:54px}
+input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;
+ background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:15px}
+details{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+summary{font-size:13px;font-weight:700;color:var(--accent);cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ "} details[open] summary::before{content:"▾ "}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--accent);
+ border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hidden{display:none!important}
+.scrollx{overflow-x:auto}
 
-/* ---- passage typography ---- */
-.jp{font-family:var(--serif);font-size:17px;line-height:2.1;letter-spacing:.02em}
-.jp p{margin:0 0 1em;font-size:inherit}
-
-/* ---- step1 slash drill ---- */
-.s1sent{font-family:var(--serif);font-size:19px;line-height:2.6;margin:14px 0;padding:10px 6px;background:var(--surface-2);border-radius:10px;user-select:none}
-.s1sent .ch{display:inline-block}
-.s1sent .gap{display:inline-block;width:11px;height:1.6em;vertical-align:-.45em;position:relative;cursor:pointer}
-.s1sent .gap::after{content:"";position:absolute;left:4px;top:.1em;width:2px;height:1.4em;background:transparent;border-radius:1px}
-.s1sent .gap.set::after{background:var(--accent)}
-.s1sent .gap.model::after{background:var(--muted);opacity:.45}
-.s1sent .gap.hit::after{background:var(--good)}
-.s1sent .gap.miss::after{background:var(--warn);opacity:.9}
-.s1sent .gap.extra::after{background:var(--warn);opacity:.35}
-.legend{font-size:11px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
-.legend i{display:inline-block;width:2px;height:12px;vertical-align:-2px;margin-right:4px}
-
-/* ---- step2 flash ---- */
-.flash{
-  min-height:160px;display:flex;align-items:center;justify-content:center;
-  background:var(--surface-2);border-radius:14px;padding:20px 14px;margin:10px 0;
-  font-family:var(--serif);font-size:26px;line-height:1.5;text-align:center;letter-spacing:.03em;
+/* ---------- 本文表示（縦書き／横書き） ---------- */
+.jp{font-family:var(--serif);font-size:17px;line-height:2.05;letter-spacing:.02em}
+.jp p{margin:0 0 1em}
+.jp.vert{
+  writing-mode:vertical-rl; -webkit-writing-mode:vertical-rl; text-orientation:mixed;
+  height:62vh; max-height:560px; overflow-x:auto; overflow-y:hidden;
+  padding:4px 2px; line-height:1.85;
+  -webkit-overflow-scrolling:touch;
 }
-.flash.done{font-size:16px;color:var(--muted);font-family:var(--sans)}
+.jp.vert p{margin:0 0 0 1.1em}
+.jp.vert::-webkit-scrollbar{height:6px}
+.jp.vert::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.vhint{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* ---------- チャンク送り ---------- */
+.flash{min-height:168px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);
+ border-radius:14px;padding:18px 14px;margin:10px 0;font-family:var(--serif);font-size:27px;line-height:1.55;
+ text-align:center;letter-spacing:.03em}
+.flash.vert{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;text-orientation:mixed;
+ min-height:230px;max-height:230px;font-size:25px;line-height:1.5}
+.flash.done{font-size:16px;color:var(--muted);font-family:var(--sans);writing-mode:horizontal-tb;-webkit-writing-mode:horizontal-tb;min-height:110px;max-height:none}
 .prog{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin:6px 0 2px}
 .prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .12s linear}
 input[type=range]{width:100%;accent-color:var(--accent)}
 .sliderRow{display:flex;align-items:center;gap:10px;font-size:13px;margin-top:10px}
-.sliderRow b{font-variant-numeric:tabular-nums;min-width:74px;text-align:right}
+.sliderRow b{font-variant-numeric:tabular-nums;min-width:76px;text-align:right}
 
-/* ---- timer ---- */
-.timer{font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center;letter-spacing:.02em;margin:6px 0}
+/* ---------- 確認テスト ---------- */
+.qbox{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px;background:var(--surface-2)}
+.qhead{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:4px}
+.qtext{font-size:14.5px;line-height:1.8;margin-bottom:8px}
+.qtext .blank{background:var(--accent);color:var(--accent);border-radius:4px;padding:0 2px;letter-spacing:.3em}
+.opt{display:block;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);
+ border-radius:9px;padding:10px 12px;margin-bottom:6px;font-size:14px;color:var(--text);font-family:var(--serif)}
+.opt.pick{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.opt.ok{background:var(--accent-soft);border-color:var(--good)}
+.opt.ng{background:var(--warn-soft);border-color:var(--warn)}
+.opt:disabled{opacity:1}
+.score{text-align:center;font-size:15px;margin:8px 0}
+.score b{font-size:30px;font-variant-numeric:tabular-nums}
+.timer{font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center;margin:6px 0}
 .verdict{text-align:center;font-size:14px;margin-top:4px}
 .verdict b{font-size:22px}
-textarea{
-  width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;
-  font-family:var(--sans);font-size:15px;background:var(--surface-2);color:var(--text);
-  resize:vertical;min-height:54px;
-}
-details{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
-summary{font-size:13px;font-weight:700;color:var(--accent);cursor:pointer;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"▸ ";}
-details[open] summary::before{content:"▾ ";}
-details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1.8}
 .q{font-size:14px;font-weight:700;margin:12px 0 4px}
-.sel{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
-.sel button{background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--text)}
-.sel button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-.note{background:var(--warn-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.7;color:var(--text)}
-.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
-@keyframes sp{to{transform:rotate(360deg)}}
-.hidden{display:none !important}
-.scrollx{overflow-x:auto}
 </style>
 </head>
 <body>
 <header>
   <div style="flex:1">
     <h1>チャンク読みトレーナー</h1>
-    <div class="sub" id="hdrSub">難関中学 国語｜初見速読トレーニング</div>
+    <div class="sub" id="hdrSub">中学受験 国語｜初見速読トレーニング</div>
   </div>
-  <button class="btn sec sm" id="themeBtn" aria-label="表示切替">◐</button>
+  <button class="btn sec sm" id="wmBtn" title="縦書き／横書き">縦</button>
+  <button class="btn sec sm" id="themeBtn">◐</button>
 </header>
 
 <main>
 
-<!-- ============ HOME ============ -->
+<!-- ============ ホーム ============ -->
 <section class="view on" id="v-home">
   <div class="card">
     <h2>いまの教材</h2>
@@ -158,39 +146,44 @@ details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1
       <button class="btn sm" id="genBtn" style="flex:1">AIで作る</button>
     </div>
     <div id="genStatus" class="tiny" style="margin-top:8px"></div>
+
+    <div id="pickPanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+      <div class="tiny">学校</div><div class="sel" id="fSchool"></div>
+      <div class="tiny">長さ</div><div class="sel" id="fLen"></div>
+      <div id="pickList"></div>
+      <div class="tiny" id="pickCount" style="margin-top:6px"></div>
+    </div>
+
     <div id="pastePanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-      <div class="tiny">保護者用ジェネレーターで作ったデータ（JSON）を貼ると、チャンク切りの模範解答・要約・設問つきで取り込みます。新聞コラムや塾のテキストをそのまま貼った場合は、自動でチャンク分割します。</div>
-      <textarea id="pasteText" rows="6" placeholder="ここに本文を貼り付け" style="margin-top:8px"></textarea>
-      <input type="text" id="pasteTitle" placeholder="教材名（省略可）" style="width:100%;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:15px">
+      <div class="tiny">保護者用ジェネレーターのデータ（JSON）を貼ると模範解答つきで取り込みます。新聞コラムや塾のテキストをそのまま貼った場合は自動でチャンク分割します。</div>
+      <textarea id="pasteText" rows="5" placeholder="ここに貼り付け" style="margin-top:8px"></textarea>
+      <input type="text" id="pasteTitle" placeholder="教材名（省略可）" style="margin-top:8px">
       <div class="sel" id="pasteGenre" style="margin-top:8px"></div>
       <button class="btn" id="pasteGo">この文章を教材にする</button>
       <div class="tiny" id="pasteMsg" style="margin-top:8px"></div>
-      <div class="tiny" style="margin-top:6px">自動分割のため切れ目は完璧ではありません。①の模範解答は目安として使ってください。要約・設問は自分で作る前提になります。</div>
     </div>
+
     <div id="genPanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-      <div class="tiny">ジャンル</div>
-      <div class="sel" id="genGenre"></div>
-      <div class="tiny">レベル</div>
-      <div class="sel" id="genLevel"></div>
-      <div class="tiny">長さ</div>
-      <div class="sel" id="genLen"></div>
+      <div class="tiny">学校</div><div class="sel" id="genSchool"></div>
+      <div class="tiny">長さ</div><div class="sel" id="genLen"></div>
       <button class="btn" id="genGo">この条件で文章を作る</button>
-      <div class="tiny" style="margin-top:8px">生成には30〜90秒ほどかかります。初回は利用許可の確認が出ます。</div>
-    </div>
-    <div id="pickPanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-      <div id="pickList"></div>
+      <div class="tiny" style="margin-top:8px">生成には30〜90秒ほどかかります。</div>
     </div>
   </div>
 
   <div class="card">
-    <h2>3ステップの進め方</h2>
-    <p class="muted" style="margin-top:2px">下のタブを ① → ② → ③ の順に。1日15分が上限です。</p>
-    <h3>① スラッシュ入れ</h3>
-    <p>意味のかたまりの切れ目をタップで入れる。「どこで切るか」の感覚を作る段階。</p>
-    <h3>② チャンク送り</h3>
-    <p>かたまりを1回の視線で受け取る練習。速度を上げても要約が崩れないかを確認。</p>
-    <h3>③ 初見タイム測定</h3>
-    <p>スラッシュなしの文章を計測。分速と設問正答で「理解を保った速度」を判定。</p>
+    <h2>教材の作り置き</h2>
+    <div class="scrollx"><table id="planTable"></table></div>
+    <div class="tiny" id="planTotal" style="margin-top:6px"></div>
+  </div>
+
+  <div class="card">
+    <h2>進め方</h2>
+    <h3>① チャンク送り</h3>
+    <p>かたまりを1回の視線で受け取る練習。終わったら確認テストで、本当に読めていたかを調べます。</p>
+    <h3>② タイム測定</h3>
+    <p>初見の文章を計測。分速と設問で「理解を保った速度」を判定します。</p>
+    <div class="note" style="margin-top:10px">速度だけ上がって確認テストが崩れたら、速度を一段戻してください。</div>
   </div>
 
   <div class="card">
@@ -204,101 +197,82 @@ details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1
       <tr><td class="num">700字/分</td><td class="num">10分00秒</td><td class="num">50分00秒</td><td>◎</td></tr>
       <tr class="hl"><td class="num">800字/分</td><td class="num">8分45秒</td><td class="num">51分15秒</td><td>◎◎</td></tr>
     </table></div>
-    <div class="note">速度だけ上げても、要約が崩れた速度は本番で記述が書けない速度です。各ステップの要約チェックを必ず通してください。</div>
   </div>
 </section>
 
-<!-- ============ STEP 1 ============ -->
+<!-- ============ ① チャンク送り ============ -->
 <section class="view" id="v-s1">
   <div class="card">
-    <h2>① スラッシュ入れ</h2>
-    <p class="muted" style="margin-top:2px">文字と文字のすき間をタップして「／」を入れます。1チャンク6〜12字が目安。</p>
-    <div class="tiny" style="margin-top:8px">
-      切る場所の目安：主語のかたまりの後（〜は／〜が）・修飾のかたまりの後・接続語の後（しかし／つまり）・述語の直前
-    </div>
-  </div>
-  <div class="card">
-    <div class="row" style="margin-bottom:6px">
-      <button class="btn sm sec" id="s1Prev" style="flex:0 0 auto">前の文</button>
-      <div class="muted" id="s1Count" style="flex:1;text-align:center;align-self:center;font-size:13px"></div>
-      <button class="btn sm sec" id="s1Next" style="flex:0 0 auto">次の文</button>
-    </div>
-    <div class="s1sent" id="s1Sent"></div>
-    <div class="legend" id="s1Legend"></div>
-    <div class="row" style="margin-top:10px">
-      <button class="btn sm sec" id="s1Clear">消す</button>
-      <button class="btn sm" id="s1Check">答え合わせ</button>
-    </div>
-    <div id="s1Result" class="tiny" style="margin-top:10px"></div>
-  </div>
-  <div class="card">
-    <div class="tiny">1〜2箇所のずれは正解です。「6〜12字で、意味が壊れていない」なら可。切らなすぎ（1文まるごと）と、意味を無視した切り方だけがNGです。</div>
-  </div>
-</section>
-
-<!-- ============ STEP 2 ============ -->
-<section class="view" id="v-s2">
-  <div class="card">
-    <h2>② チャンク送り</h2>
+    <h2>① チャンク送り</h2>
     <p class="muted" style="margin-top:2px">かたまりが1つずつ出ます。一字ずつ追わず、全体を写真のように見てください。</p>
-    <div class="flash" id="s2Flash">▶ を押すと始まります</div>
-    <div class="prog"><i id="s2Prog"></i></div>
-    <div class="tiny" id="s2Meta"></div>
+    <div class="flash" id="flash">▶ を押すと始まります</div>
+    <div class="prog"><i id="prog"></i></div>
+    <div class="tiny" id="s1Meta"></div>
     <div class="sliderRow">
-      <input type="range" id="s2Speed" min="300" max="1000" step="25" value="450">
-      <b id="s2SpeedLbl">450字/分</b>
+      <input type="range" id="speed" min="300" max="1000" step="25" value="450">
+      <b id="speedLbl">450字/分</b>
     </div>
     <div class="row" style="margin-top:10px">
-      <button class="btn sm" id="s2Play">▶ 開始</button>
-      <button class="btn sm sec" id="s2Reset">最初から</button>
+      <button class="btn sm" id="play">▶ 開始</button>
+      <button class="btn sm sec" id="reset">最初から</button>
     </div>
-    <div class="tiny" style="margin-top:8px">まず450字/分で通し、要約が書けたら +50ずつ上げます。崩れたら1段戻す。</div>
+    <div class="tiny" style="margin-top:8px">まず450字/分で通し、確認テストが8割とれたら +50ずつ上げます。</div>
   </div>
+
+  <div class="card" id="quizCard">
+    <h2>確認テスト</h2>
+    <p class="muted" style="margin-top:2px" id="quizIntro">チャンク送りを最後まで見たあと、本文を見ずに answer してください。</p>
+    <div id="quizBody"></div>
+    <div class="row">
+      <button class="btn" id="quizStart">テストを始める</button>
+    </div>
+    <div id="quizResult" class="tiny" style="margin-top:8px"></div>
+  </div>
+
   <div class="card">
     <h2>スラッシュ表示で自分のペースで読む</h2>
-    <p class="muted" style="margin-top:2px">送りに慣れたら、こちらを「かたまりごとに目を止める」つもりで黙読。</p>
-    <div class="jp" id="s2Slashed" style="margin-top:10px"></div>
+    <p class="muted" style="margin-top:2px">送りに慣れたら、かたまりごとに目を止めるつもりで黙読。</p>
+    <div class="jp" id="slashed" style="margin-top:10px"></div>
+    <div class="vhint" id="hint1"></div>
   </div>
+
   <div class="card">
-    <h2>要約チェック</h2>
-    <p class="muted" style="margin-top:2px">本文を見ずに書いてから、模範解答を開いてください。</p>
-    <div id="s2Sum"></div>
+    <h2>要点メモ（任意）</h2>
+    <div id="sumBox"></div>
   </div>
 </section>
 
-<!-- ============ STEP 3 ============ -->
-<section class="view" id="v-s3">
+<!-- ============ ② タイム測定 ============ -->
+<section class="view" id="v-s2">
   <div class="card">
-    <h2>③ 初見タイム測定</h2>
-    <p class="muted" style="margin-top:2px" id="s3Intro"></p>
-    <div class="timer" id="s3Timer">0:00</div>
-    <div class="row">
-      <button class="btn" id="s3Start">読み始める</button>
-    </div>
-    <div class="note" style="margin-top:10px" id="s3Warn">本文は「読み始める」を押してから表示されます。事前に読まないでください。</div>
+    <h2>② タイム測定</h2>
+    <p class="muted" style="margin-top:2px" id="s2Intro"></p>
+    <div class="timer" id="timer">0:00</div>
+    <button class="btn" id="tStart">読み始める</button>
+    <div class="note" style="margin-top:10px" id="tWarn">本文は「読み始める」を押してから出ます。事前に読まないでください。</div>
   </div>
 
-  <div class="card hidden" id="s3TextCard">
-    <div class="jp" id="s3Text"></div>
-    <button class="btn" id="s3Stop">読み終わった</button>
+  <div class="card hidden" id="textCard">
+    <div class="jp" id="readText"></div>
+    <div class="vhint" id="hint2"></div>
+    <button class="btn" id="tStop">読み終わった</button>
   </div>
 
-  <div class="card hidden" id="s3ResultCard">
+  <div class="card hidden" id="resCard">
     <h2>結果</h2>
-    <div class="verdict" id="s3Verdict"></div>
-    <div class="scrollx"><table id="s3Table"></table></div>
+    <div class="verdict" id="verdict"></div>
+    <div class="scrollx"><table id="resTable"></table></div>
     <h3>設問（本文は見ずに）</h3>
-    <div id="s3Qs"></div>
-    <div class="tiny" style="margin-top:10px">設問の方向性が2/3以上合っていれば、その速度は「理解を保った速度」です。1つ以下なら速度を落としてください。</div>
+    <div id="qs"></div>
     <div class="row" style="margin-top:10px">
-      <button class="btn sm" id="s3Save">記録する</button>
-      <button class="btn sm sec" id="s3Again">もう一度</button>
+      <button class="btn sm" id="saveBtn">記録する</button>
+      <button class="btn sm sec" id="againBtn">もう一度</button>
     </div>
-    <div class="tiny" id="s3SaveMsg" style="margin-top:6px"></div>
+    <div class="tiny" id="saveMsg" style="margin-top:6px"></div>
   </div>
 </section>
 
-<!-- ============ RECORDS ============ -->
+<!-- ============ 記録 ============ -->
 <section class="view" id="v-log">
   <div class="card">
     <h2>記録</h2>
@@ -311,12 +285,12 @@ details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1
     <h2>週間メニュー</h2>
     <div class="scrollx"><table>
       <tr><th>曜日</th><th>やること</th><th>時間</th></tr>
-      <tr><td>月</td><td>① ＋ ②（既習文章）</td><td class="num">15分</td></tr>
-      <tr><td>火</td><td>③ 初見</td><td class="num">15分</td></tr>
-      <tr><td>水</td><td>② 前日の文章を再読して速度アップ</td><td class="num">10分</td></tr>
-      <tr><td>木</td><td>③ 初見</td><td class="num">15分</td></tr>
-      <tr><td>金</td><td>① 長文でスラッシュ入れ</td><td class="num">10分</td></tr>
-      <tr><td>土</td><td>③ 長文を通しで</td><td class="num">20分</td></tr>
+      <tr><td>月</td><td>① チャンク送り＋確認テスト</td><td class="num">15分</td></tr>
+      <tr><td>火</td><td>② 初見タイム測定</td><td class="num">15分</td></tr>
+      <tr><td>水</td><td>① 前日の文章で速度を上げる</td><td class="num">10分</td></tr>
+      <tr><td>木</td><td>② 初見タイム測定</td><td class="num">15分</td></tr>
+      <tr><td>金</td><td>① 長めの文章で送り</td><td class="num">10分</td></tr>
+      <tr><td>土</td><td>② 長めを通しで測定</td><td class="num">20分</td></tr>
       <tr><td>日</td><td>休み／記録の振り返り</td><td class="num">5分</td></tr>
     </table></div>
   </div>
@@ -326,710 +300,462 @@ details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1
 
 <nav>
   <button data-v="home" class="on"><span class="n">家</span>ホーム</button>
-  <button data-v="s1"><span class="n">①</span>スラッシュ</button>
-  <button data-v="s2"><span class="n">②</span>チャンク送り</button>
-  <button data-v="s3"><span class="n">③</span>タイム測定</button>
+  <button data-v="s1"><span class="n">①</span>チャンク送り</button>
+  <button data-v="s2"><span class="n">②</span>タイム測定</button>
   <button data-v="log"><span class="n">記</span>記録</button>
 </nav>
 
 <script>
 "use strict";
+const SEEDS = [{"id":"seed-01","title":"名前をつける","genre":"説明文","school":"","level":"標準","lenClass":"短め","target":600,"paras":[["生きものに名前を","つけるという行為は、","ただの記号の割りあてで","はない。","名前がついた瞬間から、","それは「その他大勢」","の中から抜け出して、","こちらの世界に入って","くる。","道ばたの雑草も、","オオイヌノフグリという","名前を知ったとたん、","翌日から目に飛びこんで","くるようになる。"],["つまり、","名前は見つけるための道具で","ある。","私たちは見えたものに","名前をつけるのでは","なく、","名前を持っているものが","見えるようになる。","語彙が乏しいということは、","知らない言葉が多いと","いうことではなく、","見えていない世界が","広いということなのだ。"],["だから、","言葉を覚えることは","世界を細かく分けること","でもある。","「青」","しか知らなければ、","空も海も同じ色になる。藍、","群青、","浅葱と知って初めて、","その違いが目に届く。","言葉は世界を","切り分ける刃物のようなも","のだ。"],["ただし、","刃物には気を","つけなければならない。","名前をつけた瞬間、","私たちはそれを","わかった気になってし","まう。","「あの人は頑固だ」","と名づけた相手は、","それ以上見なくて","よい相手になる。","名前は見せてくれると","同時に、","見ることをやめさせる。"],["見えるように","するための言葉が、","見ないための言葉に","変わる。","その境目に立って","いることを忘れないで","いたい。"]],"summaries":["名前がつくと見えるようになる","名前を持つものが見えてくる","言葉は世界を細かく分ける","名づけると見るのをやめる","見せる言葉と見ない言葉の境目"],"thesis":"言葉は世界を細かく分けて見せてくれる一方で、名づけた対象をわかった気にさせて観察をやめさせる危うさも持つ。","questions":[{"q":"「名前は見つけるための道具である」とはどういうことですか。40字以内で説明しなさい。","a":"名前を知ることで、それまで背景に埋もれていたものが区別され、目に入るようになるということ。"},{"q":"筆者が「刃物には気をつけなければならない」と述べるのはなぜですか。50字以内で答えなさい。","a":"名前をつけた瞬間にわかった気になり、その対象をそれ以上よく見ようとしなくなってしまうから。"},{"q":"この文章の主張を60字以内でまとめなさい。","a":"言葉は世界を細かく分けて見えるようにする道具だが、同時に名づけたものを理解したと錯覚させ、観察を止めてしまう危うさも持つということ。"}]},{"id":"seed-02","title":"欠けた湯のみ","genre":"物語文","school":"","level":"標準","lenClass":"標準","target":600,"paras":[["祖母の家を片づけに","行ったのは、","四十九日が","終わった翌週のこと","だった。","母と伯母が奥の部屋で","書類を広げて","いるあいだ、","ぼくは台所の食器棚を","任された。","段ボールに「使う」","「処分」","と油性ペンで書いて、","二つに分けていけば","いい。","簡単な仕事のは","ずだった。"],["皿は迷わなかった。","欠けているものは処分、","そうでないものは使う。","手が勝手に動いた。","十分もしないうちに","段ボールは半分ほど","埋まった。"],["手が止まったのは、","いちばん下の段に","置かれていた湯のみだった。","ふちが一センチほど","欠けていて、","そこだけ茶色く変色して","いる。","ぼくはその欠けに","見おぼえがあった。"],["小学二年の夏だ。","流しで転んで、","手に持っていた湯のみを","縁にぶつけた。","割れはしなかったが、","白い破片が飛んで、","ぼくは泣いた。","祖母は叱らなかった。","かわりに、","欠けた部分を指で","なぞって「ここだけ、","お前の分」","と言った。","意味はよくわから","なかったが、","そのあとも祖母は","その湯のみを","使い続けた。"],["ぼくは湯のみを","持ったまま、","「処分」","の段ボールを見た。","ルールに従えばここに","入る。","欠けているのだから。"],["「どっちにするの」"],["いつのまにか母が台所に","立っていた。","段ボールをのぞきこんで、","ぼくの手元を見ている。","責めている声では","なかった。"],["「これ、","ばあちゃんが使ってたやつ」"],["「知ってる」"],["母はそれだけ言って、","また奥の部屋へ戻って","いった。","知ってる、","という言い方が、","少し気になった。","母も見ていたのだ。","祖母がこの欠けた湯のみで、","毎朝お茶を飲んで","いたのを。"],["ぼくは湯のみを流しで","洗った。","指の腹で、","欠けたところをなぞって","みる。","ざらざらしていた。","あのときと","同じ手ざわりだった。"],["結局、","ぼくはそれを「使う」","の段ボールに入れた。","ルールから外れている。","でも、","ルールのほうが後からで","きたものだと思った。","祖母が十五年間それを","捨てなかったのは、","欠けたものを大事にして","いたからではない。","欠けていても、","それがもう自分のも","のだったからだ。"],["段ボールに「使う」","と書いた油性ペンの字が、","少しにじんでいた。","書いたときは","気づかなかった。"]],"summaries":["祖母の家の片づけを任された","欠けた皿は迷わず処分した","欠けた湯のみで手が止まった","湯のみを欠けさせた日の記憶","ルールなら処分に入る","母がどちらか尋ねる","母が手元をのぞきこむ","祖母のものだと答える","母は知っていると返す","母も見ていたと気づく","欠けた部分を洗ってなぞる","ルールより先にあるものに気づく","にじんだ文字に気づく"],"thesis":"機械的に選別していた主人公が、祖母の湯のみを通して、規則よりも先にある「自分のものとして受け入れる」という態度に気づく。","questions":[{"q":"「ルールのほうが後からできたものだと思った」とありますが、主人公はどういうことに気づいたのですか。50字以内で説明しなさい。","a":"欠けているかどうかで分ける基準は自分が後から決めたもので、祖母が湯のみを使い続けた理由とは関係がないということ。"},{"q":"母の「知ってる」という返事が、主人公にとって気になったのはなぜですか。40字以内で答えなさい。","a":"母も祖母が欠けた湯のみを使い続けていたのを見ていたと分かり、自分だけの記憶ではなかったと気づいたから。"},{"q":"この文章における主人公の心情の変化を、60字以内で説明しなさい。","a":"片づけを機械的な作業として進めていたが、湯のみの記憶をたどるうちに、欠けたままで受け入れるという祖母の態度に気づき、自分の基準を捨てた。"}]},{"id":"seed-03","title":"遠回りの道","genre":"随筆文","school":"","level":"やや難","lenClass":"短め","target":700,"paras":[["通いなれた道に飽きて、","一本となりの筋を歩いて","みたことがある。","距離はほとんど変わらないのに、","着くまでの時間が","長く感じられた。","景色が新しいせいだと、","そのときは思っていた。"],["けれども後で考えて、","逆だったことに","気づいた。","長く感じたのではなく、","いつもの道が短くなって","いたのだ。","見慣れた道を歩くとき、","私の目は開いて","いるようで、","ほとんど何も受けとって","いない。","角を曲がり、","坂を下り、","気がつけば着いている。","あいだの時間は記憶に","残らず、","そのぶん短く感じられる。"],["時間が縮むということは、","経験が減るということで","もある。","私たちは効率を求めて","同じ道を選ぶが、","その効率は、","道のりを消すことで","生まれている。"],["旅先の一日が異様に","長く感じられるのは、","そこで何も自動化されて","いないからだろう。","看板の文字を読み、","人の歩く向きを見て、","次の角で迷う。","判断のひとつひとつが","時間を作っている。"],["年を取るほど一年が","短くなるという話も、","たぶん同じことだ。","道が減ったのではない。","道を見なくなったのだ。"]],"summaries":["別の道を歩いたら長く感じた","慣れた道が短くなっていた","時間が縮むとは経験が減ること","旅先では判断が時間を作る","年々一年が短いのも同じ理由"],"thesis":"慣れは道のりを自動化して時間を縮めるが、それは経験そのものが減っているということでもある。","questions":[{"q":"「長く感じたのではなく、いつもの道が短くなっていた」とはどういうことですか。50字以内で説明しなさい。","a":"慣れた道では周囲をほとんど受けとらずに歩いているため、その間の記憶が残らず、時間が縮んで感じられるということ。"},{"q":"筆者が「旅先の一日が異様に長く感じられる」理由をどう考えているか、40字以内で答えなさい。","a":"何も自動化されておらず、判断のひとつひとつが積み重なって時間を作っているから。"},{"q":"この文章で筆者が最も言いたいことを、50字以内でまとめなさい。","a":"慣れは効率を生むが、それは道のりを消すことで成り立っており、経験そのものを失わせているということ。"}]},{"id":"seed-04","title":"地図のうそ","genre":"説明文","school":"","level":"やや難","lenClass":"標準","target":700,"paras":[["地図は正確なものだと","思われている。","しかし、","完全に正確な地図という","ものは、","原理的に存在しない。","球である地球の表面を","平らな紙に写すと、","必ずどこかが引き伸ば","され、","どこかが縮められるからだ。"],["よく知られて","いるメルカトル図法では、","赤道から離れるほど","面積が大きくなる。","グリーンランドが","アフリカと","同じくらいの大きさに","描かれるのは有名な話で、","実際のアフリカは","グリーンランドの十四倍ほど","ある。","だからといって、","メルカトル図法が","間違っているわけでは","ない。","この図法は角度を正し","く保つように作られて","おり、","船の航路を直線で","引けるという利点が","ある。"],["つまり地図は、","何かを正しくするために、","別の何かを犠牲にして","いる。","面積を正しくすれば形が","ゆがみ、","形を正しくすれば距離が","狂う。","すべてを同時に","満たす方法はない。","地図を作るとは、","何を捨てるかを","決めることなのだ。"],["これは地図に","かぎった話ではない。","歴史の年表も、","駅の路線図も、","理科の模式図も、","同じ仕組みで作られて","いる。","路線図では駅の間隔が","実際の距離と一致し","ないが、","乗り換えを調べるには","実際の距離など邪魔でし","かない。","捨てたからこそ使える。"],["ここで大切なのは、","何を捨てたかを知って","いるかどうかだ。","路線図を見て","「この二駅は近い」","と判断すれば、","歩いて十五分かかること","に気づけない。","捨てられた情報は、","見えないまま残り続ける。"],["地図を疑えと","言いたいのではない。","地図には必ず作った人の目的が","あり、","その目的の外にあるも","のは落とされている。","そのことを知ったうえで","使うなら、","地図はきわめて","有用な道具になる。","知らずに使えば、","ゆがみのほうを世界だと","思いこむことになる。"],["私たちが日々受けと","る情報の多くは、","この意味での地図で","ある。","要約も、","ランキングも、","統計も、","何かを捨てることで見や","すくなっている。","見やすいということは、","それだけ多くが落と","されているということで","もある。"]],"summaries":["完全に正確な地図は存在しない","メルカトル図法は角度を優先する","地図とは何を捨てるかを決めること","路線図も同じ仕組み","何を捨てたかを知ることが大切","目的を知って使えば有用","情報の多くは地図と同じ"],"thesis":"地図は目的のために何かを捨てることで成り立っており、捨てられたものを知らずに使うとゆがみを世界だと思いこむことになる。","questions":[{"q":"「地図を作るとは、何を捨てるかを決めること」とはどういうことですか。50字以内で説明しなさい。","a":"球面を平面に写す以上すべてを同時に正しくできないため、目的に応じてどの正確さを犠牲にするかを選ぶということ。"},{"q":"筆者が路線図の例を挙げたのはなぜですか。40字以内で答えなさい。","a":"実際の距離を捨てたからこそ乗り換えを調べるのに使えるという、情報を落とす利点を示すため。"},{"q":"筆者の主張を60字以内でまとめなさい。","a":"地図も要約も統計も、目的のために何かを捨てて見やすくしたものであり、何が落とされたかを知らずに使えば、そのゆがみを世界そのものだと誤解してしまうということ。"}]},{"id":"seed-05","title":"石を積む人","genre":"随筆文","school":"","level":"難関","lenClass":"標準","target":800,"paras":[["山あいの川原で、","石を積んでいる人を","見たことがある。","六十歳くらいの男の人で、","平らな石を選んでは、","ひとつずつ積み上げて","いた。","高さは私の腰ほどまで","来ていた。"],["しばらく見ていると、","上から三番目の石が","ずれて、","上半分が音を立てて","崩れた。","男の人は少しも驚かず、","崩れた石を拾い集めて、","また下から積みなおしは","じめた。"],["声をかけると、","もう二年ほど続けて","いるのだという。","増水のたびに","流されるので、","春にはいつも一から","始めるらしい。","何のためですか、","と私は聞いた。","愚かな質問だったと、","聞いたそばから思った。"],["男の人は少し考えてから、","こう答えた。","積んでいるあいだ、","次の石のことしか","考えなくていい。","それが楽なのだと。"],["帰りの電車で、","その言葉をずっと考えて","いた。","私たちはふつう、","何かをするときに、","それが何のためかを","問う。","目的がないものは","無駄だと教わってきた。","けれども、","その問いは、","いま手のなかにあるも","のから目を離させる。"],["次の石のことしか","考えなくていい、","という状態は、","結果から自由になると","いうことだ。","完成しないとわかって","いる塔を積む人は、","完成という結果に","裁かれない。","崩れても失敗に","ならない。","失敗にならないから、","明日も積める。"],["では、","それは逃避だろうか。","私は違うと思う。","逃げるのは、","やめることだ。","彼は二年間やめて","いない。","崩れることを知りながら、","それでも毎日、","次の一個を選んでいる。","目的を持たないことと、","続けないことは、","まったく別のことだ。"],["私たちは、","目的のある行為ばかりを","積み上げてきた。","そのどれもが、","完成しなかったときに","失敗として残っている。","もし次の石だけを見て","いられたなら、","私の失敗のいくつかは、","ただの途中だったのかも","しれない。"],["翌年の春、","同じ川原を通った。","石は膝の高さまで","積まれていた。","男の人の姿はなかったが、","たぶん、","流されたあとの一から","だった。"]],"summaries":["川原で石を積む人を見た","崩れても黙って積みなおした","二年続けていると知る","次の石だけ考えればよいと言う","目的を問う癖に気づく","結果から自由になるということ","逃避ではなく続けている","失敗が途中に変わる","翌春も一から積まれていた"],"thesis":"目的を問わず次の一手だけを見る態度は逃避ではなく、結果に裁かれずに続けるための方法だと気づく。","questions":[{"q":"「愚かな質問だったと、聞いたそばから思った」のはなぜですか。50字以内で説明しなさい。","a":"目的がなければ無駄だという前提で尋ねてしまい、その問い自体がこの行為の意味から外れていると感じたから。"},{"q":"「完成という結果に裁かれない」とはどういうことですか。40字以内で答えなさい。","a":"完成を目指していないため、崩れても失敗とはならず、次の日もまた続けられるということ。"},{"q":"筆者の考えの変化を、60字以内で説明しなさい。","a":"目的のない行為を無駄と考えていたが、結果から自由であることが続ける力を生むと気づき、自分の過去の失敗も途中だったのかもしれないと捉えなおした。"}]},{"id":"seed-06","title":"鍛冶屋の音","genre":"随筆文","school":"武蔵","level":"難関","lenClass":"標準","target":800,"paras":[["取材で、","鍛冶屋を訪ねたことが","ある。","刃物の産地として","知られる町の、","路地の奥に","ある小さな仕事場だった。","引き戸を開けると、","まず熱が来て、","それから音が来た。"],["親方は七十代で、","私が来たことには","気づいていたはずだが、","顔を上げなかった。","赤くなった鉄を金床に","置き、","槌を振る。","かん、","かん、","かん、","という高い音のあいだに、","こつ、","という低い音がは","さまる。","低いほうは、","槌を鉄に当てずに金床で","跳ねさせて","いる音だった。"],["後で聞くと、","あれは拍子を","取るためのものだという。","連れの弟子と交互に","打つとき、","息を合わせるために","入れる。","ひとりで打つときも、","体が勝手に入れてし","まうのだそうだ。"],["私は録音した音を、","帰ってから何度も","聞き返した。","かん、","かん、","こつ。","かん、","かん、","こつ。","意味のない音が規則正し","くまじっている。","けれども、","その無駄な音を抜いてし","まったら、","たぶん残りの音も","続かない。"],["私たちは仕事から無駄を","抜くことを、","ほとんど無条件に","善いことだと考えて","いる。","工程を減らし、","動作を短くし、","間を詰める。","詰めた結果として何が","起きているかは、","あまり問われない。"],["親方の手は、","四十年かけて、","無駄な音を入れるほうへ","進化した。","効率だけを考えれば、","跳ねさせる一打は","ない方がいい。","だが、","その一打があるから、","次の一打が同じ強さで","落ちる。","無駄は、","続けるための仕組みだった。"],["帰りぎわ、","親方は初めて顔を上げて、","これは全部おなじ物を","作っとるんじゃない、","と言った。","同じ形の包丁でも、","鉄の機嫌が毎回違う。","だから毎回、","同じ手では打てない。","拍子を取るのは、","その日の鉄の音を","聞くためでもあるらし","かった。"],["聞くために打つ。","打つために聞く。","私はそれを、","ずいぶん長いあいだ、","順番のある二つの動作だと","思っていた。"],["仕事場を出ると、","外の音がやけに","静かだった。","町全体が、","拍子を失っているように","聞こえた。"]],"summaries":["鍛冶屋を訪ねた","槌の音に低い音がまじる","拍子を取るための音だった","無駄な音を抜くと続かない","無駄を抜くのを善いと考えがち","無駄は続けるための仕組み","鉄の音を聞くために打つ","聞くと打つは分けられない","町が拍子を失って聞こえた"],"thesis":"効率のために省かれる「無駄」が、実は動作を続け、対象の変化を聞き取るための仕組みだったと気づく。","questions":[{"q":"「その無駄な音を抜いてしまったら、たぶん残りの音も続かない」とありますが、筆者はなぜそう考えたのですか。説明しなさい。","a":"跳ねさせる一打が拍子を作り、次の一打を同じ強さで落とすことを支えているため、その音を省けば打つ動作そのものが続かなくなると考えたから。"},{"q":"「聞くために打つ。打つために聞く。」という表現から、筆者が気づいたことを説明しなさい。","a":"打つことと鉄の状態を聞き取ることは前後する別々の動作ではなく、たがいに支え合って同時に成り立っているということ。"},{"q":"「町全体が、拍子を失っているように聞こえた」とありますが、このときの筆者の心情を説明しなさい。","a":"仕事場で無駄が果たしている役割を知ったことで、無駄を省いてきた外の世界が、続けるための支えを欠いたものに感じられ、物足りなさと危うさを覚えている。"}]},{"id":"seed-07","title":"二番手","genre":"物語文","school":"駒場東邦","level":"難関","lenClass":"標準","target":800,"paras":[["リレーの選手が","発表された日、","ぼくは掲示板の前で","自分の名前を","三回読んだ。","第二走者、","田口航。","間違いではなかった。"],["去年まで、","第二走者は佐伯だった。","佐伯はこの春に足を","痛めて、","いまは補欠にも入って","いない。","ぼくが選ばれたのは、","速くなったからでは","ない。"],["それでも、","練習が始まると体は","軽かった。","バトンを受けて","走り出す瞬間の音が","好きだった。","後ろから名前を呼ばれ、","手のひらに重さが乗って、","地面が後ろへ流れて","いく。"],["佐伯は毎日、","グラウンドの端の鉄棒のと","ころに座って練習を見て","いた。","ぼくは一度も目を","合わせなかった。","合わせたら、","何かを言わなければ","ならない気がした。"],["三週間目の練習で、","ぼくはバトンを落とした。","第一走者の吉川が差し","出した手に、","指がかからなかった。","バトンは芝生を跳ねて、","ぼくは拾いに戻った。"],["「腕、","伸ばしすぎ」"],["顔を上げると、","佐伯が立っていた。","いつのまにか鉄棒から","離れて、","コースのわきまで来て","いた。"],["「伸ばすと肩が上がる。","肩が上がると手のひらが","下向く。","それで落ちる」"],["ぼくは黙っていた。","佐伯は続けた。"],["「おれも去年、","同じとこで落とした」"],["そう言って、","自分の右手を差し出して","みせた。","肘を少し曲げ、","手のひらを後ろに","向けた形だった。","ぼくはその形を、","自分の手で作ってみた。","窮屈な感じがしたが、","確かに手のひらは","真後ろを向いた。"],["「やってみ」"],["吉川がバトンを持って","戻ってきた。","もう一度、","走った。","今度は手のひらに重さが","乗った。","ぼくは走りながら、","後ろを振り返らなかった。","振り返らなくても、","誰が見ているかは","わかっていた。"],["練習が終わって、","ぼくは初めて佐伯のと","ころへ行った。","何を言えばいいのか、","まだわからなかった。","ありがとう、","では足りない気がしたし、","ごめん、","では違う気がした。"],["「第二走者、","けっこう難しいな」"],["そう言うと、","佐伯は少し笑って、","そうだろ、","と言った。","それだけだった。","それだけで、","ぼくは自分がその場所を","預かっているのだと","思った。","奪ったのではなく、","預かっている。"],["帰り道、","手のひらをずっと","開いたり閉じたりして","いた。","まだ重さが残って","いるような気がした。"]],"summaries":["第二走者に選ばれた","佐伯の故障で回ってきた席","走り出す瞬間の感覚が好き","佐伯と目を合わせられない","バトンを落とした","腕の伸ばしすぎを指摘される","佐伯がコースわきに来ていた","肩と手のひらの関係を説明される","黙って聞いている","佐伯も去年落としていた","手の形を見せられる","やってみろと促される","今度は成功し振り返らなかった","何と言うべきか分からない","難しいなと声をかける","奪ったのではなく預かっている","手に重さの記憶が残る"],"thesis":"他人の故障で得た席に後ろめたさを抱えていた主人公が、その人から技術を受けとることで、奪ったのではなく預かっているのだと捉えなおす。","questions":[{"q":"「合わせたら、何かを言わなければならない気がした」とありますが、このときの主人公の気持ちを50字以内で説明しなさい。","a":"佐伯の故障のおかげで自分が選ばれたという後ろめたさがあり、それに触れずに済ませたいと思っている。"},{"q":"「振り返らなくても、誰が見ているかはわかっていた」とありますが、この一文は主人公のどのような変化を表していますか。50字以内で答えなさい。","a":"佐伯を避けていた状態から、見られていることを自然に受け入れ、支えとして感じられるようになった変化。"},{"q":"「奪ったのではなく、預かっている」と主人公が思えたのはなぜですか。60字以内で説明しなさい。","a":"佐伯自身が同じ失敗の経験と手の形を教えてくれたことで、その場所が一方的に取り上げたものではなく、前の走者から受け継いだものだと感じられたから。"}]},{"id":"seed-08","title":"観測記録","genre":"物語文","school":"","level":"標準","lenClass":"長め","target":600,"paras":[["科学部の部室には、","ノートが一冊置いて","ある。","表紙には「観測記録」","と書いてあって、","日付と天気と、","その日に気づいたことを","一行書くという決まりに","なっている。","誰が始めたのかはわから","ない。","ぼくが入部したときには","もうあって、","ページは半分ほど","埋まっていた。"],["最初のうち、","ぼくは何を書けば","いいのかわから","なかった。","気づいたことなんて、","そう毎日あるものでは","ない。","仕方なく「特になし」","と書いた。","三日続けて「特になし」","と書いたところで、","先輩の宮原さんが","ノートをのぞきこんだ。"],["「それ、","書かないのと同じだよ」"],["宮原さんは三年生で、","部長でもないのに部室に","いちばん長くいる人だった。","いつも窓ぎわで、","外を見ながら何か書いて","いる。"],["「じゃあ、","何を書けばいいんで","すか」"],["「なんでもいい。","ただ、","外を見て書いて」"],["次の日、","ぼくは窓の外を見た。","校庭のはしに","大きな桜の木がある。","もう花は散っていて、","ただの緑の木だった。","書くことはなかった。","それでも十分ほど見て","いたら、","葉の裏が風で","白く返るのに気が","ついた。","裏が白いことを、","ぼくはそれまで","知らなかった。"],["「桜の葉の裏は白い」"],["そう書いた。","一行だけだった。","宮原さんはそれを読んで、","何も言わなかったが、","少しうなずいた。"],["それから、","ぼくは毎日外を","見るようになった。","見ると、","なぜか毎日何か書けた。","雲が東から西に","動いた日。","用務員さんが花壇の土を","入れかえた日。","校門の前の水たまりが、","三日かかって消えた日。","どれも、","書かなければ次の日には","忘れていたはずのこと","だった。"],["六月に入って、","宮原さんが引退した。","最後の日、","ぼくは思いきって","聞いた。"],["「宮原さんは、","いつも何を書いてたんで","すか」"],["宮原さんは少し迷って","から、","ノートの古いページを","めくって見せた。","二年前の日付のところに、","細かい字が並んでいた。"],["「五月八日 くも","り 桜の葉の裏は白い」"],["ぼくは声が出なかった。","同じ日ではないが、","同じ一行だった。"],["「最初はみんな、","これを書く」"],["宮原さんは笑って、","ノートを閉じた。"],["「でも、","みんな同じ日に","気づくわけじゃない。","おれは二年、","お前は一週間だった。","それだけの差だよ」"],["それだけの差、","という言い方が、","しばらく耳に残った。","同じことに気づくまで","の時間は違う。","違うけれど、","気づけば同じところに","立つ。","ぼくはそのとき初めて、","このノートが何のために","あるのかがわかった気が","した。"],["記録は、","自分のためだけのもので","はない。","何年かあとに誰かが","ここを開いて、","同じ一行を見つける。","そのときその人は、","自分が初めてでは","なかったことを知る。","それは、","がっかりすることでは","ない。"],["ぼくはその日、","こう書いた。"],["「六月十二日 晴れ 同じこと","に気づくまでの時間は","人それぞれ」"],["少し格好つけすぎたかも","しれないと思ったが、","消さずに残した。","何年かあとの誰かが","読んだとき、","笑ってくれても","かまわないと思った。"]],"summaries":["部室に観測記録のノートがある","何を書けばよいか分からなかった","書かないのと同じだと言われる","宮原さんは窓ぎわの常連","何を書けばよいか尋ねる","外を見て書けと言われる","桜の葉の裏が白いと気づく","一行を書き記す","宮原さんは黙ってうなずいた","毎日書けるようになった","宮原さんの引退の日","何を書いていたか尋ねる","二年前のページを見せられる","同じ一行が記されていた","声が出なかった","最初はみんな書くと言われる","宮原さんはノートを閉じた","気づくまでの時間が違うだけ","その言葉が耳に残る","記録は後の誰かのためでもある","自分も一行を書いた","気づきの時間差について記す","消さずに残すことにした"],"thesis":"書くことがないと思っていた主人公が、見ることで気づきが生まれると知り、さらに記録が後の誰かとつながるものだと理解する。","questions":[{"q":"「それ、書かないのと同じだよ」と宮原さんが言ったのはなぜですか。50字以内で説明しなさい。","a":"「特になし」と書くのは外を見ないまま形だけ埋めることであり、記録の目的である気づきが何も残らないから。"},{"q":"「ぼくは声が出なかった」とありますが、このときの主人公の気持ちを50字以内で説明しなさい。","a":"自分だけの発見だと思っていた一行が二年前にも書かれていたと知り、驚きとともに気まずさを感じている。"},{"q":"主人公が「このノートが何のためにあるのかがわかった気がした」のは、どういうことに気づいたからですか。60字以内で説明しなさい。","a":"記録は自分のための覚え書きではなく、後から読む誰かが同じ気づきにたどり着いたことを知り、一人ではないと感じるためのものだと気づいたから。"}]},{"id":"s01","title":"鍵をなくす","genre":"物語文","school":"麻布","level":"","lenClass":"短め","target":800,"paras":[["鍵をなくしたことに","気づいたのは、","家の前に着いてから","だった。","ポケットにも、","ランドセルの底にも、","給食袋の中にもない。","母が帰るまで、","あと二時間あった。"],["ぼくは門の横の段に","座った。","最初の十分は、","どこで落としたかを","順番に思い出そうとした。","次の十分は、","叱られるときの言い方を","いくつか考えた。","それが終わると、","することがなくなった。"],["仕方なく、","目の前の道をながめて","いた。","宅配の人が来て、","行った。","犬を連れた人が、","行って、","また戻ってきた。","同じ道なのに、","同じことは一度も","起きなかった。"],["ぼくはこの道を","六年間通っている。","でも、","こんなふうに見たことは","一度もなかった。","いつも、","家に入るための通り道だった。"],["鍵がないから、","ぼくはここにいる。","入れないから、","見える。","そう考えたとき、","少しだけ、","鍵を見つけたくない気が","した。"],["母の車の音が遠くから","聞こえたとき、","ぼくは立ち上がって、","いつもの顔に戻った。"]],"summaries":["","","","","",""],"thesis":"締め出されて時間を持て余した主人公が、通り道としてしか見ていなかった場所の細部に気づき、入れないことの価値に一瞬ふれる。","questions":[{"q":"「少しだけ、鍵を見つけたくない気がした」とありますが、このときの主人公の気持ちを、これまでの経験と結びつけて説明しなさい。","a":"家に入ることを目的にしていたときには見えなかった道の様子が、入れないことで初めて見えてきたため、その状態が終わってしまうのを惜しむ気持ち。"},{"q":"「ぼくは立ち上がって、いつもの顔に戻った」という一文は、主人公のどのような状態を表していますか。","a":"気づきを自分の中だけにしまい、鍵をなくして困っている子どもとして母に向き合う、日常の役割に戻ろうとしている状態。"},{"q":"この文章全体を通して、主人公はどのようなことに気づいたと言えますか。百字程度で説明しなさい。","a":"通り道として毎日歩いていた場所を、六年間ほとんど見ていなかったことに気づいた。目的を持って動いているあいだは周囲が背景になってしまい、目的を失って立ち止まったときにはじめて、同じ場所が別のものとして見えてくるということ。"}]},{"id":"s02","title":"返さない本","genre":"物語文","school":"麻布","level":"","lenClass":"標準","target":800,"paras":[["図書室の当番に","なった日、","ぼくは返却の棚を整理し","ていて、","一冊の本を見つけた。","背表紙が日に焼けて","白くなっている、","鳥の図鑑だった。"],["貸出カードを見ると、","最後の名前は六年前のも","のだった。","松井ゆかり。","知らない名前だ。","返却日の欄には、","何も書かれて","いなかった。"],["「それ、","返ってきたんだ」"],["司書の先生が後ろから","言った。","ずっと行方不明だったのだと","いう。","転校していった子が、","そのまま持って","いったのだろうと","思われていた。"],["「どこにありました」"],["「返却ポストに入って","たのよ。","今朝」"],["先生は少し笑って、","こういうのは","時々あるのだと言った。","十年たって返ってくるも","のもある、と。"],["ぼくは図鑑を開いて","みた。","ページのあいだに、","細い羽根がはさまって","いた。","灰色で、","先のほうだけ白い。","何の鳥かはわから","なかった。","押し花のように","平たくなっていて、","長いあいだそこに","あったことがわかった。"],["その羽根がはさまって","いるページには、","スズメの仲間が並んで","いた。","どれとも似て","いなかった。"],["ぼくは、","松井ゆかりという人が、","この羽根を持ってきて、","この本と見くらべたのだろうと","思った。","そして、","見つからなかったのだ。"],["見つからなかったから、","返せなかったのかもし","れない。"],["そう思ったとたん、","ぼくはその人のことが、","急にわかる気がした。","名前しか知らないのに、","その人が図鑑をめくって","いる手つきまで見えた。","答えが出るまで","返せない、","という気持ちを、","ぼくは知っている。"],["六年かけて、","その人は返す気に","なった。","あきらめたのかもし","れないし、","わかったのかもし","れない。","どちらかは、","もう誰にもわからない。"],["「どうする、","羽根」"],["先生が聞いた。","ぼくは少し迷ってから、","はさんだままにして","おきます、","と答えた。"],["次に誰かが開いたとき、","その人も同じことを","考えるかもしれない。","答えは書いて","いないほうがいい。","書いていないから、","考える。"],["ぼくは図鑑を棚に戻した。","背表紙の白さが、","他の本とはっきり違って","いた。"]],"summaries":["","","","","","","","","","","","","","","","",""],"thesis":"返却されなかった図鑑と羽根から、会ったことのない人の思いを読み取り、答えを残さないことの意味に気づく。","questions":[{"q":"「見つからなかったから、返せなかったのかもしれない」とありますが、主人公はなぜそう考えたのですか。","a":"羽根がはさまれたページの鳥はどれも羽根と似ておらず、持ち主が答えを出せないまま本を手元に置き続けたのだろうと想像したから。"},{"q":"「名前しか知らないのに、その人が図鑑をめくっている手つきまで見えた」とありますが、このように感じられたのはなぜですか。","a":"答えが出るまで手放せないという気持ちを自分も知っているため、相手の行動が自分の経験を通して具体的に思い描けたから。"},{"q":"主人公が羽根を「はさんだままにしておきます」と答えたのはなぜですか。百字程度で説明しなさい。","a":"羽根をそのまま残しておけば、次にこの本を開いた人も、何の羽根かを考え、持ち主の思いを想像することになる。答えを示してしまえばそこで終わるが、残しておけば考える余地が引き継がれると思ったから。"}]},{"id":"s03","title":"まちがいの効用","genre":"説明文","school":"麻布","level":"","lenClass":"長め","target":800,"paras":[["生きものの体の設計図で","ある遺伝子は、","親から子へ写し","取られる。","その写し取りは、","ときどき失敗する。","一文字だけ書き写し","そこねる、","というようなことが","起きる。","これを突然変異と呼ぶ。"],["突然変異のほとんどは、","生きものにとって役に","立たない。","むしろ、","害になることのほうが","多い。","精巧な機械の部品を、","でたらめに","一つ取りかえて、","動きがよくなることは","まずない。"],["では、","なぜ生きものは、","この写しまちがいを","なくす方向に進化し","なかったのだろうか。","実際、","細胞には写しまちがいを","直すしくみが備わって","いる。","しかし、","そのしくみは完璧では","ない。","完璧にできないのでは","なく、","完璧にしていないのだ。"],["理由は単純である。","まちがいを一つも","起こさない生きものは、","変わることができない。","環境が変われば、","それまで正し","かった設計図は、","正しくなくなる。","そのとき、","たまたまちがう設計図を","持っていた個体だけが","生き残る。"],["つまり、","ほとんどが無駄に","なるまちがいを出し","続けることが、","生き残るための唯一の方法なのだ","。","役に立つまちがいだけを","選んで起こすことはで","きない。","どれが役に立つかは、","環境が変わってみるまで","わからないからだ。"],["ここには、","私たちの考え方を","ゆさぶるものがある。","私たちはふつう、","まちがいを減らすことを","進歩だと考える。","訓練とは、","まちがいを","起こさなくすることだと","考えている。"],["けれども生きも","のの歴史は、","逆のことを教えている。","まちがいを減らし","すぎた系統は、","環境が変わったときに","全滅している。","残ったのは、","いつも少しだけ雑な写し","取りをして","きた系統のほうだ。"],["もちろん、","これを人間の行動に","そのまま当てはめること","はできない。","橋の設計でまちがいを","歓迎する技師はいないし、","手術で新しい方法をで","たらめに試す医者も","いない。","まちがいが取り返し","のつかない場面は確かに","ある。"],["問題は、","私たちがその区別を","せずに、","あらゆる場面でまちが","いを減らそうとして","いることだ。","取り返しのつく場面で","まちがわないように","することは、","ほとんど何も生まない。","取り返しがつくからこそ、","そこは試す場所なので","ある。"],["学ぶという行為が","特殊なのは、","それが取り返し","のつく場面として","用意されているから","だろう。","教室でまちがえても橋は","落ちない。","そこでまちがえずに","すませることを目標に","するなら、","せっかく用意された場所を","使わないことになる。"],["生きものは、","自分では試す場所を","選べない。","まちがいは勝手に起き、","勝手に淘汰される。","人間だけが、","どこで試すかを選べる。","その自由を、","まちがえない方向にだけ","使うのは、","いかにももったいない。"]],"summaries":["","","","","","","","","","",""],"thesis":"突然変異が生存に必要であるように、取り返しのつく場面でのまちがいこそが変化を生むのであり、まちがいを一律に減らすことは進歩ではない。","questions":[{"q":"「完璧にできないのではなく、完璧にしていないのだ」とありますが、どういうことですか。","a":"細胞は写しまちがいを直すしくみを持ちながら、あえて一定のまちがいを残しており、それが変化する能力を保つために必要だということ。"},{"q":"筆者が橋の設計や手術の例を挙げたのはなぜですか。","a":"まちがいが取り返しのつかない場面も確かにあることを認め、自分の主張がすべての場面に当てはまるわけではないと示すため。"},{"q":"筆者の主張を、百二十字程度でまとめなさい。","a":"生きものは役に立たないまちがいを出し続けることでしか変化できず、まちがいを減らしすぎた系統は環境の変化で滅びてきた。人間はどこで試すかを選べる以上、取り返しのつく場面ではまちがいを避けるのではなく、試す場所として使うべきだということ。"}]},{"id":"s04","title":"樽をたたく","genre":"随筆文","school":"武蔵","level":"","lenClass":"短め","target":800,"paras":[["醤油の蔵を見学したとき、","職人が木の樽を","手のひらでたたいて","回っていた。","ぽん、","ぽん、","と乾いた音がする。","ときどき立ち止まって、","もう一度たたく。"],["何を聞いているのかと","たずねたら、","中身の減り具合だという。","音の高さで、","残りがどれくらいかが","わかるらしい。","計器で測ればいいのでは","ないかと私は思った。"],["職人は、","計器もあると言った。","ただ、","計器は数字しか","出さない。","たたけば、","減り具合のほかに、","泡の立ち方や、","木のしまり具合まで","一度にわかる。","数字にできないこと","のほうが多いのだと。"],["私はその言い方に","引っかかった。","数字にできないのでは","ない。","数字にしようとすれば、","何を測るかを先に","決めなければならない。","決めたものしか","測れなくなる。"],["たたく人は、","何を聞くかを決めて","いない。","決めていないから、","思いがけないことが耳に","入る。"]],"summaries":["","","","",""],"thesis":"計測は何を測るかを先に決めてしまうが、体で聞く技は決めていないからこそ思いがけないことに気づける。","questions":[{"q":"「数字にできないことのほうが多い」という職人の言葉を、筆者はどのように言いかえていますか。説明しなさい。","a":"数字にできないのではなく、数値化するには何を測るかを先に決める必要があり、決めた項目以外は測れなくなるのだと言いかえている。"},{"q":"筆者が「たたく人は、何を聞くかを決めていない」ことに意味を認めているのはなぜですか。","a":"あらかじめ対象を限定していないため、予想していなかった変化まで感じ取ることができるから。"},{"q":"この文章で筆者が最も言いたいことを説明しなさい。","a":"計測は対象を絞ることで正確さを得るが、そのぶん決めた項目の外にあるものを取りこぼす。体で聞き取る技には、何を探すかを決めていないからこそ思いがけないものに気づけるという強みがあるということ。"}]},{"id":"s05","title":"直さない修理","genre":"随筆文","school":"武蔵","level":"","lenClass":"標準","target":800,"paras":[["古い茶碗の修理を見せて","もらったことがある。","欠けたところに漆を","塗り、","金の粉を乗せる。","金継ぎと呼ばれる技法で","ある。"],["仕上がった茶碗を見て、","私は少し意外に思った。","欠けた線が、","金色にはっきりと","浮かび上がっている。","隠していないのだ。","それどころか、","いちばん目立つ場所に","なっている。"],["職人に、","なぜ目立たせるのかと","たずねた。","隠すこともできるのでは","ないか、と。"],["職人は、","できると答えた。","同じ色の土で埋めて、","焼き直せば、","どこが欠けて","いたかわからなくなる。","ただ、","それは別の茶碗に","なるのだと言った。"],["割れた事実を","なかったことにすれば、","その茶碗が経て","きた時間も消える。","金継ぎは、","割れたことを含めて","この茶碗だと","認める技法なのだという。"],["私はその話を、","しばらく考えていた。","私たちがふつう「直す」","と呼んでいるのは、","壊れる前の状態に","戻すことである。","修理の成功とは、","壊れた痕跡が消えることだ。"],["しかし、","戻るということが本当に","可能なのかは疑わしい。","時間は戻らない。","戻ったように見えるのは、","見えなくしただけで","ある。","見えなくしたものは、","なくなってはいない。"],["金継ぎの茶碗を手に","持つと、","指が自然に金の線を","なぞる。","なぞるたびに、","ここで割れたのだという","ことを思い出す。","思い出すことは、","痛むことではない。","その茶碗と一緒に","いた時間を、","確認することだ。"],["職人は最後に、","直すのは茶碗じゃなくて、","使う人のほうだと思う、","と言った。"],["割れた茶碗を捨てるか、","隠して直すか、","線を見せたまま使うか。","どれを選ぶかで、","その人が何を大事にして","いるかが決まる。","茶碗は、","その選択を","毎日思い出させる道具に","なる。"],["帰り道、","私は自分が隠して","きたいくつかのことを","考えた。","隠したこと自体を、","私は忘れていなかった。","忘れていないのに隠して","いるというのは、","いちばん疲れるや","り方かもしれなかった。"]],"summaries":["","","","","","","","","","",""],"thesis":"金継ぎは壊れた痕跡を隠さずに残す技法であり、それは失われた時間をなかったことにせず引き受ける態度の表れである。","questions":[{"q":"職人が「それは別の茶碗になる」と言ったのはどういうことですか。説明しなさい。","a":"欠けを完全に埋めて焼き直せば見た目は元に戻るが、割れたという出来事とそれまでの時間が消えてしまい、同じ茶碗として続いているとは言えなくなるということ。"},{"q":"「戻ったように見えるのは、見えなくしただけである」という考えを、筆者はどのように自分のことに結びつけていますか。","a":"自分も隠してきたことがあるが、隠しても本人は忘れておらず、忘れていないのに隠し続けることがかえって負担になっていると気づいている。"},{"q":"「直すのは茶碗じゃなくて、使う人のほうだ」という職人の言葉を、筆者はどのように受けとめていますか。説明しなさい。","a":"壊れたものをどう扱うかという選択が、その人が何を大事にしているかを示すものであり、金継ぎされた茶碗は使うたびにその選択を思い出させ、人のほうの構えを整えていくものだと受けとめている。"}]},{"id":"s06","title":"留守番電話","genre":"物語文","school":"武蔵","level":"","lenClass":"長め","target":800,"paras":[["祖父の家の電話には、","まだ留守番電話がついて","いる。","カセットテープの入る古い機種で","、","いまどき部品もないと","父は言っていた。"],["祖父が入院してから、","ぼくは週に一度、","家の様子を見に行くこと","になった。","郵便物を取り、","窓を開け、","水道を少し出す。","十五分で終わる仕事だ。"],["三度目に行った日、","留守番電話のランプが","点滅していた。","再生ボタンを押すと、","テープの回る音がして、","知らない女の人の声が","流れた。"],["「あの、","竹内さんのお宅で","しょうか。","以前、","お世話になりました者です。","またお電話します」"],["それだけだった。","名乗らなかった。"],["次の週も、","ランプは点いていた。","同じ声だった。"],["「またかけてしまいました。","お元気でしょうか。","すみません、","急ぎではありません」"],["ぼくは、","この人は祖父が入院し","たことを知らないのだと","思った。","教えたほうがいいのかも","しれない。","でも、","相手の番号はわから","ないし、","名前も知らない。","ぼくにできるのは、","聞くことだけだった。"],["そのうち、","ぼくは水曜日が待ち遠し","くなった。","祖父の家に行くのは","面倒な用事だったのに、","ランプが点いて","いるかどうかを","確かめたくなった。"],["四度目のメッセージで、","その人は少しだけ","多く話した。"],["「庭のびわは、","今年も実りましたか。","あのとき、","一つくださったのを、","まだおぼえています」"],["ぼくは受話器を置いて、","庭に出た。","びわの木はあった。","実は、","鳥に食べられたあと","の皮がいくつか、","地面に落ちていた。","今年も実ったのだ。"],["その日から、","ぼくは祖父のことを、","少し違うふうに","考えるようになった。","ぼくの知っている祖父は、","テレビの前に座って、","あまりしゃべらない人だった。","びわを誰かに","あげる人だとは思って","いなかった。"],["祖父には、","ぼくの知らない時間が","ある。","当たり前のことだが、","そう思ったのは初めて","だった。"],["五度目の水曜日、","ランプは点いて","いなかった。","六度目も、","七度目も点かなかった。"],["ぼくは少し焦った。","教えるべきだったのかも","しれない。","祖父が入院していることを、","テープに吹きこんで、","応答メッセージにして","おけばよかった。","そうすれば、","あの人は知ることがで","きた。"],["でも、","と思い直した。","あの人は、","名乗らなかった。","名前を言わないという","のは、","祖父なら声でわかると","思っていたということだ。","ぼくが出ていい話では","なかったのかもし","れない。"],["病院に行った日、","ぼくは祖父に、","びわのことだけ話した。","今年も実ってましたよ、","鳥に全部食べられてまし","たけど、と。"],["祖父はしばらく天井を","見ていて、","それから、","そうか、","と言った。","それだけだった。"],["帰りのバスで、","ぼくは留守番電話のこと","を言わなかった自分に","気づいた。","言わない理由を考えて","いたわけではない。","ただ、","言わないほうがいいと、","体のほうが決めていた。"],["ぼくは、","人の時間に勝手に","入らないという方法を、","そのとき初めて","使ったのだと思う。"]],"summaries":["","","","","","","","","","","","","","","","","","","","",""],"thesis":"祖父宛の匿名の留守電を通して、祖父に自分の知らない時間があることを知り、他人の領域に立ち入らないという判断を初めて自分で下す。","questions":[{"q":"「ぼくは水曜日が待ち遠しくなった」とありますが、それはなぜですか。説明しなさい。","a":"面倒な用事でしかなかった祖父の家の見回りが、名乗らない女性からのメッセージが届いているかを確かめるという、自分だけの関心事に変わったから。"},{"q":"「祖父には、ぼくの知らない時間がある」と主人公が初めて思ったのは、どのようなことがきっかけですか。","a":"びわを一つもらったことを覚えているという相手の言葉から、自分の知る無口な祖父とは違う、人に何かを分け与える祖父の姿が浮かんだこと。"},{"q":"主人公が祖父に留守番電話のことを言わなかったのはなぜだと考えられますか。文章全体をふまえて説明しなさい。","a":"相手が名乗らなかったのは祖父になら声で伝わると思っていたからであり、その関係は二人だけのものだと感じたため。自分が間に入って明かすことは、祖父のものである時間に勝手に踏みこむことになると、理屈より先に判断したから。"}]},{"id":"s07","title":"傘の数","genre":"物語文","school":"駒場東邦","level":"","lenClass":"短め","target":800,"paras":[["教室の後ろの傘立てには、","いつも傘が三本余って","いる。","誰のものかわから","ないまま、","何か月もそこにある。"],["当番だったぼくは、","それを職員室に持って","いこうとして、","やめた。","三本のうち一本が、","去年転校した木下のも","のだと気づいたからだ。","柄のところに、","油性ペンで小さく星が","描いてあった。"],["木下は、","傘を忘れて","帰る子だった。","雨の日でも、","平気でぬれて帰った。","この傘も、","そうやって置いて","いったのだろう。"],["ぼくは三本とも、","もとの場所に戻した。","残りの二本が誰のも","のかは、","やっぱりわから","なかった。"],["でも、","わからないだけで、","誰かのものなのだ。","三本が三本とも、","置いていった人がいる。"],["次の当番の子が持って","いくかもしれない。","それならそれでいい。","ぼくは、","自分の番では戻すことに","した。"]],"summaries":["","","","","",""],"thesis":"持ち主不明の傘に一人の顔を見つけたことで、残りの傘にもそれぞれ持ち主がいると気づき、自分の番では処分しないことを選ぶ。","questions":[{"q":"主人公が傘を職員室に持っていくのをやめたのは、どのようなことに気づいたからですか。","a":"三本のうち一本が、星の印から転校した木下のものだと分かったから。"},{"q":"「わからないだけで、誰かのものなのだ」とありますが、この一文は主人公のどのような変化を表していますか。","a":"持ち主不明の落とし物としてまとめて扱っていたものを、一本ずつ置いていった人がいるものとして見るようになった変化。"},{"q":"「自分の番では戻すことにした」という結びから、主人公のどのような考えが読み取れますか。","a":"いずれ誰かが処分するとしても、気づいてしまった自分がそれをするのは違うと考え、自分の責任の範囲で判断しようとする姿勢。"}]},{"id":"s08","title":"代打","genre":"物語文","school":"駒場東邦","level":"","lenClass":"標準","target":800,"paras":[["九回裏、","二死二塁で、","監督がぼくの名前を","呼んだ。","代打、","山瀬。"],["ぼくはこの一年、","公式戦で一度も打席に","立っていない。","守備要員ですらなく、","記録係だった。","スコアブックに、","他人の打席を書き続けて","きた。"],["バットを持って出て","いくとき、","ベンチの誰も声を","出さなかった。","出しにくかったのだと","思う。","ぼくも、","自分に声を","かけられたら困っただろう。"],["打席に入って、","ぼくは投手を見た。","相手のエースだ。","この試合で、","ぼくはこの投手の球を、","三十六球すべて書いて","いた。"],["初球は外角の真っすぐだった。","見逃した。","スコアブックなら、","ここに斜めの線を引く。"],["二球目も外角。","ファウルにした。","バットに当たったのは、","偶然ではなかったと","思う。","この投手は、","二球目に必ず同じコースを","続ける。","三十六球のうち、","四回とも同じだった。"],["三球目、","ぼくは内側を待った。","内に来た。","振り遅れて、","一塁側にまた転がったが、","当たったことに変わりは","ない。"],["ベンチから、","初めて声が出た。","誰の声かはわから","なかった。"],["四球目は落ちる球だった。","ぼくはバットを止めた。","止められたのは、","来ると思っていたからだ。","二ストライクのあと、","この投手は落とす。","書いてある。","全部、","書いてある。"],["ぼくは、","この一年書き続けたも","のが、","いま手の中にあることに","気づいた。","誰も見ていないところで","書いていた。","書くことしかできないと","思っていた。"],["五球目、","真ん中に来た。","ぼくは振った。"],["打球はセカンドの正面に","飛んで、","試合は終わった。"],["ベンチに戻ると、","キャプテンが","スコアブックを持って","いた。","ぼくの席に置いて","あったやつだ。","開いたページには、","ぼくの打席の途中までが、","キャプテンの字で書いて","あった。"],["「下手くそで悪い」"],["ぼくは受け取って、","最後の一球を自分で","書き足した。","セカンドゴロ。","試合終了。"],["書きながら、","手が少し震えていた。","負けたからでは","なかった。","ぼくが立って","いるあいだ、","誰かが書いていたという","ことが、","なぜだかうれしかった。"]],"summaries":["","","","","","","","","","","","","","","",""],"thesis":"記録係としての一年が打席で力に変わると同時に、自分の打席を誰かが記録していたことを知り、支えられていた側でもあったと気づく。","questions":[{"q":"「バットに当たったのは、偶然ではなかったと思う」とありますが、主人公がそう考えるのはなぜですか。","a":"記録を通じて、この投手が二球目に同じコースを続けることを知っていたから。"},{"q":"「書くことしかできないと思っていた」とありますが、このときの主人公の気持ちはどのように変わりましたか。","a":"記録係の仕事を試合に関われない者の役割だと思っていたが、その蓄積が自分の打席を支えていると気づき、意味のあるものだったと感じるようになった。"},{"q":"最後の場面で主人公の手が震えたのはなぜですか。文章全体をふまえて説明しなさい。","a":"一年間、誰にも見られずに他人の打席を書き続けてきた自分の打席を、今度はキャプテンが書いていた。見ていないと思っていたのは自分だけで、自分もまた記録される側として仲間に支えられていたと分かったから。"}]},{"id":"s09","title":"ものさしを作る","genre":"説明文","school":"駒場東邦","level":"","lenClass":"長め","target":800,"paras":[["長さを測るには、","ものさしがいる。","では、","そのものさしが正し","いことは、","どうやって","確かめるのだろうか。","別のものさしで測る、","という答えが浮かぶ。","しかし、","その別のものさしが正し","いことは、","さらに別のものさしで","確かめなければ","ならない。"],["この問いは、","どこまでも後ろへ","下がっていく。","どこかで止めなければ、","何一つ測れない。","人類は実際、","どこかで止めてきた。"],["かつてメートルは、","地球の北極から赤道まで","の距離の千万分の一と","決められた。","つまり、","地球そのものを基準にし","たのである。","しかし、","測り直すたびに値が少し","ずつ変わることが","わかった。","地球は完全な球では","ないし、","測量にも誤差が出る。"],["そこで、","白金とイリジウムの合金で","作った棒が基準と","された。","この棒の長さが","一メートルである、","と決めたのだ。","正しいかどうかを","問うのではなく、","これを正しいことに","する、","という決め方である。"],["だが、","金属の棒は温度で","伸び縮みするし、","長い年月のあいだに","変化する。","基準が動いてしまっては","困る。"],["現在の一メートルは、","光が真空中を一秒間に","進む距離の二億九千九百七十九万","二千四百五十八分の一と","定められている。","光の速さは、","どこで測っても同じで","あることがわかって","いるからだ。"],["注意したいのは、","この決め方の順序で","ある。","光の速さを正確に測って、","その結果からメートルを","決めたのではない。","光の速さをこの値で","あると決め、","そこからメートルを","導いたのだ。","決めてしまえば、","光の速さを測るという","作業はもう存在し","なくなる。"],["つまり基準とは、","測られるものではなく、","測ることをや","めた地点のことである。","すべてを疑い続ける態度は","誠実に見えるが、","それでは一ミリも","測れない。","どこかで疑うのをや","めると決めた人がいて、","初めて測定が始まる。"],["これは科学に","かぎった話ではない。","言葉の意味も、","社会の規則も、","同じ構造を持っている。","「一時間」","がどれくらいかを","毎回確かめ合っていては、","待ち合わせはできない。","決めてあるから、","その上に話を積める。"],["ただし、","決めたものは決めたも","のにすぎない。","地球を基準にし","た時代の人々も、","それが揺るがないと","信じていた。","基準が変わるときには、","その上に積み上げられたも","のが一度ぐらつく。"],["だから、","基準を疑わずに使うことと、","それが決められたも","のだと知っていることは、","両立しなければ","ならない。","使うときは疑わない。","しかし、","これは誰かがどこかで","止めた地点なのだと、","頭の隅に置いておく。"],["測るという営みは、","この二つを同時に","持つことで成り立って","いる。","信じきってもいけないし、","疑い続けてもいけない。"]],"summaries":["","","","","","","","","","","",""],"thesis":"基準とは測られるものではなく疑うのをやめた地点であり、それを信じて使いながら同時に人が決めたものだと知っておく必要がある。","questions":[{"q":"「この問いは、どこまでも後ろへ下がっていく」とは、どういうことですか。","a":"ものさしの正しさを別のものさしで確かめようとすると、その正しさもまた別のものさしを必要とし、確認が無限に続いてしまうということ。"},{"q":"現在のメートルの決め方について、筆者が「注意したい」と述べているのはどのような点ですか。","a":"光の速さを測った結果からメートルを導いたのではなく、光の速さをある値だと決め、そこからメートルを定めたという順序の点。"},{"q":"「信じきってもいけないし、疑い続けてもいけない」とは、どういうことですか。百二十字程度で説明しなさい。","a":"基準を疑い続ければ何も測れず、行動も話し合いも始まらない。しかし基準は誰かが決めた地点にすぎず、変わることもある。だから使うときは疑わずに用いながら、それが絶対のものではないと知っておく、という二つの態度を同時に持つべきだということ。"}]},{"id":"s10","title":"外来語の役目","genre":"説明文","school":"早稲田中","level":"","lenClass":"短め","target":800,"paras":[["日本語には外来語が","多い。","乱れだと嘆く人もいるが、","外来語には固有の役目が","ある。"],["たとえば「ケア」","という語は、","世話、","看護、","配慮のどれとも少し","ずつ違う。","もとの日本語に","置きかえようとすると、","必ず何かがはみ出す。","はみ出すからこそ、","その語が入って","きたのだ。"],["新しい語は、","新しい区別とともに","入ってくる。","区別が必要になったから","語が要るのであって、","語があるから区別がで","きるのではない。"],["ただし、","逆の場合もある。","意味をあいまいに","するために外来語が","使われることだ。","「リストラ」","は解雇という語の重さを","覆い隠した。"],["同じ外来語が、","区別を増やすことも","あれば、","区別を消すこともある。","どちらであるかは、","その語を日本語に戻して","みればわかる。","戻して意味が","痩せるなら必要な語で","あり、","戻して意味が","はっきりするなら、","隠すための語である。"]],"summaries":["","","","",""],"thesis":"外来語は新しい区別を持ちこむ場合と、意味の重さを覆い隠す場合があり、日本語に戻してみることで見分けられる。","questions":[{"q":"「はみ出すからこそ、その語が入ってきた」とはどういうことですか。四十字以内で説明しなさい。","a":"既存の日本語では言い表せない意味があったために、新しい語が必要とされて定着したということ。"},{"q":"筆者は「リストラ」をどのような例として挙げていますか。四十字以内で答えなさい。","a":"解雇という語の重さをあいまいにし、区別を消すために使われた外来語の例。"},{"q":"筆者が示している外来語の見分け方を、五十字以内で説明しなさい。","a":"日本語に置きかえてみて、意味が痩せるなら必要な語であり、意味がはっきりするなら覆い隠すための語だと見分ける。"}]},{"id":"s11","title":"遅い情報","genre":"説明文","school":"早稲田中","level":"","lenClass":"標準","target":800,"paras":[["情報は速いほどよい、","と考えられている。","速報、","即時、","リアルタイム。","これらの言葉には、","疑いようのない価値が","あるかのような響きが","ある。"],["しかし、","情報の価値は速さだけで","決まらない。","ある出来事について、","直後にわかることと、","一年後にわかることは、","質が違う。"],["事故が起きた直後に","わかるのは、","何が起きたかである。","原因がわかるのは、","たいてい数か月後だ。","そして、","その事故が社会に何をも","たらしたかがわかるのは、","さらに何年も後になる。"],["つまり、","速い情報ほど内容が","浅い。","これは取材や","分析の手間の問題では","なく、","出来事そのものの性質に","よる。","結果は、","時間がたたなければ","現れないからだ。"],["ところが私たちは、","速い情報を大量に","受け取るうちに、","それで理解したつもりに","なる。","速報を追いかけた一週間のあと","に残るのは、","断片の山である。","断片は多いほど、","わかった気にさせる。"],["一方、","遅い情報は届きにくい。","一年後に出る検証記事を","読む人は、","速報を読んだ人よりは","るかに少ない。","関心が先に切れてし","まうからだ。"],["ここに厄介な仕組みが","ある。","速い情報は関心が","高いうちに届き、","遅い情報は関心が切れて","から届く。","内容の深さと、","届く人の数が、","反比例しているのだ。"],["この仕組みは、","誰かの悪意によるもので","はない。","速報を流す側も、","検証を書く側も、","それぞれの仕事をして","いるだけである。","仕組みが結果を決めて","いる。"],["だとすれば、","個人にできることは","限られている。","速報を減らすことはで","きないし、","他人の関心を","持続させることもで","きない。","できるのは、","自分の関心の期限を、","自分で延ばすことだけだ。"],["気になった出来事を、","一つだけ手帳に書いて","おく。","半年後に、","それがどうなったかを","調べる。","それだけで、","断片の山とは違うものが","手に入る。"],["速い情報を","否定する必要はない。","何が起きたかを知ること","には意味がある。","ただ、","それは理解の入口で","あって、","出口ではない。","入口で引き返し続けて","いるかぎり、","いくら情報を集めても、","私たちは同じ場所に","いる。"]],"summaries":["","","","","","","","","","",""],"thesis":"速い情報ほど内容が浅く、深い情報ほど関心が切れた後に届くという仕組みがあり、個人にできるのは自分の関心の期限を延ばすことである。","questions":[{"q":"「速い情報ほど内容が浅い」のはなぜですか。五十字以内で説明しなさい。","a":"結果や影響は時間がたたなければ現れないため、出来事の直後には何が起きたかしかわからないから。"},{"q":"筆者が「厄介な仕組み」と呼んでいるのは、どのようなことですか。六十字以内で答えなさい。","a":"速く浅い情報は関心の高いうちに多くの人に届き、遅く深い情報は関心が切れてから届くため、内容の深さと読む人の数が反比例していること。"},{"q":"「入口で引き返し続けているかぎり、いくら情報を集めても、私たちは同じ場所にいる」とはどういうことですか。六十字以内で説明しなさい。","a":"何が起きたかを知るだけで満足していては、原因や影響という理解の先へ進めず、情報量が増えても理解は深まらないということ。"}]},{"id":"s12","title":"発表者","genre":"物語文","school":"早稲田中","level":"","lenClass":"長め","target":800,"paras":[["クラス代表として","発表することに","なったのは、","くじ引きの結果だった。","三組のうち、","ぼくの引いた紙にだけ","丸が書いてあった。"],["テーマは自由研究の報告で、","ぼくが調べたのは","近所の川の水質だった。","三か月かけて、","週に一度、","同じ場所で水をくんで","調べた。","数値は地味だったが、","自分では気に入って","いた。"],["問題は、","人前で話すことだった。","ぼくは去年の音読で、","三行目でつまって、","そのまま止まったことが","ある。","クラスは静かだった。","その静かさを、","いまでもおぼえている。"],["母は原稿を作れと","言った。","一字一句書いて、","覚えてしまえば安心だと。","ぼくは三日かけて","八百字の原稿を書き、","毎晩読んだ。"],["前日の夜、","原稿を見ずに","言えるようになった。","ぼくは初めて少し安心した。"],["当日、","体育館の前に立って、","ぼくは原稿を始めた。","三行目までは","順調だった。","四行目で、","後ろのほうの誰かが咳を","した。"],["それで、","次の一文が飛んだ。"],["頭の中が真っ白に","なった、","というのとは少し違う。","原稿は見えていた。","でも、","どの行を言えば","いいのかがわから","なくなった。","全部同時に浮かんでいて、","順番だけが消えていた。"],["何秒たったのかはわから","ない。","ぼくは、","手に持って","いたビーカーの写真を","見た。","自分が撮った写真だ。","三か月目の、","いちばん澄んで","いた日の水。"],["ぼくは、","原稿をやめた。"],["「この写真は、","七月の水です。","六月はもっと濁って","いました。","理由は、","上流の工事が","終わったからだと","思います」"],["言いながら、","次に何を言うかを考えて","いた。","原稿にはない言い方だった。","でも、","言葉は出てきた。","写真を見れば、","そのとき何をし","たか思い出せたからだ。"],["ぼくは十二枚の写真を","順番に見せながら、","思い出した順に話した。","予定していた八百字より","短かったと思う。","終わったとき、","拍手があった。"],["席に戻ってから、","ぼくは自分の原稿を","見た。","書いた文章は、","どれもきれいだった。","きれいすぎて、","ぼくのものでは","なかった。","三か月のあいだ、","ぼくは一度も「〜と","考えられる」","なんて言い方をして","いない。"],["原稿は、","ぼくが体験したことを、","発表らしい形に整えたも","のだった。","整えるときに、","ぼくの覚えているものが","落ちていた。","だから順番が飛んだとき、","何も残らなかったのだ。"],["写真には、","順番があった。","ぼくが実際に","歩いた順番だ。","そこには忘れようのない順序が","あった。"],["帰り道、","母に、","原稿は使わなかったと","言った。","母は少し驚いて、","それから、","そう、","とだけ言った。","責める言い方では","なかった。"],["ぼくは、","来年もくじで当たれば","いいと思った。","当たっても、","たぶん原稿は書く。","書くけれど、","本番では持って","いかない。","書くことで整理はで","きる。","ただ、","話すときに要るのは、","整理されたものでは","なくて、","自分が通った道のほうだ。"]],"summaries":["","","","","","","","","","","","","","","","","",""],"thesis":"暗記した原稿が飛んだことで、自分の体験の順序に支えられた話し方を見つけ、整えられた言葉と自分の言葉の違いに気づく。","questions":[{"q":"「頭の中が真っ白になった、というのとは少し違う」とありますが、主人公はどのような状態だったのですか。五十字以内で説明しなさい。","a":"原稿の内容は浮かんでいるのに、どの行を言うべきかという順番だけが分からなくなった状態。"},{"q":"写真を見たことで主人公が話せるようになったのはなぜですか。六十字以内で説明しなさい。","a":"写真は自分が実際に歩いた順に撮ったものであり、見ればそのとき何をしたかを思い出せるため、順序が自然によみがえったから。"},{"q":"「きれいすぎて、ぼくのものではなかった」とありますが、主人公はどのようなことに気づいたのですか。八十字以内で説明しなさい。","a":"原稿は体験を発表らしい言い方に整えたもので、整える過程で自分が実際に覚えていたことが落ちていた。そのため順序を失うと何も残らなかったのだと気づいた。"}]},{"id":"s13","title":"暦のずれ","genre":"随筆文","school":"慶應義塾中等部","level":"","lenClass":"短め","target":850,"paras":[["立春という言葉を、","一年でいちばん寒いころに","聞く。","暦の上では春なのに、","と毎年どこかで","言われる。"],["これは暦が間違って","いるのではない。","立春は、","太陽の位置で決まる。","昼の長さが伸び始めて","から、","地面や海が温まるまでには、","二か月ほどの遅れが","出る。","暦は原因を、","体感は結果を示して","いる。"],["つまり私たちは、","原因と結果のあいだのずれを、","毎年「暦が早すぎる」","と感じているわけだ。"],["このずれは、","暦にかぎらない。","種をまいた日と芽が","出る日、","努力を始めた日と結果が","出る日。","人はいつも、","結果のほうを基準に","早い遅いを言う。"],["立春に春の気配が","ないのは、","春が来ていないからでは","ない。","もう来ているのに、","まだ届いていないだけで","ある。"]],"summaries":["","","","",""],"thesis":"暦と体感のずれは原因と結果の時間差であり、変化はすでに始まっていてもまだ届いていないことがある。","questions":[{"q":"「暦は原因を、体感は結果を示している」とはどういうことですか。四十字以内で説明しなさい。","a":"暦は太陽の位置という原因に基づき、体感は地面や海が温まった結果に基づいているということ。"},{"q":"「立春」と同じ構造を持つ例として、筆者は何を挙げていますか。三十字以内で答えなさい。","a":"種をまいた日と芽が出る日、努力を始めた日と結果が出る日。"},{"q":"次の語の意味として最も適切なものを選びなさい。「気配」","a":"はっきりとは見えないが、そこにありそうだと感じられるようす。"}]},{"id":"s14","title":"一本の傘","genre":"随筆文","school":"慶應義塾中等部","level":"","lenClass":"標準","target":850,"paras":[["電車の網棚に、","傘が一本残っていた。","黒い長傘で、","持ち手のところが少し","すり減っている。"],["駅員に届けるべきだろうと","思いながら、","私はそのまま降りた。","次の駅で誰かが","気づくだろう、","という言い方を、","頭の中でした。"],["帰宅してから、","その言い方が気に","なった。","次の駅で誰かが、","という文には主語が","ない。","誰でもよい誰かに、","私は仕事を渡したので","ある。"],["こういう文の作り方を、","私たちはよく使う。","誰かが言うだろう。","いずれ誰かが","直すだろう。","主語を空けておけば、","自分は入らずにすむ。"],["社会心理学には","傍観者効果という言葉が","ある。","人が多いほど、","一人あたりの責任感は","薄まるというものだ。","理屈は知っていた。","知っていて、","その通りに振る舞った。"],["知識は、","自分を除外して働くこと","がある。","傍観者効果を知って","いる私は、","傍観者ではないつもりで","いた。","そのつもりが、","いちばん危うい。"],["翌朝、","同じ路線に乗った。","網棚は空だった。","誰かが届けたのか、","誰かが持ち去ったのか、","わからない。"],["わからないまま終わるのが、","この種のことの常で","ある。","自分が動かなかった結果は、","たいてい自分には返って","こない。","返ってこないから、","次も同じようにする。"],["私はその日、","鞄に小さなメモを","入れた。","「主語を空けない」","と書いた。","標語のようで気恥ずかし","かったが、","理屈を知っているだけで","は足りないことは、","前の晩に学んだと","ころだった。"],["傘一本の話である。","しかし、","傘一本ですませてし","まう癖こそ、","たぶん問題なのだ。"]],"summaries":["","","","","","","","","",""],"thesis":"忘れ物を放置した経験から、主語を空けた言い方が責任を他人に渡す仕組みだと気づき、知識だけでは行動が変わらないと知る。","questions":[{"q":"「主語を空けておけば、自分は入らずにすむ」とはどういうことですか。五十字以内で説明しなさい。","a":"誰かがやるだろうという言い方をすれば、その誰かに自分を含めずに、自分が動かない理由にできるということ。"},{"q":"「そのつもりが、いちばん危うい」と筆者が述べるのはなぜですか。五十字以内で答えなさい。","a":"傍観者効果を知っていることで自分は例外だと思いこみ、実際には同じように振る舞っていたことに気づけなくなるから。"},{"q":"次の言葉の意味として最も適切なものを選びなさい。「傍観」","a":"その場にいながら、自分は関わらずに見ていること。"}]},{"id":"s15","title":"数の見せ方","genre":"説明文","school":"慶應義塾中等部","level":"","lenClass":"長め","target":850,"paras":[["同じ数字でも、","見せ方によって印象は","まるで変わる。"],["ある商品の値段が","千円から千百円に","なったとする。","これを「百円の値上げ」","と書くのと、","「一割の値上げ」","と書くのでは、","受ける感じが違う。","さらに「毎日三円ほど","の負担増」","と書けば、","ずいぶん軽く見える。"],["どれも嘘ではない。","同じ事実を、","違う単位で言いかえて","いるだけである。","しかし、","どの単位を選ぶかに","よって、","読み手の判断は動く。"],["この性質は、","広告でも報道でも政治で","も利用されている。","増えたことを強調し","たいときは絶対数を、","減ったことを","目立たせたくないときは","割合を使う、","といった具合だ。"],["もう一つよく使われるのが、","比べる相手の選び方で","ある。","「昨年比で二倍」","と言われると","大きく感じるが、","昨年が異常に","少なかっただけかもし","れない。","五年前と比べれば減って","いることもある。"],["グラフも同様である。","縦軸の始まりを零にし","ないと、","わずかな差が大きな山に","見える。","切り取る期間を変えれば、","上がっている線も","下がっている線も","作れる。"],["では、","どうすればよいか。","数字を疑え、","というだけでは","足りない。","疑ったところで、","正しい数字が手元に","あるわけではないからだ。"],["有効なのは、","示されなかった見せ方を","自分で試すことである。","割合で示されたら絶対数を、","絶対数で示されたら割合を","考える。","昨年比が出ていたら、","五年前や十年前と","比べたらどうかを","想像する。"],["この作業をすると、","たいてい二通りの印象が","出てくる。","そのどちらが正しいかは、","わからないことが多い。","しかし、","二通りあると知ることに","は意味がある。","一通りしか浮かばないと","きが、","いちばん動かされて","いるときだからだ。"],["数字は客観的だと","言われる。","確かに、","数字そのものは","動かない。","動くのは、","その置き方である。","置き方には","必ず誰かの意図がある。","意図があること自体は、","悪いことではない。","伝えたいことがあるから","伝えるのだ。"],["問題になるのは、","受け取る側が、","置き方を選んだ人が","いるという事実を","忘れたときである。","そのとき数字は、","事実そのものの顔をして","届く。"]],"summaries":["","","","","","","","","","",""],"thesis":"同じ数字も単位・比較対象・グラフの作り方で印象が変わるため、示されなかった見せ方を自分で試して複数の印象を持つ必要がある。","questions":[{"q":"「どれも嘘ではない」のに読み手の判断が動くのはなぜですか。五十字以内で説明しなさい。","a":"同じ事実でも、どの単位で言いかえるかによって受ける印象が変わり、選ばれた単位が判断を左右するから。"},{"q":"筆者が勧める方法を、五十字以内で説明しなさい。","a":"割合で示されたら絶対数を、絶対数なら割合を考えるなど、示されなかった見せ方を自分で試してみること。"},{"q":"「一通りしか浮かばないときが、いちばん動かされているとき」とはどういうことですか。六十字以内で答えなさい。","a":"他の見せ方を思いつかないということは、示された置き方をそのまま受け入れているということであり、書き手の意図どおりに判断させられている状態だということ。"}]},{"id":"s16","title":"道具の持ち主","genre":"説明文","school":"早稲田実業","level":"","lenClass":"短め","target":700,"paras":[["大工が使う道具は、","たいてい本人が作るか、","本人の手に合わせて","直されている。","市販のかんなを、","買ったそのままの形で","使う職人は少ない。"],["それは、","道具が体の一部に","なるためである。","手の大きさも、","力の入れ方も、","人によって違う。","同じ道具でも、","別の人が使えば","別の動きになる。"],["だから、","借りた道具では","思うように仕事がで","きない。","刃の角度が合わないので","はなく、","その道具が他人の体を","覚えているからだ。"],["このことは、","道具が人を選ぶ、","という言い方で","説明されることがある。","しかし正確には、","道具が人に合わせて","変形していく、","というほうが近い。","使うほど、","その人専用になって","いく。"],["便利さとは反対の性質で","ある。","誰にでも使えるものは、","誰にも合わない。"]],"summaries":["","","","",""],"thesis":"道具は使う人に合わせて変形することで体の一部となり、誰にでも合う道具は誰にも深くは合わない。","questions":[{"q":"「借りた道具では思うように仕事ができない」のはなぜですか。四十字以内で説明しなさい。","a":"その道具が持ち主の体に合わせて変形しており、他人の動きを覚えているから。"},{"q":"「道具が人を選ぶ」という言い方を、筆者はどのように言いかえていますか。三十字以内で答えなさい。","a":"道具が人に合わせて変形し、その人専用になっていくということ。"},{"q":"「誰にでも使えるものは、誰にも合わない」とはどういうことですか。四十字以内で説明しなさい。","a":"万人向けに作られた道具は特定の人の体に合わせて変形していないため、深く手になじまないということ。"}]},{"id":"s17","title":"覚えない記憶","genre":"説明文","school":"早稲田実業","level":"","lenClass":"標準","target":700,"paras":[["自転車の乗り方を、","私たちは説明できない。","どのタイミングで","ハンドルをどちらに","切るか、","言葉にできる人は","ほとんどいない。","それでも体は乗れる。"],["このような記憶を、","手続き記憶と呼ぶ。","言葉にできる記憶とは、","脳の中で扱われる場所が","違うことがわかって","いる。"],["手続き記憶には、","いくつか特徴がある。","まず、","身につくまでに時間が","かかる。","次に、","いったん身につくと","忘れにくい。","十年ぶりに自転車に","乗っても、","たいてい乗れる。"],["そして三つめに、","意識すると下手になる。","階段を下りながら","足の運びを考えると、","かえってつまずく。","この現象は、","運動の指導で","よく知られている。"],["ここに、","学ぶことの難しさが","ある。","人に教えるには言葉が","要る。","しかし、","教えたい内容そのものは","言葉になっていない。","だから熟達者ほど、","教えるのが下手に","なることがある。"],["できる人は、","自分が何をしているかを","意識していない。","意識していないから","うまくできるのであって、","意識すればで","きなくなる。","教えようとして","自分の動きを観察し","た瞬間、","その人はいちばん下手な状態に","なっている。"],["では、","手続き記憶はどうやって","伝わるのか。","多くの場合、","言葉ではなく、","環境と反復によって","伝わる。","同じ場所で、","同じ作業を、","何度も一緒にする。"],["職人の世界で、","教えずに見て盗ませる、","という方法が","長く続いたのは、","精神論ではなく、","この性質に合って","いたからだと","考えられる。","説明できないものを","説明しようとすれば、","必ず何かが抜け落ちる。"],["ただし、","この方法には欠点も","ある。","時間がかかりすぎるし、","伝わったかどうかを","確かめられない。","だから現代の多くの技術教育は、","言葉にできる部分だけを","切り出して教える方法を","とっている。"],["効率はよい。","しかし、","切り出されなかった部分は、","そのまま残る。","残ったものを、","どこで身につけるのか。","その答えは、","まだ十分に用意されて","いない。"]],"summaries":["","","","","","","","","",""],"thesis":"言葉にできない手続き記憶は反復と環境によってしか伝わりにくく、言葉にできる部分だけを効率よく教える現代の方法には取りこぼしがある。","questions":[{"q":"「意識すると下手になる」とありますが、筆者はこの特徴を教える場面とどう結びつけていますか。六十字以内で説明しなさい。","a":"教えようとして自分の動きを観察すると、意識したことでかえって動きが乱れ、熟達者が最も下手な状態になってしまうということ。"},{"q":"「教えずに見て盗ませる」という方法を、筆者はどのように評価していますか。五十字以内で答えなさい。","a":"言葉にできない記憶の性質に合った方法だと評価しつつ、時間がかかり伝わったか確かめられない欠点も認めている。"},{"q":"「切り出されなかった部分は、そのまま残る」とはどういうことですか。五十字以内で説明しなさい。","a":"言葉にできない技能は教育の対象から外れるだけで消えるわけではなく、習得されないまま課題として残るということ。"}]},{"id":"s18","title":"地元の駅","genre":"随筆文","school":"早稲田実業","level":"","lenClass":"長め","target":700,"paras":[["二十年ぶりに、","生まれ育った町の駅に","降りた。","改札を出て、","まず違和感があった。","何かが足りない。"],["しばらく立ち止まって","考えて、","気づいた。","駅前のロータリーの真ん中に","あった時計塔がない。"],["記憶の中では、","それは大きなも","のだった。","待ち合わせといえば","時計塔の下で、","高さは三階建て","くらいあったように","思う。","撤去されたのだろう。"],["あとで町の資料館で","調べたところ、","時計塔は確かにあった。","写真も残っていた。","ただし、","高さは三メートルほど","だった。","人の背丈の二倍にも","ならない。"],["私は自分の記憶を","疑った。","しかし、","疑いようもなく、","私はあれを見上げて","いた。","見上げていたのは事実で","ある。","子どもの目の高さからは、","三メートルは見上げるも","のだったのだ。"],["記憶が間違っていたので","はない。","記憶は正確に、","そのときの自分の身長を","保存していた。"],["このことを考えると、","思い出が大きいのは、","美化のせいだけでは","ないとわかる。","私たちは、","そのときの自分の寸法ごと","記憶している。","あとで戻ると","小さく感じるのは、","対象が縮んだのでは","なく、","自分が伸びたからだ。"],["ただし、","伸びたぶんだけ、","見えなくなったものも","ある。"],["時計塔のあった場所には、","いま低い植え込みが","ある。","私はその前を","通り過ぎようとして、","子どもが二人、","植え込みの陰に","しゃがんでいるのを","見た。","何かを見ている。","近づくと、","アリの行列だった。"],["私はその行列に、","まったく気づいて","いなかった。","同じ場所を、","たったいま通ったば","かりなのに。"],["見上げるものが","なくなったかわりに、","見下ろすものも","見なくなった。","背が伸びるというのは、","視点が上がることで","あって、","視野が広がることでは","ない。","上がったぶん、","下は遠くなる。"],["私は少ししゃがんで","みた。","植え込みの根元は、","湿っていて、","思っていたよりずっと","複雑だった。","小石があり、","落ち葉があり、","アリの道があった。","二十年前、","私はこれを毎日見て","いたはずだ。"],["立ち上がると、","膝が少し痛んだ。","それもまた、","伸びたこと","の一部だった。"],["帰りの電車で、","私は時計塔の写真を","思い出していた。","三メートル。","いまの私なら、","手を伸ばせば文字盤に","届くかもしれない。","届くようになったことを、","私は少しも喜んで","いなかった。"]],"summaries":["","","","","","","","","","","","","",""],"thesis":"記憶の中の大きさは当時の自分の寸法を保存したものであり、成長は視点を上げるかわりに足もとを遠ざける。","questions":[{"q":"「記憶が間違っていたのではない」と筆者が考えたのはなぜですか。六十字以内で説明しなさい。","a":"子どもの目の高さからは三メートルの時計塔も見上げるものであり、記憶はそのときの自分の身長ごと正確に保存していたから。"},{"q":"「背が伸びるというのは、視点が上がることであって、視野が広がることではない」とはどういうことですか。六十字以内で説明しなさい。","a":"成長によって高いところは見えるようになるが、そのぶん足もとが遠くなり、かつて見えていた細かなものが見えなくなるということ。"},{"q":"最後の一文に表れている筆者の気持ちを、五十字以内で説明しなさい。","a":"文字盤に手が届くほど大きくなったことは、見上げる感覚や足もとの世界を失ったことでもあると感じ、素直に喜べずにいる。"}]},{"id":"s19","title":"当番の交代","genre":"物語文","school":"学習院中等科","level":"","lenClass":"短め","target":650,"paras":[["給食当番の交代は、","月曜の朝に決まる。","今週はぼくと、","転校してきたば","かりの佐々木さんが","同じ班になった。"],["佐々木さんは、","前の学校では当番のや","り方が違ったらしく、","配ぜん台の位置から","迷っていた。","ぼくは一つずつ教えた。","おたまはここ、","ふきんはここ、と。"],["金曜日になって、","佐々木さんはぼくより","先に準備を終えていた。","ぼくが着いたときには、","もう台が拭いてあった。"],["「早いね」","と言うと、","佐々木さんは、","木曜に一回、","放課後に練習したのだと","言った。","誰にも見られないように。"],["ぼくは、","覚えの早い人だと思って","いた。","そうではなかった。","見えないところで、","一回やっていただけ","だった。"],["来週も同じ班がいいなと","思ったが、","口には出さなかった。"]],"summaries":["","","","","",""],"thesis":"覚えが早いと思っていた転校生が、人知れず練習していたと知り、見えない努力に気づく。","questions":[{"q":"佐々木さんが金曜日に準備を早く終えていたのはなぜですか。三十字以内で答えなさい。","a":"木曜の放課後に、一人でやり方を練習していたから。"},{"q":"「ぼくは、覚えの早い人だと思っていた」とありますが、主人公の考えはどう変わりましたか。四十字以内で説明しなさい。","a":"生まれつき覚えが早いのではなく、見えないところで練習を重ねた結果だったと考えるようになった。"},{"q":"この文章のあらすじを、六十字以内でまとめなさい。","a":"転校生と給食当番になった主人公が、やり方を教えるうちに相手が先に準備を終えるようになり、その裏に人知れぬ練習があったと知る話。"}]},{"id":"s20","title":"うどんの湯気","genre":"物語文","school":"学習院中等科","level":"","lenClass":"標準","target":650,"paras":[["祖父が作るうどんは、","いつも少しのびていた。","ぼくが家に着くころには、","鍋の中でずっと","温められているからだ。"],["「もう少し早く来れば","よかった」","と言うと、","祖父は笑って、","のびたほうがうまいと","言った。","それが本当かどうかは、","たしかめようが","なかった。"],["中学受験の塾が始まって","から、","ぼくが祖父の家に","行くのは月に一度に","なった。","行くたびに、","うどんが出た。","行く時間は","だんだん遅くなり、","うどんはだんだんのびた。"],["六年生の秋、","ぼくは初めて断った。","塾の授業があるからと","電話で言った。","祖父は、","そうか、","とだけ言った。"],["次の月も断った。","その次の月も、","行かなかった。"],["冬になって、","母がうどんの話をした。","祖父は、","毎回ぼくの分をゆでて","いたのだという。","断った日も、","ゆでていた。"],["ぼくは、","どうしてと聞いた。","母は、","来るかもしれないと","思ったんじゃない、","と言った。"],["来ないとわかっていても、","ゆでる。","そういうことを","する人なのだと、","ぼくは初めて知った気が","した。"],["受験が終わった三月、","ぼくは久しぶりに","祖父の家に行った。","時間を伝えずに行った。"],["玄関を開けると、","台所から湯気が上がって","いた。","鍋は、","もう火にかかっていた。"],["「なんでわかったの」"],["「わからん。","毎日やっとる」"],["祖父はそう言って、","うどんをどんぶりに移した。","少しのびていた。"],["ぼくは食べながら、","のびたほうがうまいと","いうのは、","たぶん本当ではないと","思った。","でも、","のびるまで待って","いた時間のほうは、","本当だった。"],["「おいしい」","と言うと、","祖父は、","そうか、","と言った。","断ったときと","同じ言い方だった。","同じ言い方なのに、","ぜんぜん違って","聞こえた。"]],"summaries":["","","","","","","","","","","","","","",""],"thesis":"来ないとわかっていてもうどんをゆで続けた祖父の行為を知り、味ではなく待つ時間に意味があったと理解する。","questions":[{"q":"祖父が「のびたほうがうまい」と言ったのは、どのような気持ちからだと考えられますか。五十字以内で説明しなさい。","a":"遅れて来る孫に気をつかわせないよう、のびていることを欠点ではないことにしようとする気持ち。"},{"q":"「ぼくは初めて知った気がした」とありますが、何を知ったのですか。五十字以内で答えなさい。","a":"祖父が、来ないとわかっている日でも孫の分のうどんをゆで続けるような人だということ。"},{"q":"最後の「そうか」が「ぜんぜん違って聞こえた」のはなぜですか。六十字以内で説明しなさい。","a":"断られたときと同じ短い返事でも、祖父が毎日待ち続けていたことを知った今は、その一言に込められた気持ちが分かるようになったから。"}]},{"id":"s21","title":"紙の本のかたち","genre":"説明文","school":"学習院中等科","level":"","lenClass":"長め","target":650,"paras":[["紙の本には、","厚みがある。","読み進めると、","右手の紙が減り、","左手の紙が増える。","この当たり前のことが、","実は読書を支えている。"],["人は本を読むとき、","内容だけを覚えて","いるのではない。","あの話は本の後半の、","右ページの下のほうに","あった、","というように、","場所とともに覚えて","いる。","これを場所の記憶という。"],["画面で読むときには、","この手がかりが","弱くなる。","どこまで進んだかは","数字で示されるが、","数字は手でつかめない。","紙の厚みのように、","体で感じることがで","きない。"],["だからといって、","画面が劣っているわけで","はない。","検索ができるという点では、","紙よりはるかに優れて","いる。","目的の語を探すだけ","なら、","紙の本をめくるのは","効率が悪い。"],["大切なのは、","二つが別の読み方に","向いているということだ。","探すなら画面、","たどるなら紙、","という使い分けが","考えられる。"],["ここで、","たどるとは何かを考えて","みたい。","本を最初から順に読むと","いう行為は、","著者が決めた順番に","従うことである。","自分が知りたい順では","なく、","相手が並べた順で","受け取る。"],["検索はその逆だ。","自分の知りたいと","ころだけを取り出す。","効率はよいが、","自分がすでに知りたいと","思っていることしか手に","入らない。"],["何かを深く学ぶとき、","自分が何を知りたいかは、","たいてい後からわかる。","最初からわかって","いるなら、","それはもう半分知って","いることである。","だから、","相手の並べた順に","たどる時間が必要に","なる。"],["紙の本の不便さ、","つまり検索できないことは、","この意味では欠点では","ない。","順番を飛ばせないから、","著者の考えの道筋を","通ることになる。"],["ただし、","紙であれば自動的に","そうなるわけではない。","順に読んでいても、","頭の中で探し物をして","いれば、","それは検索と","変わらない。","形式が態度を決めるので","はない。"],["結局、","道具は態度を助けること","はできても、","代わりにはなれない。","紙の厚みは、","たどるという態度を少し","支えてくれる。","それだけのことだが、","それだけのことが、","読み方を変えることも","ある。"]],"summaries":["","","","","","","","","","",""],"thesis":"紙の本の厚みは場所の記憶を支え、検索できない不便さが著者の順序をたどる読み方を助けるが、道具は態度を助けるだけで代わりにはならない。","questions":[{"q":"「場所の記憶」とはどのようなものですか。五十字以内で説明しなさい。","a":"本の内容を、後半の右ページの下といった位置の感覚とともに覚えている記憶のこと。"},{"q":"筆者は「探す」読み方と「たどる」読み方をどのように区別していますか。六十字以内で説明しなさい。","a":"探すのは自分の知りたい部分だけを取り出す読み方、たどるのは著者が決めた順に従って受け取る読み方だと区別している。"},{"q":"「形式が態度を決めるのではない」とはどういうことですか。五十字以内で説明しなさい。","a":"紙の本を使っていても、頭の中で必要な箇所だけを探していれば、検索と同じ読み方になってしまうということ。"}]},{"id":"s22","title":"信号の色","genre":"説明文","school":"中央大学附属横浜","level":"","lenClass":"短め","target":650,"paras":[["日本の信号の「進め」を、","私たちは青と呼ぶ。","しかし実際の色は、","緑に近い。"],["これは言葉のほうが先に","あったためだと言われて","いる。","かつての日本語では、","青が広い範囲の色を指し","ていた。","青葉、","青菜、","青りんご。","どれも緑色である。"],["つまり、","色そのものが","変わったのではなく、","色を区切る言葉の線が","動いたのだ。","昔は青と緑を分けて","いなかった。"],["言葉が世界を区切る例は、","ほかにもある。","虹の色の数は国によって","違う。","七色と数える国もあれば、","五色や三色と数える国も","ある。"],["見えているものが","違うのではない。","どこで区切るかが違う。","言葉は、","見え方そのものに","関わっているのである。"]],"summaries":["","","","",""],"thesis":"信号を青と呼ぶのは言葉が色を区切る線の違いによるもので、言葉は世界の区切り方に関わっている。","questions":[{"q":"日本の信号の「進め」が青と呼ばれるのはなぜですか。四十字以内で説明しなさい。","a":"かつての日本語では青が緑を含む広い範囲の色を指しており、その呼び方が残っているから。"},{"q":"筆者が虹の例を挙げたのはどのような理由からですか。四十字以内で答えなさい。","a":"見えているものは同じでも、言葉によって区切り方が異なることを示すため。"},{"q":"この文章の要旨を五十字以内でまとめなさい。","a":"色の呼び分けは言葉がどこで区切るかによって決まり、言葉は世界の見え方そのものに関わっているということ。"}]},{"id":"s23","title":"待つ時間の長さ","genre":"説明文","school":"中央大学附属横浜","level":"","lenClass":"標準","target":650,"paras":[["エレベーターの待ち時間が","長いという苦情が、","ある高層ビルで","相次いだことがある。"],["管理会社は、","エレベーターの速度を","上げる工事を検討した。","しかし費用が大きい。","そこで別の案が","試された。","待つ場所の壁に、","大きな鏡を","取りつけたのである。"],["苦情はほとんどなくなった。","エレベーターの速度は、","少しも変わっていない。"],["この話がよく紹介されるのは、","待ち時間の長さが、","実際の時間だけで","決まらないことを示して","いるからだ。","何もすることが","ない時間は","長く感じられ、","何かに注意が向いて","いる時間は","短く感じられる。"],["同じことは、","日常のあちこちで起きて","いる。","行列に並ぶとき、","進む速さがわかって","いれば、","同じ十分でも","短く感じる。","病院の待合室で番号が","表示されるように","なったのも、","同じ理由である。"],["ここから、","二種類の解決があること","がわかる。","一つは、","実際の時間を","短くすること。","もう一つは、","感じ方のほうを","変えること。"],["注意したいのは、","この二つは代わりに","なるものではない、","という点だ。","鏡をつけても、","エレベーターは","速くならない。","急いでいる人にとっては、","依然として遅いままで","ある。"],["感じ方を変える方法が","有効なのは、","実際の遅さがそれほど","問題でない場合に","限られる。","本当に遅いことが","問題なら、","鏡は問題を隠すだけに","なる。"],["それでも、","この方法には価値が","ある。","世の中には、","速くすることが難し","い事柄が多くある。","技術的に限界が","ある場合もあれば、","速くすると別の問題が","起きる場合もある。"],["そのとき、","時間の感じ方を変えると","いう選択肢を持って","いるかどうかで、","できることの幅が","変わる。","問題を解く方法は、","いつも一つではない。"]],"summaries":["","","","","","","","","",""],"thesis":"待ち時間の長さは感じ方にも左右されるため、実時間を短くする解決と感じ方を変える解決があるが、両者は代わりにはならない。","questions":[{"q":"鏡を取りつけたことで苦情が減ったのはなぜですか。四十字以内で説明しなさい。","a":"鏡に注意が向くことで、何もしない時間が減り、待ち時間が短く感じられたから。"},{"q":"筆者が「この二つは代わりになるものではない」と述べるのはなぜですか。五十字以内で答えなさい。","a":"感じ方を変えても実際の速さは変わらないため、本当に速さが必要な場合には問題を隠すだけになるから。"},{"q":"この文章の要旨を六十字以内でまとめなさい。","a":"待ち時間の長さは感じ方にも左右されるため、速くする以外に感じ方を変える解決もあるが、それは実際の遅さが問題でない場合に限られるということ。"}]},{"id":"s24","title":"放送部の声","genre":"物語文","school":"中央大学附属横浜","level":"","lenClass":"長め","target":650,"paras":[["放送部に入ったのは、","人前に出なくていいと","思ったからだ。","放送室は二階の奥に","あって、","窓も小さい。","そこでマイクに向かって","原稿を読めば、","顔を見られることは","ない。"],["入部して二か月、","ぼくは昼の校内放送を","任されるようになった。","献立と、","連絡事項と、","その日の一言。","一言の内容は自由で、","先輩たちは","好きな音楽の話などをし","ていた。"],["ぼくは、","毎日天気の話をした。","晴れです、","寒いです、","風が強いです。","それだけだった。","内容を考えるのが","怖かったわけではない。","何を言っても、","誰かに聞かれていると","思うと、","選べなくなった。"],["三週目の金曜、","放送が終わって階段を","下りていると、","一年生らしい女子が","二人、","話しているのが","聞こえた。"],["「今日も天気だったね」"],["「毎日言うよね」"],["笑っていた。","ばかにする笑い方では","なかったが、","ぼくは階段の途中で","止まった。"],["月曜、","ぼくはマイクの前で何も","言えなかった。","献立と連絡だけ読んで、","一言を飛ばした。","飛ばしても誰も何も","言わなかった。"],["火曜も飛ばした。","水曜も飛ばした。"],["木曜の朝、","顧問の先生に呼ばれた。","怒られると思ったが、","先生は違うことを","言った。"],["「今週、","給食室の人から","聞かれたよ。","天気の子はや","めたのかって」"],["ぼくは意味がわから","なかった。","先生は続けた。","給食室には窓がない。","調理をしている時間は、","外がどうなって","いるか全然わから","ないのだという。","だから、","昼の放送で天気を","聞くのを、","毎日楽しみにして","いた人がいた。"],["「聞いてないと思って","た?」"],["ぼくはうなずいた。"],["「聞こえてるところには、","全部聞こえてる。","どこに届くかは、","こっちでは","決められない」"],["金曜日、","ぼくはマイクの前に","座って、","少し迷ってから言った。"],["「今日は晴れです。","校庭の南側だけ、","まだぬれています。朝、","雨が降ったからです」"],["それだけ言って、","スイッチを切った。","心臓が速かった。","前より長いことを","言った、","というだけのこと","だった。"],["放課後、","給食室の前を通った。","窓はやっぱりなかった。","中から、","鍋を洗う音が聞こえて","いた。"],["ぼくはその音を、","少しのあいだ聞いて","いた。","誰が聞いているかわから","ないというのは、","届かないということでは","なかった。"]],"summaries":["","","","","","","","","","","","","","","","","","","",""],"thesis":"誰にも聞かれていないと思っていた放送が、窓のない場所の誰かに届いていたと知り、発信することの意味を捉えなおす。","questions":[{"q":"主人公が「毎日天気の話をした」のはなぜですか。五十字以内で説明しなさい。","a":"誰かに聞かれていると思うと話す内容を選べなくなり、当たりさわりのない天気しか言えなかったから。"},{"q":"顧問の先生の話を聞いて、主人公はどのようなことを知りましたか。六十字以内で説明しなさい。","a":"窓のない給食室で働く人が、外の様子を知るために自分の天気の一言を毎日楽しみにしていたということ。"},{"q":"「誰が聞いているかわからないというのは、届かないということではなかった」とはどういうことですか。六十字以内で説明しなさい。","a":"反応が返ってこないから誰にも聞かれていないと思っていたが、実際には見えないところで受け取っている人がおり、手ごたえがないことと届いていないことは別だということ。"}]}];
 
-/* ============================================================
-   SEED PASSAGES — written for this app (original text)
-   paras: array of paragraphs; each paragraph is an array of chunks
-   ============================================================ */
-const SEEDS = [
-{
-  id:"seed-dougu", title:"道具と体", genre:"説明文", level:"標準",
-  paras:[
-    ["道具というものは","人間の体の延長だと","言われることがある。","ハンマーを握れば","腕が長く硬くなったように","感じられるし、","望遠鏡をのぞけば","目が遠くまで","届くようになる。","使い慣れた道具は、","いつのまにか","意識の外側へ出ていき、","まるで最初から","体の一部であったかのように","ふるまいはじめる。"],
-    ["しかし、","ここで注意しなければ","ならないことがある。","道具が体の一部に","なるということは、","同時に、","その道具なしでは","何かができなくなると","いうことでもあるからだ。","計算機を使い続けた人は","暗算をしなくなり、","地図アプリを使い続けた人は","道をおぼえなくなる。","便利さと引きかえに、","私たちは","自分の内側に","あったはずの能力を、","少しずつ外側へ","あずけていく。"],
-    ["これを単純に","「退化」と呼んでしまうのは、","おそらく","早すぎる。","文字を発明したとき、","人間は","長い物語を暗記する能力を","たしかに手放した。","けれども、","そのかわりに、","一人の人間が","一生かかっても","記憶しきれない量の知識を、","世代をこえて","積み上げる力を","手に入れた。","失われたものだけを","数えていては、","この取引の全体像は","見えてこない。"],
-    ["大切なのは、","何を外にあずけ、","何を自分の内側に","残しておくのかを、","自分で選びとることだろう。","すべてを抱えこもうとすれば","前に進めないし、","すべてをあずけてしまえば、","道具が壊れた日に","何も残らない。","道具に使われるのではなく","道具を使うというのは、","つまり","そういう選択を","引き受けるということなのである。"]
-  ],
-  summaries:[
-    "使い慣れた道具は体の一部になる",
-    "便利さと引きかえに能力を外へ預ける",
-    "失うだけでなく得るものもある",
-    "何を預け何を残すかを自分で選ぶ"
-  ],
-  thesis:"道具を使うとは、何を自分の内側に残すかを自分で選び、その選択を引き受けることである。",
-  questions:[
-    {q:"筆者が「退化と呼ぶのは早すぎる」と述べる理由を、文字の例をふまえて50字以内で説明しなさい。",
-     a:"文字によって暗記の能力は手放したが、そのかわりに一人では記憶しきれない知識を世代をこえて積み上げる力を得たから。"},
-    {q:"「すべてをあずけてしまえば、道具が壊れた日に何も残らない」とは、どういうことですか。40字以内で説明しなさい。",
-     a:"能力をすべて道具に任せると、自分の内側には何の力も残らず、道具を失った時に対応できなくなるということ。"},
-    {q:"この文章で筆者が最も言いたいことを、60字以内でまとめなさい。",
-     a:"道具は能力を外部に預けることと引きかえに新しい力を与えるが、何を預け何を自分に残すかは自分で選び、その選択に責任を持つべきだということ。"}
-  ]
-},
-{
-  id:"seed-jitensha", title:"自転車を直す", genre:"物語文", level:"やや難",
-  paras:[
-    ["夏休みの最後の週になって、","ぼくはようやく","自転車を直す気になった。","去年の秋に","チェーンが外れたまま、","物置の奥で","立てかけっぱなしに","なっていたやつだ。","直そうと思えば","いつでも直せた。","ただ、","直してしまうと、","それに乗って","どこかへ行かなければ","ならない気がして、","なんとなく","先延ばしにしていた。"],
-    ["物置の扉を開けると、","乾いた土のにおいがした。","自転車は、","記憶していたよりも","ずっと小さく見えた。","去年まではこれで","坂の上の団地まで","通っていたのに、","今はハンドルの位置が","低すぎて、","またがると膝が","前に出すぎてしまう。","体だけが勝手に大きくなって、","自転車が置いていかれた","みたいだった。"],
-    ["チェーンは思ったより","簡単にはまった。","軍手をはめた指で","ギアに引っかけて、","ペダルをゆっくり逆に回す。","かちり、と音がして、","歯車が噛み合った。","そのとたん、","後輪がなめらかに","空回りをはじめて、","ぼくは思わず手を止めた。","何も変わっていない。","去年と同じ音だ。","壊れていたのは","十秒で直る程度のことで、","それを一年近く","放っておいたのは、","ぼくのほうだった。"],
-    ["「乗らないなら、","そろそろ処分しても","いいんじゃないの」"],
-    ["いつのまにか","母が後ろに立っていた。","責めるような調子ではなく、","洗濯物を干す順番でも","決めるような声だった。","ぼくは軍手のまま","後輪を指ではじいて、","まだ回り続けている","タイヤを見ていた。"],
-    ["「乗るよ」"],
-    ["言ってしまってから、","自分でも少し驚いた。","乗る場所が","あるわけではない。","坂の上の団地には、","もう航太はいない。","三月に引っ越していって、","最初のうちは何度か","メッセージが来たけれど、","夏に入ってからは","ぱたりと止まっていた。","返さなかったのは","ぼくのほうだ。","「元気?」という三文字に、","どう返せばいいのか","わからなかった。","元気だと答えれば、","それで話が終わってしまう","気がした。"],
-    ["母は何も言わずに","家の中へ戻っていった。","ぼくはサドルの高さを","調節するレバーを探した。","ねじが錆びていて、","指の力では動かなかった。","物置の棚から","スパナを取り出して、","少しずつ回す。","二センチ上げて、","またがってみる。","まだ低い。","もう二センチ上げる。","そのくり返しを四度やって、","ようやく足がまっすぐ","下まで伸びるようになった。"],
-    ["ペダルを踏み出すと、","体が思ったよりも","高いところにあった。","景色の見え方が少し違う。","ブロック塀の向こうに、","去年は見えなかった","隣の家の庭木のてっぺんが","見えた。"],
-    ["坂の下まで来て、","ぼくは自転車を止めた。","ここから右に曲がれば","団地へ続く道で、","左に行けばコンビニだ。","右に行っても、","あの部屋にはもう","知らない誰かが住んでいる。","わかっている。","わかっているのに、","ハンドルは右を向いていた。"],
-    ["サドルが高くなった分、","坂はきつく感じた。","去年はもっと楽に","登れたはずなのに、","と思ってから、","そうではないことに気づいた。","去年は航太が横にいて、","しゃべりながら登っていたから、","きつさを数えて","いなかっただけだ。","一人で登る坂は、","ただ坂だった。"],
-    ["団地の前まで来て、","ぼくは自転車に","またがったまま、","五階の角の部屋を見上げた。","ベランダに、","見おぼえのない","水色のタオルが干してあった。","それを確かめたかったのだと、","そのときやっとわかった。","もう誰もいないということを、","画面の文字ではなく、","自分の目で","見ておきたかったのだ。"],
-    ["ポケットからスマホを出して、","三文字を打った。","打って、消して、","もう一度打った。"],
-    ["「元気」ではなく、","「自転車、直した」と送った。"],
-    ["返事を待たずに","ポケットにしまって、","ぼくは坂を下りはじめた。","下りは、","ブレーキをかけなければ","止まらないくらい速かった。"]
-  ],
-  summaries:[
-    "一年放置した自転車を直す気になった",
-    "自転車が小さく見え、体だけ成長していた",
-    "壊れていたのは十秒で直る程度のことだった",
-    "母が処分を提案する",
-    "母の声は責めるものではなかった",
-    "思わず「乗るよ」と答える",
-    "航太の引っ越しと返せなかったメッセージ",
-    "サドルを四度上げて高さを合わせる",
-    "去年は見えなかった景色が見えた",
-    "わかっていながらハンドルは右を向いた",
-    "坂のきつさは一人だからだと気づく",
-    "知らないタオルを見て不在を目で確かめた",
-    "打っては消し、また打つ",
-    "「自転車、直した」と送る",
-    "返事を待たずに坂を下りはじめた"
-  ],
-  thesis:"別れを直視することを避けていた主人公が、自分の目で不在を確かめ、自分から関係を結び直そうとするまでの変化。",
-  questions:[
-    {q:"この文章全体を通しての主人公の心情の変化を、40字以内で説明しなさい。",
-     a:"別れを直視するのを避けていたが、実際に確かめることで受け入れ、自分から関係を結び直そうとする気持ちに変わった。"},
-    {q:"「一人で登る坂は、ただ坂だった」から、主人公が気づいたことは何ですか。50字以内で説明しなさい。",
-     a:"去年の坂の楽しさは坂そのものではなく航太と一緒だったことによるもので、失ったのは道ではなく相手だったということ。"},
-    {q:"主人公が「元気」ではなく「自転車、直した」と送ったのはなぜですか。60字以内で説明しなさい。",
-     a:"「元気?」のような当たり障りのない言葉では会話が終わってしまうため、自分の側から具体的な出来事を伝え、続きのある関係を作ろうとしたから。"}
-  ]
-}
-];
+const LSK="chunkreader.v2";
+let store={logs:[],generated:[],lastId:null,theme:null,speed:450,wm:"v"};
+let passages=SEEDS.slice(), cur=null, sampleFn=null;
 
-/* ============================================================
-   STATE
-   ============================================================ */
-const LSK = "chunkreader.v1";
-let store = { logs:[], generated:[], lastId:null, theme:null, speed:450 };
-let passages = SEEDS.slice();
-let cur = null;
-let sampleFn = null;
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+const flat=p=>p.paras.flat();
+const charCount=p=>flat(p).join("").length;
+const plainParas=p=>p.paras.map(a=>a.join(""));
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rnd=n=>Math.floor(Math.random()*n);
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 function loadStore(){
-  try{
-    const raw = localStorage.getItem(LSK);
-    if(raw){ const o = JSON.parse(raw); if(o && typeof o==="object") store = Object.assign(store,o); }
-  }catch(e){}
-  if(Array.isArray(store.generated)) passages = SEEDS.concat(store.generated);
-  if(store.theme) document.documentElement.setAttribute("data-theme", store.theme);
+  try{const r=localStorage.getItem(LSK); if(r){const o=JSON.parse(r); if(o&&typeof o==="object") store=Object.assign(store,o);} }catch(e){}
+  if(Array.isArray(store.generated)) passages=SEEDS.concat(store.generated);
+  if(store.theme) document.documentElement.setAttribute("data-theme",store.theme);
 }
-function saveStore(){
-  try{ localStorage.setItem(LSK, JSON.stringify(store)); }catch(e){}
-}
+function saveStore(){ try{ localStorage.setItem(LSK,JSON.stringify(store)); }catch(e){} }
 
-/* ---------- helpers ---------- */
-const $ = s => document.querySelector(s);
-const $$ = s => Array.from(document.querySelectorAll(s));
-const flat = p => p.paras.flat();
-const plainParas = p => p.paras.map(a=>a.join(""));
-const charCount = p => flat(p).join("").length;
-const fmt = sec => Math.floor(sec/60)+":"+String(Math.floor(sec%60)).padStart(2,"0");
-function speedOf(chars, sec){ return sec>0 ? Math.round(chars/sec*60) : 0; }
-function verdictOf(sp){
-  if(sp>=800) return {mk:"◎◎", t:"難関校目標達成", c:"var(--good)"};
-  if(sp>=700) return {mk:"◎", t:"余裕あり", c:"var(--good)"};
-  if(sp>=600) return {mk:"○", t:"合格ライン", c:"var(--good)"};
-  if(sp>=500) return {mk:"△", t:"あと一歩", c:"var(--warn)"};
-  return {mk:"⚠️", t:"要訓練（②に戻る）", c:"var(--warn)"};
-}
-
-/* ============================================================
-   NAV
-   ============================================================ */
-$$("nav button").forEach(b=>{
-  b.addEventListener("click", ()=>{
-    $$("nav button").forEach(x=>x.classList.remove("on"));
-    b.classList.add("on");
-    $$(".view").forEach(v=>v.classList.remove("on"));
-    $("#v-"+b.dataset.v).classList.add("on");
-    window.scrollTo(0,0);
-    if(b.dataset.v==="s1") renderS1();
-    if(b.dataset.v==="s2") renderS2();
-    if(b.dataset.v==="s3") renderS3();
-    if(b.dataset.v==="log") renderLog();
+/* ---------- 縦書き／横書き ---------- */
+function isVert(){ return store.wm!=="h"; }
+function applyWM(){
+  const v=isVert();
+  $("#wmBtn").textContent = v ? "縦" : "横";
+  [["#slashed","#hint1"],["#readText","#hint2"]].forEach(([t,h])=>{
+    const el=$(t); if(el) el.classList.toggle("vert",v);
+    const hi=$(h); if(hi) hi.textContent = v ? "← 指で左右にスワイプして読み進めます" : "";
   });
-});
-
-$("#themeBtn").addEventListener("click", ()=>{
-  const el = document.documentElement;
-  const now = el.getAttribute("data-theme");
-  const next = now==="dark" ? "light" : now==="light" ? null : "dark";
-  if(next) el.setAttribute("data-theme", next); else el.removeAttribute("data-theme");
-  store.theme = next; saveStore();
-});
-
-/* ============================================================
-   PASSAGE PICKER / HOME
-   ============================================================ */
-function setCur(p){
-  cur = p; store.lastId = p.id; saveStore();
-  $("#curInfo").innerHTML =
-    "<b style='color:var(--text);font-size:15px'>"+esc(p.title)+"</b><br>"+
-    "<span class='pill'>"+esc(p.genre)+"</span>"+
-    "<span class='pill'>"+esc(p.level||"標準")+"</span>"+
-    "<span class='pill'>"+charCount(p)+"字</span>"+
-    (p.fresh?"<span class='pill on'>新規生成</span>":"");
-  resetS3();
+  $("#flash").classList.toggle("vert", v && !$("#flash").classList.contains("done"));
 }
-function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+$("#wmBtn").addEventListener("click",()=>{ store.wm=isVert()?"h":"v"; saveStore(); applyWM(); });
+$("#themeBtn").addEventListener("click",()=>{
+  const el=document.documentElement,n=el.getAttribute("data-theme");
+  const nx=n==="dark"?"light":n==="light"?null:"dark";
+  if(nx) el.setAttribute("data-theme",nx); else el.removeAttribute("data-theme");
+  store.theme=nx; saveStore();
+});
 
+/* ---------- ナビ ---------- */
+$$("nav button").forEach(b=>b.addEventListener("click",()=>{
+  $$("nav button").forEach(x=>x.classList.remove("on")); b.classList.add("on");
+  $$(".view").forEach(v=>v.classList.remove("on")); $("#v-"+b.dataset.v).classList.add("on");
+  window.scrollTo(0,0);
+  if(b.dataset.v==="s1") renderS1();
+  if(b.dataset.v==="s2") renderS2();
+  if(b.dataset.v==="log") renderLog();
+}));
+
+/* ---------- 教材 ---------- */
+const SCHOOLS=["麻布","武蔵","駒場東邦","早稲田中","慶應義塾中等部","早稲田実業","学習院中等科","中央大学附属横浜"];
+function lenClassOf(p){ if(p.lenClass) return p.lenClass; const n=charCount(p); return n<600?"短め":n<1000?"標準":"長め"; }
+function schoolOf(p){ return p.school || "汎用"; }
+
+function setCur(p){
+  cur=p; store.lastId=p.id; saveStore();
+  $("#curInfo").innerHTML="<b style='color:var(--text);font-size:15px'>"+esc(p.title)+"</b><br>"+
+    (p.school?"<span class='pill on'>"+esc(p.school)+"</span>":"<span class='pill'>汎用"+(p.level?"・"+esc(p.level):"")+"</span>")+
+    "<span class='pill'>"+esc(p.genre)+"</span>"+
+    "<span class='pill'>"+esc(lenClassOf(p))+" "+charCount(p)+"字</span>"+
+    (p.target?"<span class='pill'>目標 "+p.target+"字/分</span>":"");
+  resetS2();
+}
+
+/* 作り置き表 */
+function renderPlan(){
+  let h="<tr><th>学校</th><th>計画</th><th>現在</th></tr>",have=0,want=0;
+  SCHOOLS.forEach(s=>{
+    const c=passages.filter(p=>p.school===s).length; have+=Math.min(c,3); want+=3;
+    h+="<tr"+(c>=3?" class='hl'":"")+"><td>"+esc(s)+"</td><td class='num'>3</td><td class='num'>"+c+(c>=3?" ✓":"")+"</td></tr>";
+  });
+  const g=passages.filter(p=>!p.school).length;
+  h+="<tr><td>汎用</td><td class='num'>—</td><td class='num'>"+g+"</td></tr>";
+  $("#planTable").innerHTML=h;
+  $("#planTotal").textContent="学校別 "+have+" / "+want+" 本　（全体 "+passages.length+" 本）";
+}
+
+/* 教材ピッカー */
+let filt={school:"すべて",len:"すべて"};
+function buildFilters(){
+  const mk=(id,arr,key)=>{const el=$(id);el.innerHTML="";arr.forEach(v=>{
+    const b=document.createElement("button");b.textContent=v;
+    if(filt[key]===v)b.classList.add("on");
+    b.addEventListener("click",()=>{filt[key]=v;buildFilters();renderPickList();});
+    el.appendChild(b);});};
+  mk("#fSchool",["すべて"].concat(SCHOOLS,["汎用","自前"]),"school");
+  mk("#fLen",["すべて","短め","標準","長め"],"len");
+}
 function renderPickList(){
-  const el = $("#pickList"); el.innerHTML="";
-  passages.forEach(p=>{
-    const b = document.createElement("button");
-    b.className = "btn sec sm";
-    b.style.cssText="width:100%;justify-content:flex-start;margin-bottom:6px;text-align:left";
-    b.innerHTML = "<span style='flex:1'>"+esc(p.title)+"</span><span class='muted' style='font-size:11px'>"+esc(p.genre)+" / "+charCount(p)+"字</span>";
-    b.addEventListener("click", ()=>{ setCur(p); $("#pickPanel").classList.add("hidden"); });
+  const el=$("#pickList");el.innerHTML="";
+  const list=passages.filter(p=>{
+    const s=p.pasted||String(p.id).startsWith("json-")||String(p.id).startsWith("gen-") ? "自前" : schoolOf(p);
+    return (filt.school==="すべて"||s===filt.school||(filt.school!=="自前"&&schoolOf(p)===filt.school))
+      && (filt.len==="すべて"||lenClassOf(p)===filt.len);
+  });
+  list.forEach(p=>{
+    const b=document.createElement("button");
+    b.className="btn sec sm";
+    b.style.cssText="width:100%;justify-content:flex-start;margin-bottom:6px;text-align:left;gap:8px";
+    b.innerHTML="<span style='flex:1'>"+esc(p.title)+"</span><span class='muted' style='font-size:11px;white-space:nowrap'>"+
+      esc(schoolOf(p))+" / "+esc(p.genre)+" / "+charCount(p)+"字</span>";
+    b.addEventListener("click",()=>{setCur(p);$("#pickPanel").classList.add("hidden");});
     el.appendChild(b);
   });
+  $("#pickCount").textContent=list.length?list.length+"本":"この条件の教材はありません。";
 }
-$("#pickBtn").addEventListener("click", ()=>{
-  renderPickList();
-  $("#genPanel").classList.add("hidden");
-  $("#pastePanel").classList.add("hidden");
+$("#pickBtn").addEventListener("click",()=>{
+  buildFilters();renderPickList();
+  $("#genPanel").classList.add("hidden");$("#pastePanel").classList.add("hidden");
   $("#pickPanel").classList.toggle("hidden");
 });
 
-/* ---------- paste your own text ---------- */
-const PGENRE = ["説明文","物語文","随筆文"];
-let pasteGenreSel = "説明文";
-function buildPasteGenre(){
-  const el = $("#pasteGenre"); el.innerHTML="";
-  PGENRE.forEach(v=>{
-    const b=document.createElement("button"); b.textContent=v;
-    if(pasteGenreSel===v) b.classList.add("on");
-    b.addEventListener("click",()=>{ pasteGenreSel=v; buildPasteGenre(); });
-    el.appendChild(b);
-  });
-}
-$("#pasteBtn").addEventListener("click", ()=>{
-  buildPasteGenre();
-  $("#genPanel").classList.add("hidden");
-  $("#pickPanel").classList.add("hidden");
+/* ---------- 文章を貼る ---------- */
+const PGENRE=["説明文","物語文","随筆文"]; let pGenre="説明文";
+function buildPG(){const el=$("#pasteGenre");el.innerHTML="";PGENRE.forEach(v=>{
+  const b=document.createElement("button");b.textContent=v;if(pGenre===v)b.classList.add("on");
+  b.addEventListener("click",()=>{pGenre=v;buildPG();});el.appendChild(b);});}
+$("#pasteBtn").addEventListener("click",()=>{
+  buildPG();$("#genPanel").classList.add("hidden");$("#pickPanel").classList.add("hidden");
   $("#pastePanel").classList.toggle("hidden");
 });
-
-/* Japanese chunker: split a paragraph into 6-12 char meaning units */
-const BREAK_AFTER = ["、","。","！","？","」","）"];
-const PARTICLE_TAILS = ["ので","のに","から","まで","より","ては","ても","けれど","ながら","ように","という","こそ","など","ほど","だけ","しか","は","が","を","に","へ","と","で","も","や","ば","て","し"];
-function chunkParagraph(text){
-  const out = [];
-  let buf = "", lastCand = -1;
-  const MIN = 5, IDEAL = 11, MAX = 15;
-  const flush = (upto)=>{
-    if(upto!=null && upto>0 && upto<buf.length){
-      out.push(buf.slice(0,upto)); buf = buf.slice(upto);
-    } else if(buf){ out.push(buf); buf=""; }
-    lastCand = -1;
-  };
+const BRK=["、","。","！","？","」","）"];
+const TAILS=["ので","のに","から","まで","より","ては","ても","けれど","ながら","ように","という","こそ","など","ほど","だけ","しか","は","が","を","に","へ","と","で","も","や","ば","て","し"];
+function chunkPara(text){
+  const out=[];let buf="",last=-1;const MIN=5,IDEAL=11,MAX=15;
+  const flush=u=>{if(u!=null&&u>0&&u<buf.length){out.push(buf.slice(0,u));buf=buf.slice(u);}else if(buf){out.push(buf);buf="";}last=-1;};
   for(let i=0;i<text.length;i++){
-    const c = text[i];
-    buf += c;
-    if(BREAK_AFTER.includes(c)){
-      // punctuation: pull along a following closing mark
-      const nx = text[i+1];
-      if(nx && (nx==="」"||nx==="』"||nx==="）")) continue;
-      flush(); continue;
-    }
-    if(buf.length >= MIN){
-      for(const t of PARTICLE_TAILS){
-        if(buf.endsWith(t)){
-          const nx = text[i+1];
-          // avoid breaking inside a word: next char should not be a small kana / continuation
-          if(nx && "ぁぃぅぇぉっゃゅょんー".includes(nx)) break;
-          lastCand = buf.length;
-          break;
-        }
-      }
-    }
-    if(buf.length >= IDEAL && lastCand >= MIN){ flush(lastCand); continue; }
-    if(buf.length >= MAX){ flush(lastCand >= MIN ? lastCand : null); }
+    const c=text[i];buf+=c;
+    if(BRK.includes(c)){const nx=text[i+1];if(nx&&(nx==="」"||nx==="』"||nx==="）"))continue;flush();continue;}
+    if(buf.length>=MIN){for(const t of TAILS){if(buf.endsWith(t)){const nx=text[i+1];if(nx&&"ぁぃぅぇぉっゃゅょんー".includes(nx))break;last=buf.length;break;}}}
+    if(buf.length>=IDEAL&&last>=MIN){flush(last);continue;}
+    if(buf.length>=MAX){flush(last>=MIN?last:null);}
   }
-  if(buf) out.push(buf);
-  // merge very short trailing fragments
-  const merged = [];
-  out.forEach(c=>{
-    if(merged.length && c.length <= 2 && merged[merged.length-1].length + c.length <= MAX){
-      merged[merged.length-1] += c;
-    } else merged.push(c);
-  });
-  return merged;
+  if(buf)out.push(buf);
+  const m=[];out.forEach(c=>{if(m.length&&c.length<=2&&m[m.length-1].length+c.length<=MAX)m[m.length-1]+=c;else m.push(c);});
+  return m;
 }
-function passageFromText(raw, title, genre){
-  const clean = String(raw).replace(/\r/g,"").replace(/[ \t\u3000]+/g," ").trim();
-  if(!clean) return null;
-  const paras = clean.split(/\n+/).map(s=>s.trim()).filter(s=>s.length>0);
-  if(!paras.length) return null;
-  const chunked = paras.map(chunkParagraph).filter(a=>a.length);
-  if(!chunked.length) return null;
-  return {
-    id: "paste-"+Date.now(),
-    title: (title||"").trim() || ("貼り付け "+new Date().toISOString().slice(5,10)),
-    genre: genre, level: "自前", pasted: true,
-    paras: chunked,
-    summaries: chunked.map(()=>""),
-    thesis: "",
-    questions: [
-      {q:"この文章の要点を、筆者の主張（物語なら主人公の心情の変化）に注目して60字以内でまとめなさい。", a:"（模範解答なし。塾の解答や保護者の採点と照らしてください）"},
-      {q:"各段落の要点を15字以内で書き出し、つなげて200字要約を作りなさい。", a:"（模範解答なし）"}
-    ]
-  };
+function fromText(raw,title,genre){
+  const clean=String(raw).replace(/\r/g,"").replace(/[ \t\u3000]+/g," ").trim();
+  if(!clean)return null;
+  const paras=clean.split(/\n+/).map(s=>s.trim()).filter(Boolean).map(chunkPara).filter(a=>a.length);
+  if(!paras.length)return null;
+  return {id:"paste-"+Date.now(),title:(title||"").trim()||("貼り付け "+new Date().toISOString().slice(5,10)),
+    genre,school:"",level:"",lenClass:"",target:0,pasted:true,paras,summaries:paras.map(()=>""),thesis:"",
+    questions:[{q:"この文章の要点を、筆者の主張（物語なら主人公の心情の変化）に注目して六十字以内でまとめなさい。",a:"（模範解答なし）"}]};
 }
-function passageFromJSON(raw){
-  let d;
-  try{ d = JSON.parse(String(raw).trim()); }catch(e){ return null; }
-  if(!d || typeof d!=="object" || !Array.isArray(d.paras)) return null;
-  const paras = d.paras.map(a=>Array.isArray(a)?a.map(String).filter(Boolean):null).filter(a=>a&&a.length);
-  if(!paras.length) return null;
-  let sums = Array.isArray(d.summaries)?d.summaries.map(String):[];
-  while(sums.length<paras.length) sums.push("");
-  const qs = (Array.isArray(d.questions)?d.questions:[]).filter(q=>q&&q.q).map(q=>({q:String(q.q),a:String(q.a||"")}));
-  return {
-    id:"json-"+Date.now(),
-    title:String(d.title||"無題").slice(0,24),
-    genre:String(d.genre||"説明文"),
-    level:String(d.school||d.level||"—"),
-    school:d.school?String(d.school):"",
-    target:Number(d.target)||0,
-    paras, summaries:sums.slice(0,paras.length),
-    thesis:String(d.thesis||""),
-    questions: qs.length?qs:[{q:"この文章の主題を60字以内でまとめなさい。",a:String(d.thesis||"")}]
-  };
+function fromJSON(raw){
+  let d;try{d=JSON.parse(String(raw).trim());}catch(e){return null;}
+  if(!d||typeof d!=="object"||!Array.isArray(d.paras))return null;
+  const paras=d.paras.map(a=>Array.isArray(a)?a.map(String).filter(Boolean):null).filter(a=>a&&a.length);
+  if(!paras.length)return null;
+  let s=Array.isArray(d.summaries)?d.summaries.map(String):[];
+  while(s.length<paras.length)s.push("");
+  const qs=(Array.isArray(d.questions)?d.questions:[]).filter(q=>q&&q.q).map(q=>({q:String(q.q),a:String(q.a||"")}));
+  return {id:"json-"+Date.now(),title:String(d.title||"無題").slice(0,24),genre:String(d.genre||"説明文"),
+    school:String(d.school||""),level:String(d.level||""),lenClass:String(d.lenClass||""),target:Number(d.target)||0,
+    paras,summaries:s.slice(0,paras.length),thesis:String(d.thesis||""),
+    questions:qs.length?qs:[{q:"この文章の主題を六十字以内でまとめなさい。",a:String(d.thesis||"")}]};
 }
-$("#pasteGo").addEventListener("click", ()=>{
-  const raw = $("#pasteText").value;
-  const looksJson = /^\s*\{/.test(raw);
-  const p = looksJson ? passageFromJSON(raw) : passageFromText(raw, $("#pasteTitle").value, pasteGenreSel);
-  if(!p){
-    $("#pasteMsg").textContent = looksJson
-      ? "JSONを読み取れませんでした。ジェネレーターの内容をすべてコピーできているか確認してください。"
-      : "本文が読み取れませんでした。";
-    return;
-  }
-  if(looksJson && $("#pasteTitle").value.trim()) p.title = $("#pasteTitle").value.trim();
-  store.generated = (store.generated||[]).concat([p]).slice(-12);
-  passages = SEEDS.concat(store.generated);
-  saveStore();
-  setCur(p);
-  $("#pasteMsg").textContent = "「"+p.title+"」（"+charCount(p)+"字・"+flat(p).length+"チャンク"+(looksJson?"・模範解答つき":"・自動分割")+"）を教材にしました。";
-  $("#pasteText").value = ""; $("#pasteTitle").value = "";
+$("#pasteGo").addEventListener("click",()=>{
+  const raw=$("#pasteText").value, isJ=/^\s*\{/.test(raw);
+  const p=isJ?fromJSON(raw):fromText(raw,$("#pasteTitle").value,pGenre);
+  if(!p){$("#pasteMsg").textContent=isJ?"JSONを読み取れませんでした。":"本文が読み取れませんでした。";return;}
+  if(isJ&&$("#pasteTitle").value.trim())p.title=$("#pasteTitle").value.trim();
+  store.generated=(store.generated||[]).concat([p]).slice(-20);
+  passages=SEEDS.concat(store.generated);saveStore();setCur(p);renderPlan();
+  $("#pasteMsg").textContent="「"+p.title+"」（"+charCount(p)+"字）を取り込みました。";
+  $("#pasteText").value="";$("#pasteTitle").value="";
 });
 
-/* ---------- generation options ---------- */
-const GEN = {
-  genre:["説明文","物語文","随筆文"],
-  level:["標準（四谷偏差55前後）","やや難（偏差60前後）","難関（麻布・武蔵レベル）"],
-  len:["短め 600字","標準 1200字","長め 2000字"]
-};
-let genSel = {genre:"説明文", level:"難関（麻布・武蔵レベル）", len:"標準 1200字"};
-function buildSel(id, arr, key){
-  const el = $(id); el.innerHTML="";
-  arr.forEach(v=>{
-    const b=document.createElement("button");
-    b.textContent=v; if(genSel[key]===v) b.classList.add("on");
-    b.addEventListener("click",()=>{ genSel[key]=v; buildSel(id,arr,key); });
-    el.appendChild(b);
-  });
+/* ---------- AI生成 ---------- */
+let gSchool="麻布",gLen="標準 1300字";
+function buildGen(){
+  const mk=(id,arr,get,set)=>{const el=$(id);el.innerHTML="";arr.forEach(v=>{
+    const b=document.createElement("button");b.textContent=v;if(get()===v)b.classList.add("on");
+    b.addEventListener("click",()=>{set(v);buildGen();});el.appendChild(b);});};
+  mk("#genSchool",SCHOOLS.concat(["指定なし"]),()=>gSchool,v=>gSchool=v);
+  mk("#genLen",["短め 700字","標準 1300字","長め 2000字"],()=>gLen,v=>gLen=v);
 }
-$("#genBtn").addEventListener("click", ()=>{
-  buildSel("#genGenre",GEN.genre,"genre");
-  buildSel("#genLevel",GEN.level,"level");
-  buildSel("#genLen",GEN.len,"len");
-  $("#pickPanel").classList.add("hidden");
-  $("#pastePanel").classList.add("hidden");
+$("#genBtn").addEventListener("click",()=>{
+  buildGen();$("#pickPanel").classList.add("hidden");$("#pastePanel").classList.add("hidden");
   $("#genPanel").classList.toggle("hidden");
 });
-
-const GEN_PROMPT = (g)=>`あなたは中学受験国語の教材作成者です。難関中学（麻布・武蔵・駒場東邦など）の入試で出題されそうな文章を、著作権のある既存作品を一切引用せず、完全な書き下ろしオリジナルとして1本作ってください。
-
-条件:
-- ジャンル: ${g.genre}
-- 難易度: ${g.level}
-- 総字数: ${g.len}（句読点を含む。±15%以内）
-- 説明文なら抽象的・哲学的なテーマ（時間、言葉、記憶、自然と人間、共同体など）。物語文なら小学6年生〜中学生の主人公の、喪失・自立・友人関係の機微を扱う。随筆文なら具体的な体験から一般的な思索へ展開する。
-- 小学6年生が読める漢字と語彙。ただし内容は平易にしすぎない。
-- 会話文は「」で。段落は6〜14個。
-
-出力は次の形のJSONオブジェクトのみ。前後に説明文を付けないこと。
-
-{
- "title": "8字以内の題",
- "genre": "${g.genre}",
- "paras": [ ["チャンク","チャンク", ...], ... ],
- "summaries": ["各段落の要点15字以内", ...],
- "thesis": "説明文なら筆者の主張、物語文なら主人公の心情変化を60字以内で",
- "questions": [ {"q":"設問文","a":"模範解答"}, {"q":"...","a":"..."}, {"q":"...","a":"..."} ]
-}
-
-最重要ルール — "paras" の作り方:
-本文を段落ごとの配列にし、さらに各段落を「意味のかたまり（チャンク）」の配列に分割してください。チャンクを順に連結すると元の本文が一字も欠けずに復元できること。改行や空白は入れない。
-チャンクの分け方:
-- 1チャンクは6〜12字を目安（会話文の短い行はそれ未満でも可）
-- 主語のかたまりの直後（〜は／〜が）、修飾のかたまりの直後、接続語の直後（しかし／つまり／だから）、述語の直前で切る
-- 句点「。」はその直前のチャンクの末尾に含める
-例: ["少年は","黙ったまま","川の向こう岸を","見つめていた。"]
-
-"summaries" は paras と同じ要素数。"questions" は3問で、記述式（30〜60字）にし、うち1問は文章全体の主題を問うこと。`;
-
-async function generate(){
-  if(!sampleFn){ $("#genStatus").textContent = "この画面では文章生成が使えません。内蔵教材をお使いください。"; return; }
-  const st = $("#genStatus");
-  st.innerHTML = '<span class="spin"></span> 生成中…（30〜90秒）';
-  $("#genGo").disabled = true;
+$("#genGo").addEventListener("click",async()=>{
+  if(!sampleFn){$("#genStatus").textContent="この環境では生成が使えません。";return;}
+  $("#genGo").disabled=true;$("#genStatus").innerHTML='<span class="spin"></span> 生成中…';
+  const pr=`中学受験（${gSchool}）の国語入試風の文章を、既存作品を引用しない書き下ろしで1本作ってください。総字数${gLen}（±15%）。小学6年生が読める漢字・語彙。段落8〜16。
+出力は次のJSONのみ:
+{"title":"10字以内","genre":"説明文|物語文|随筆文","paras":[["チャンク",...],...],"thesis":"60字以内","questions":[{"q":"","a":""},{"q":"","a":""},{"q":"","a":""}]}
+parasは本文を段落ごと、さらに意味のかたまり6〜12字に分けた配列。連結すると元の本文が一字も欠けず復元できること。主語のかたまりの直後・修飾のかたまりの直後・接続語の直後・述語の直前で切る。句読点は直前のチャンク末尾に含める。`;
   try{
-    const data = await sampleFn.json(GEN_PROMPT(genSel), {modelTier:"complex", cache:false});
-    const p = normalize(data);
-    if(!p) throw {code:"bad_shape"};
-    p.id = "gen-"+Date.now();
-    p.level = genSel.level;
-    p.fresh = true;
-    store.generated = (store.generated||[]).concat([p]).slice(-12);
-    passages = SEEDS.concat(store.generated);
-    saveStore();
-    setCur(p);
-    st.textContent = "「"+p.title+"」（"+charCount(p)+"字）を作りました。①から始めてください。";
+    const d=await sampleFn.json(pr,{modelTier:"complex",cache:false});
+    const p=fromJSON(JSON.stringify(d));
+    if(!p)throw{code:"bad"};
+    p.id="gen-"+Date.now();p.school=gSchool==="指定なし"?"":gSchool;p.target=0;
+    store.generated=(store.generated||[]).concat([p]).slice(-20);
+    passages=SEEDS.concat(store.generated);saveStore();setCur(p);renderPlan();
+    $("#genStatus").textContent="「"+p.title+"」を作りました。";
     $("#genPanel").classList.add("hidden");
-  }catch(e){
-    const code = e && e.code;
-    const msg =
-      code==="not_granted"||code==="sampling_disabled" ? "文章生成の利用が許可されていません。内蔵教材をお使いください。" :
-      code==="rate_limited" ? "回数の上限に達しました。しばらく待ってからお試しください。" :
-      code==="invalid_json"||code==="bad_shape" ? "うまく作れませんでした。もう一度お試しください。" :
-      code==="cancelled" ? "中止しました。" :
-      "生成に失敗しました。もう一度お試しください。";
-    st.textContent = msg;
-  }finally{
-    $("#genGo").disabled = false;
-  }
-}
-function normalize(d){
-  try{
-    if(!d || !Array.isArray(d.paras)) return null;
-    const paras = d.paras
-      .map(a=>Array.isArray(a) ? a.map(x=>String(x)).filter(Boolean) : null)
-      .filter(a=>a && a.length);
-    if(!paras.length) return null;
-    const n = paras.length;
-    let sums = Array.isArray(d.summaries) ? d.summaries.map(String) : [];
-    while(sums.length < n) sums.push("");
-    sums = sums.slice(0,n);
-    const qs = (Array.isArray(d.questions)?d.questions:[])
-      .filter(q=>q && q.q).map(q=>({q:String(q.q), a:String(q.a||"")}));
-    return {
-      title: String(d.title||"無題").slice(0,20),
-      genre: String(d.genre||genSel.genre),
-      paras, summaries:sums,
-      thesis: String(d.thesis||""),
-      questions: qs.length?qs:[{q:"この文章の主題を60字以内でまとめなさい。", a:String(d.thesis||"")}]
-    };
-  }catch(e){ return null; }
-}
-$("#genGo").addEventListener("click", generate);
+  }catch(e){ $("#genStatus").textContent="生成に失敗しました。もう一度お試しください。"; }
+  finally{ $("#genGo").disabled=false; }
+});
 
-/* ============================================================
-   STEP 1 — slash drill
-   ============================================================ */
-let s1 = {sents:[], idx:0, set:new Set(), checked:false};
-
-function buildSentences(p){
-  // For each paragraph: chunk-end offsets -> split into sentences at 。 or 」
-  const out = [];
-  p.paras.forEach(chunks=>{
-    const text = chunks.join("");
-    const bnd = new Set();
-    let acc = 0;
-    for(let i=0;i<chunks.length-1;i++){ acc += chunks[i].length; bnd.add(acc); }
-    // sentence split
-    let start = 0;
-    for(let i=0;i<text.length;i++){
-      const c = text[i];
-      const nxt = text[i+1];
-      const isEnd = (c==="。" && nxt!=="」") || (c==="」") || (c==="？") || (c==="！");
-      if(isEnd || i===text.length-1){
-        const s = start, e = i+1;
-        const body = text.slice(s,e);
-        if(body.replace(/[\s]/g,"").length >= 12){
-          const local = [];
-          bnd.forEach(b=>{ if(b>s && b<e) local.push(b-s); });
-          local.sort((a,b)=>a-b);
-          if(local.length>=2) out.push({text:body, model:local});
-        }
-        start = e;
-      }
-    }
-  });
-  return out.slice(0, 12);
-}
-
+/* ============ ① チャンク送り ============ */
+let s1={chunks:[],i:0,timer:null,playing:false,seen:false};
 function renderS1(){
-  if(!cur) return;
-  s1.sents = buildSentences(cur);
-  if(s1.idx >= s1.sents.length) s1.idx = 0;
-  drawS1();
-}
-function drawS1(){
-  const box = $("#s1Sent");
-  $("#s1Result").textContent = "";
-  $("#s1Legend").innerHTML = "";
-  if(!s1.sents.length){ box.textContent = "この教材では短文が取れませんでした。別の教材を選んでください。"; $("#s1Count").textContent=""; return; }
-  const s = s1.sents[s1.idx];
-  s1.set = new Set(); s1.checked = false;
-  box.innerHTML = "";
-  for(let i=0;i<s.text.length;i++){
-    const ch = document.createElement("span");
-    ch.className="ch"; ch.textContent = s.text[i];
-    box.appendChild(ch);
-    if(i < s.text.length-1){
-      const g = document.createElement("span");
-      g.className="gap"; g.dataset.i = String(i+1);
-      g.addEventListener("click", ()=>{
-        if(s1.checked) return;
-        const k = Number(g.dataset.i);
-        if(s1.set.has(k)){ s1.set.delete(k); g.classList.remove("set"); }
-        else { s1.set.add(k); g.classList.add("set"); }
-      });
-      box.appendChild(g);
-    }
-  }
-  $("#s1Count").textContent = (s1.idx+1)+" / "+s1.sents.length+"　"+s.text.length+"字";
-}
-$("#s1Prev").addEventListener("click", ()=>{ if(!s1.sents.length)return; s1.idx=(s1.idx-1+s1.sents.length)%s1.sents.length; drawS1(); });
-$("#s1Next").addEventListener("click", ()=>{ if(!s1.sents.length)return; s1.idx=(s1.idx+1)%s1.sents.length; drawS1(); });
-$("#s1Clear").addEventListener("click", ()=>{ drawS1(); });
-$("#s1Check").addEventListener("click", ()=>{
-  if(!s1.sents.length || s1.checked) return;
-  const s = s1.sents[s1.idx];
-  const model = new Set(s.model);
-  s1.checked = true;
-  let hit=0, miss=0, extra=0;
-  $$("#s1Sent .gap").forEach(g=>{
-    const k = Number(g.dataset.i);
-    g.classList.remove("set");
-    if(model.has(k) && s1.set.has(k)){ g.classList.add("hit"); hit++; }
-    else if(model.has(k)){ g.classList.add("miss"); miss++; }
-    else if(s1.set.has(k)){ g.classList.add("extra"); extra++; }
-  });
-  $("#s1Legend").innerHTML =
-    "<span><i style='background:var(--good)'></i>一致 "+hit+"</span>"+
-    "<span><i style='background:var(--warn)'></i>模範にあって入れ忘れ "+miss+"</span>"+
-    "<span><i style='background:var(--warn);opacity:.4'></i>模範にない切れ目 "+extra+"</span>";
-  const model2 = s.model.slice();
-  let out="", prev=0;
-  model2.forEach(b=>{ out += s.text.slice(prev,b)+"／"; prev=b; });
-  out += s.text.slice(prev);
-  const rate = model2.length ? Math.round(hit/model2.length*100) : 0;
-  const judge = rate>=70 ? "よい切り方です。" : rate>=40 ? "方向は合っています。もう少し細かく切ってみましょう。" : "1チャンク6〜12字を意識して切り直してみましょう。";
-  $("#s1Result").innerHTML =
-    "<b style='color:var(--text)'>一致率 "+rate+"%</b>　"+judge+
-    "<div style='margin-top:8px;font-family:var(--serif);font-size:15px;line-height:2;color:var(--text)'>【模範】"+esc(out)+"</div>"+
-    "<div style='margin-top:6px'>1〜2箇所のずれは正解です。</div>";
-});
-
-/* ============================================================
-   STEP 2 — chunk flash
-   ============================================================ */
-let s2 = {chunks:[], i:0, timer:null, playing:false};
-
-function renderS2(){
-  if(!cur) return;
-  s2.chunks = flat(cur);
-  s2.i = 0; stopS2();
-  $("#s2Flash").textContent = "▶ を押すと始まります";
-  $("#s2Flash").classList.remove("done");
-  $("#s2Prog").style.width = "0%";
-  $("#s2Speed").value = store.speed || 450;
-  $("#s2SpeedLbl").textContent = ($("#s2Speed").value)+"字/分";
-  const chars = charCount(cur);
-  const sp = Number($("#s2Speed").value);
-  $("#s2Meta").textContent = cur.title+"／"+chars+"字・"+s2.chunks.length+"チャンク　この速度での通読目安 "+fmt(chars/sp*60);
-  // slashed text
-  $("#s2Slashed").innerHTML = cur.paras.map(a=>"<p>"+esc(a.join("／"))+"</p>").join("");
-  // summaries
-  const el = $("#s2Sum"); el.innerHTML="";
+  if(!cur)return;
+  s1.chunks=flat(cur);s1.i=0;stopS1();
+  $("#flash").classList.remove("done");$("#flash").textContent="▶ を押すと始まります";
+  $("#prog").style.width="0%";
+  $("#speed").value=store.speed||450;$("#speedLbl").textContent=$("#speed").value+"字/分";
+  updMeta();
+  $("#slashed").innerHTML=cur.paras.map(a=>"<p>"+esc(a.join("／"))+"</p>").join("");
+  const el=$("#sumBox");el.innerHTML="";
   cur.paras.forEach((a,i)=>{
-    const wrap = document.createElement("div");
-    wrap.style.marginBottom="10px";
-    wrap.innerHTML = "<div class='q'>第"+(i+1)+"段落の要点（15字以内）</div>";
-    const ta = document.createElement("textarea"); ta.rows=1; ta.placeholder="…";
-    wrap.appendChild(ta);
-    const d = document.createElement("details");
-    d.innerHTML = "<summary>模範解答</summary><div class='body'>"+esc(cur.summaries[i]||"（なし）")+"</div>";
-    wrap.appendChild(d);
-    el.appendChild(wrap);
+    if(a.join("").length<40)return;
+    const w=document.createElement("div");w.style.marginBottom="10px";
+    w.innerHTML="<div class='q'>第"+(i+1)+"段落の要点（15字以内）</div>";
+    const ta=document.createElement("textarea");ta.rows=1;ta.placeholder="…";w.appendChild(ta);
+    const d=document.createElement("details");
+    d.innerHTML="<summary>模範解答</summary><div class='tiny' style='padding:6px 0'>"+esc(cur.summaries[i]||"（この教材には模範解答がありません）")+"</div>";
+    w.appendChild(d);el.appendChild(w);
   });
-  const th = document.createElement("div");
-  th.innerHTML = "<div class='q'>"+(cur.genre==="物語文"?"主人公の心情の変化（60字以内）":"筆者の主張（60字以内）")+"</div>";
-  const ta2 = document.createElement("textarea"); ta2.rows=3; ta2.placeholder="…";
-  th.appendChild(ta2);
-  const d2 = document.createElement("details");
-  d2.innerHTML = "<summary>模範解答</summary><div class='body'>"+esc(cur.thesis||"（なし）")+"</div>";
-  th.appendChild(d2);
-  el.appendChild(th);
+  const th=document.createElement("div");
+  th.innerHTML="<div class='q'>"+(cur.genre==="物語文"?"主人公の心情の変化（60字以内）":"筆者の主張（60字以内）")+"</div>";
+  const t2=document.createElement("textarea");t2.rows=3;t2.placeholder="…";th.appendChild(t2);
+  const d2=document.createElement("details");
+  d2.innerHTML="<summary>模範解答</summary><div class='tiny' style='padding:6px 0'>"+esc(cur.thesis||"（なし）")+"</div>";
+  th.appendChild(d2);el.appendChild(th);
+  resetQuiz();applyWM();
 }
-function stepS2(){
-  if(s2.i >= s2.chunks.length){
-    stopS2();
-    $("#s2Flash").classList.add("done");
-    $("#s2Flash").textContent = "おわり。下の要約チェックへ。";
-    $("#s2Prog").style.width = "100%";
-    return;
+function updMeta(){
+  const sp=Number($("#speed").value),n=charCount(cur);
+  $("#s1Meta").textContent=cur.title+"／"+n+"字・"+s1.chunks.length+"チャンク　この速度での通読目安 "+fmt(n/sp*60);
+}
+function stepS1(){
+  if(s1.i>=s1.chunks.length){
+    stopS1();s1.seen=true;
+    $("#flash").classList.add("done");$("#flash").classList.remove("vert");
+    $("#flash").textContent="おわり。下の確認テストへ。";
+    $("#prog").style.width="100%";return;
   }
-  const c = s2.chunks[s2.i];
-  $("#s2Flash").classList.remove("done");
-  $("#s2Flash").textContent = c;
-  $("#s2Prog").style.width = Math.round((s2.i+1)/s2.chunks.length*100)+"%";
-  const sp = Number($("#s2Speed").value);
-  const ms = Math.max(160, c.length/sp*60000);
-  s2.i++;
-  s2.timer = setTimeout(stepS2, ms);
+  const c=s1.chunks[s1.i];
+  $("#flash").classList.remove("done");$("#flash").classList.toggle("vert",isVert());
+  $("#flash").textContent=c;
+  $("#prog").style.width=Math.round((s1.i+1)/s1.chunks.length*100)+"%";
+  const ms=Math.max(160,c.length/Number($("#speed").value)*60000);
+  s1.i++;s1.timer=setTimeout(stepS1,ms);
 }
-function stopS2(){ if(s2.timer){clearTimeout(s2.timer); s2.timer=null;} s2.playing=false; $("#s2Play").textContent="▶ 開始"; }
-$("#s2Play").addEventListener("click", ()=>{
-  if(!cur) return;
-  if(s2.playing){ stopS2(); return; }
-  if(s2.i >= s2.chunks.length) s2.i = 0;
-  s2.playing = true; $("#s2Play").textContent="⏸ 一時停止";
-  stepS2();
+function stopS1(){if(s1.timer){clearTimeout(s1.timer);s1.timer=null;}s1.playing=false;$("#play").textContent="▶ 開始";}
+$("#play").addEventListener("click",()=>{
+  if(!cur)return;
+  if(s1.playing){stopS1();return;}
+  if(s1.i>=s1.chunks.length)s1.i=0;
+  s1.playing=true;$("#play").textContent="⏸ 一時停止";stepS1();
 });
-$("#s2Reset").addEventListener("click", ()=>{ stopS2(); s2.i=0; $("#s2Prog").style.width="0%"; $("#s2Flash").classList.remove("done"); $("#s2Flash").textContent="▶ を押すと始まります"; });
-$("#s2Speed").addEventListener("input", e=>{
-  const sp = Number(e.target.value);
-  $("#s2SpeedLbl").textContent = sp+"字/分";
-  store.speed = sp; saveStore();
-  if(cur) $("#s2Meta").textContent = cur.title+"／"+charCount(cur)+"字・"+s2.chunks.length+"チャンク　この速度での通読目安 "+fmt(charCount(cur)/sp*60);
+$("#reset").addEventListener("click",()=>{stopS1();s1.i=0;$("#prog").style.width="0%";
+  $("#flash").classList.remove("done");$("#flash").textContent="▶ を押すと始まります";applyWM();});
+$("#speed").addEventListener("input",e=>{
+  store.speed=Number(e.target.value);saveStore();
+  $("#speedLbl").textContent=store.speed+"字/分";if(cur)updMeta();
 });
 
-/* ============================================================
-   STEP 3 — timed first read
-   ============================================================ */
-let s3 = {t0:0, tick:null, sec:0};
-
-function renderS3(){
-  if(!cur) return;
-  $("#s3Intro").textContent = cur.title+"／"+charCount(cur)+"字（"+cur.genre+"）　読み終わったらすぐ止めてください。";
+/* ---------- 確認テスト（自動生成） ---------- */
+let quiz={items:[],answered:0,correct:0};
+function pool(exclude){
+  const out=[];
+  passages.forEach(p=>{ if(p.id===exclude)return; flat(p).forEach(c=>{ if(c.length>=5&&c.length<=13) out.push(c); }); });
+  return out;
 }
-function resetS3(){
-  if(s3.tick){clearInterval(s3.tick); s3.tick=null;}
-  s3.sec=0;
-  $("#s3Timer").textContent="0:00";
-  $("#s3TextCard").classList.add("hidden");
-  $("#s3ResultCard").classList.add("hidden");
-  $("#s3Start").classList.remove("hidden");
-  $("#s3Warn").classList.remove("hidden");
-  $("#s3SaveMsg").textContent="";
-  if(cur) renderS3();
+function makeQuiz(p){
+  const items=[];
+  const P=pool(p.id);
+  const paras=p.paras.map((a,i)=>({i,chunks:a,text:a.join("")})).filter(x=>x.text.length>=30);
+  const mine=flat(p).filter(c=>c.length>=5&&c.length<=13);
+  if(!paras.length||!mine.length||P.length<6) return items;
+  const distr=(len,n,used)=>{
+    const cand=P.filter(c=>Math.abs(c.length-len)<=2&&!used.has(c));
+    const pick=[];const seen=new Set();
+    while(pick.length<n&&cand.length){
+      const c=cand[rnd(cand.length)];
+      if(!seen.has(c)){seen.add(c);pick.push(c);}
+      if(seen.size>=cand.length)break;
+    }
+    return pick;
+  };
+  // 1) 穴埋め ×2
+  const usedPara=new Set();
+  for(let k=0;k<2;k++){
+    const cands=paras.filter(x=>!usedPara.has(x.i)&&x.chunks.some(c=>c.length>=5));
+    if(!cands.length)break;
+    const pa=cands[rnd(cands.length)];usedPara.add(pa.i);
+    const idxs=pa.chunks.map((c,i)=>i).filter(i=>pa.chunks[i].length>=5&&i>0&&i<pa.chunks.length-1);
+    if(!idxs.length){k--;if(usedPara.size>=paras.length)break;continue;}
+    const ci=idxs[rnd(idxs.length)];const ans=pa.chunks[ci];
+    const shown=pa.chunks.map((c,i)=>i===ci?'<span class="blank">'+"■".repeat(Math.max(3,Math.min(6,c.length)))+'</span>':esc(c)).join("");
+    const ds=distr(ans.length,3,new Set([ans]));
+    if(ds.length<3){k--;break;}
+    items.push({type:"穴うめ",text:shown,options:shuffle([ans].concat(ds)),answer:ans,
+      note:"第"+(pa.i+1)+"段落"});
+  }
+  // 2) 内容照合 ×2
+  const usedC=new Set();
+  for(let k=0;k<2;k++){
+    const c=mine[rnd(mine.length)];
+    if(usedC.has(c)){k--;if(usedC.size>=mine.length)break;continue;}
+    usedC.add(c);
+    const ds=distr(c.length,3,new Set([c]));
+    if(ds.length<3)break;
+    items.push({type:"出てきたのはどれ",text:"この文章に出てきた言い方はどれですか。",
+      options:shuffle([c].concat(ds)),answer:c,note:""});
+  }
+  // 3) 順序 ×1
+  if(paras.length>=3){
+    let a=rnd(paras.length),b=rnd(paras.length),guard=0;
+    while(Math.abs(a-b)<2&&guard++<20)b=rnd(paras.length);
+    if(a>b){const t=a;a=b;b=t;}
+    const A=paras[a].text.slice(0,18)+"…",B=paras[b].text.slice(0,18)+"…";
+    items.push({type:"どちらが先",text:"この文章では、次のどちらが先に出てきましたか。",
+      options:shuffle([A,B]),answer:A,note:""});
+  }
+  return items;
 }
-$("#s3Start").addEventListener("click", ()=>{
-  if(!cur) return;
-  $("#s3Text").innerHTML = plainParas(cur).map(t=>"<p>"+esc(t)+"</p>").join("");
-  $("#s3TextCard").classList.remove("hidden");
-  $("#s3ResultCard").classList.add("hidden");
-  $("#s3Start").classList.add("hidden");
-  $("#s3Warn").classList.add("hidden");
-  s3.t0 = Date.now(); s3.sec = 0;
-  s3.tick = setInterval(()=>{
-    s3.sec = (Date.now()-s3.t0)/1000;
-    $("#s3Timer").textContent = fmt(s3.sec);
-  }, 200);
-  $("#s3TextCard").scrollIntoView({behavior:"smooth", block:"start"});
-});
-$("#s3Stop").addEventListener("click", ()=>{
-  if(s3.tick){clearInterval(s3.tick); s3.tick=null;}
-  s3.sec = (Date.now()-s3.t0)/1000;
-  $("#s3Timer").textContent = fmt(s3.sec);
-  $("#s3TextCard").classList.add("hidden");
-  const chars = charCount(cur);
-  const sp = speedOf(chars, s3.sec);
-  const v = verdictOf(sp);
-  $("#s3Verdict").innerHTML = "<b style='color:"+v.c+"'>"+sp+"字/分</b> "+v.mk+"<br><span class='muted'>"+v.t+"</span>";
-  const rows = [[400,"要訓練"],[500,"あと一歩"],[600,"合格ライン"],[700,"余裕あり"],[800,"難関校目標"]];
-  const tgt0 = Number(cur.target)||0;
-  let html = "<tr><th>読速</th><th>この文章の目標タイム</th><th></th></tr>";
-  rows.forEach(r=>{
-    const tgt = chars/r[0]*60;
-    const on = tgt0 ? (r[0]===tgt0) : (sp>=r[0] && (r[0]===800 || sp<r[0]+100));
-    const label = r[1] + (tgt0===r[0] && cur.school ? "（"+cur.school+"目標）" : "");
-    html += "<tr"+(on?" class='hl'":"")+"><td class='num'>"+r[0]+"字/分</td><td class='num'>"+fmt(tgt)+"</td><td>"+esc(label)+"</td></tr>";
+function resetQuiz(){
+  quiz={items:[],answered:0,correct:0};
+  $("#quizBody").innerHTML="";
+  $("#quizResult").textContent="";
+  $("#quizStart").classList.remove("hidden");
+  $("#quizStart").textContent="テストを始める";
+  $("#quizIntro").textContent="チャンク送りを最後まで見たあと、本文を見ずに答えてください。5問中4問で合格です。";
+}
+$("#quizStart").addEventListener("click",()=>{
+  if(!cur)return;
+  quiz.items=makeQuiz(cur);quiz.answered=0;quiz.correct=0;
+  if(!quiz.items.length){$("#quizResult").textContent="この教材ではテストを作れませんでした。";return;}
+  $("#quizStart").classList.add("hidden");
+  $("#quizResult").textContent="";
+  const body=$("#quizBody");body.innerHTML="";
+  quiz.items.forEach((it,qi)=>{
+    const box=document.createElement("div");box.className="qbox";
+    box.innerHTML="<div class='qhead'>問"+(qi+1)+"　"+esc(it.type)+(it.note?"（"+esc(it.note)+"）":"")+"</div>"+
+      "<div class='qtext'>"+it.text+"</div>";
+    it.options.forEach(op=>{
+      const b=document.createElement("button");b.className="opt";b.textContent=op;
+      b.addEventListener("click",()=>{
+        if(box.dataset.done)return;box.dataset.done="1";
+        const ok=op===it.answer;if(ok)quiz.correct++;quiz.answered++;
+        Array.from(box.querySelectorAll(".opt")).forEach(x=>{
+          x.disabled=true;
+          if(x.textContent===it.answer)x.classList.add("ok");
+          else if(x===b)x.classList.add("ng");
+        });
+        if(quiz.answered===quiz.items.length)showQuizResult();
+      });
+      box.appendChild(b);
+    });
+    body.appendChild(box);
   });
-  $("#s3Table").innerHTML = html;
-  const qs = $("#s3Qs"); qs.innerHTML="";
+});
+function showQuizResult(){
+  const n=quiz.items.length,c=quiz.correct;
+  const ok=c>=Math.ceil(n*0.8);
+  $("#quizResult").innerHTML="<div class='score'><b style='color:"+(ok?"var(--good)":"var(--warn)")+"'>"+c+"</b> / "+n+"</div>"+
+    (ok?"読めています。次は速度を50上げてみましょう。":"取りこぼしがあります。速度を50下げて、同じ文章をもう一度。")+
+    "<div style='margin-top:8px'><button class='btn sm sec' onclick=\"document.getElementById('quizStart').click()\">別の問題でもう一度</button></div>";
+}
+
+/* ============ ② タイム測定 ============ */
+let t={t0:0,tick:null,sec:0};
+function renderS2(){ if(cur) $("#s2Intro").textContent=cur.title+"／"+charCount(cur)+"字（"+cur.genre+"）"; applyWM(); }
+function resetS2(){
+  if(t.tick){clearInterval(t.tick);t.tick=null;}
+  t.sec=0;$("#timer").textContent="0:00";
+  $("#textCard").classList.add("hidden");$("#resCard").classList.add("hidden");
+  $("#tStart").classList.remove("hidden");$("#tWarn").classList.remove("hidden");$("#saveMsg").textContent="";
+  if(cur)renderS2();
+}
+$("#tStart").addEventListener("click",()=>{
+  if(!cur)return;
+  $("#readText").innerHTML=plainParas(cur).map(x=>"<p>"+esc(x)+"</p>").join("");
+  applyWM();
+  $("#textCard").classList.remove("hidden");$("#resCard").classList.add("hidden");
+  $("#tStart").classList.add("hidden");$("#tWarn").classList.add("hidden");
+  t.t0=Date.now();t.sec=0;
+  t.tick=setInterval(()=>{t.sec=(Date.now()-t.t0)/1000;$("#timer").textContent=fmt(t.sec);},200);
+  $("#textCard").scrollIntoView({behavior:"smooth",block:"start"});
+});
+$("#tStop").addEventListener("click",()=>{
+  if(t.tick){clearInterval(t.tick);t.tick=null;}
+  t.sec=(Date.now()-t.t0)/1000;$("#timer").textContent=fmt(t.sec);
+  $("#textCard").classList.add("hidden");
+  const n=charCount(cur),sp=t.sec>0?Math.round(n/t.sec*60):0;
+  const v=sp>=800?["◎◎","難関校目標達成","var(--good)"]:sp>=700?["◎","余裕あり","var(--good)"]:
+          sp>=600?["○","合格ライン","var(--good)"]:sp>=500?["△","あと一歩","var(--warn)"]:["⚠️","要訓練","var(--warn)"];
+  $("#verdict").innerHTML="<b style='color:"+v[2]+"'>"+sp+"字/分</b> "+v[0]+"<br><span class='muted'>"+v[1]+"</span>";
+  const tg=Number(cur.target)||0;
+  let h="<tr><th>読速</th><th>この文章の目標タイム</th><th></th></tr>";
+  [[400,"要訓練"],[500,"あと一歩"],[600,"合格ライン"],[700,"余裕あり"],[800,"難関校目標"]].forEach(r=>{
+    const on=tg?r[0]===tg:(sp>=r[0]&&(r[0]===800||sp<r[0]+100));
+    h+="<tr"+(on?" class='hl'":"")+"><td class='num'>"+r[0]+"字/分</td><td class='num'>"+fmt(n/r[0]*60)+"</td><td>"+
+      esc(r[1]+(tg===r[0]&&cur.school?"（"+cur.school+"目標）":""))+"</td></tr>";
+  });
+  $("#resTable").innerHTML=h;
+  const qs=$("#qs");qs.innerHTML="";
   (cur.questions||[]).forEach((q,i)=>{
-    const w = document.createElement("div"); w.style.marginBottom="12px";
-    w.innerHTML = "<div class='q'>問"+(i+1)+"　"+esc(q.q)+"</div>";
-    const ta = document.createElement("textarea"); ta.rows=3; ta.placeholder="…";
-    w.appendChild(ta);
-    const d = document.createElement("details");
-    d.innerHTML = "<summary>解答の方向性</summary><div class='body'>"+esc(q.a)+"</div>";
-    w.appendChild(d);
-    qs.appendChild(w);
+    const w=document.createElement("div");w.style.marginBottom="12px";
+    w.innerHTML="<div class='q'>問"+(i+1)+"　"+esc(q.q)+"</div>";
+    const ta=document.createElement("textarea");ta.rows=3;ta.placeholder="…";w.appendChild(ta);
+    const d=document.createElement("details");
+    d.innerHTML="<summary>解答の方向性</summary><div class='tiny' style='padding:6px 0;line-height:1.8'>"+esc(q.a)+"</div>";
+    w.appendChild(d);qs.appendChild(w);
   });
-  $("#s3ResultCard").classList.remove("hidden");
-  $("#s3ResultCard").scrollIntoView({behavior:"smooth", block:"start"});
+  $("#resCard").classList.remove("hidden");
+  $("#resCard").scrollIntoView({behavior:"smooth",block:"start"});
 });
-$("#s3Again").addEventListener("click", resetS3);
-$("#s3Save").addEventListener("click", ()=>{
-  const chars = charCount(cur);
-  store.logs = (store.logs||[]).concat([{
-    d: new Date().toISOString().slice(0,10),
-    t: cur.title, c: chars, s: Math.round(s3.sec), sp: speedOf(chars, s3.sec)
-  }]).slice(-60);
-  saveStore();
-  $("#s3SaveMsg").textContent = "記録しました。";
+$("#againBtn").addEventListener("click",resetS2);
+$("#saveBtn").addEventListener("click",()=>{
+  const n=charCount(cur);
+  store.logs=(store.logs||[]).concat([{d:new Date().toISOString().slice(0,10),t:cur.title,
+    s:cur.school||"汎用",c:n,sec:Math.round(t.sec),sp:t.sec>0?Math.round(n/t.sec*60):0}]).slice(-80);
+  saveStore();$("#saveMsg").textContent="記録しました。";
 });
 
-/* ============================================================
-   LOG
-   ============================================================ */
+/* ---------- 記録 ---------- */
 function renderLog(){
-  const logs = (store.logs||[]).slice().reverse();
-  const t = $("#logTable");
-  if(!logs.length){ t.innerHTML=""; $("#logEmpty").textContent="まだ記録がありません。③で測定して「記録する」を押してください。"; return; }
+  const logs=(store.logs||[]).slice().reverse();
+  if(!logs.length){$("#logTable").innerHTML="";$("#logEmpty").textContent="まだ記録がありません。";return;}
   $("#logEmpty").textContent="";
-  let html = "<tr><th>日付</th><th>教材</th><th>字数</th><th>タイム</th><th>読速</th></tr>";
-  logs.forEach(l=>{
-    html += "<tr><td class='num'>"+esc(l.d.slice(5))+"</td><td>"+esc(l.t)+"</td><td class='num'>"+l.c+"</td><td class='num'>"+fmt(l.s)+"</td><td class='num'><b>"+l.sp+"</b></td></tr>";
-  });
-  t.innerHTML = html;
+  let h="<tr><th>日付</th><th>教材</th><th>学校</th><th>タイム</th><th>読速</th></tr>";
+  logs.forEach(l=>{h+="<tr><td class='num'>"+esc(l.d.slice(5))+"</td><td>"+esc(l.t)+"</td><td class='tiny'>"+esc(l.s||"")+
+    "</td><td class='num'>"+fmt(l.sec)+"</td><td class='num'><b>"+l.sp+"</b></td></tr>";});
+  $("#logTable").innerHTML=h;
 }
-$("#logClear").addEventListener("click", ()=>{
-  store.logs = []; saveStore(); renderLog();
-});
+$("#logClear").addEventListener("click",()=>{store.logs=[];saveStore();renderLog();});
 
-/* ============================================================
-   BOOT
-   ============================================================ */
+/* ---------- 起動 ---------- */
 loadStore();
-setCur(passages.find(p=>p.id===store.lastId) || passages[0]);
-
-(async ()=>{
-  try{
-    const s = await window.claude?.use?.("sample");
-    if(s){ sampleFn = s; }
-    else { noSample(); }
-  }catch(e){ noSample(); }
+setCur(passages.find(p=>p.id===store.lastId)||passages[0]);
+renderPlan();applyWM();
+(async()=>{
+  try{const s=await window.claude?.use?.("sample");
+    if(s)sampleFn=s;
+    else{$("#genBtn").disabled=true;$("#genBtn").textContent="AI生成（不可）";
+      $("#genStatus").textContent="この配置ではAI生成は使えません。「文章を貼る」をお使いください。";}
+  }catch(e){$("#genBtn").disabled=true;}
 })();
-function noSample(){
-  const b = $("#genBtn");
-  b.disabled = true; b.textContent = "AI生成（この環境では不可）";
-  $("#genStatus").textContent = "この配置ではAIによる文章生成は使えません。「文章を貼る」から塾のテキストや新聞コラムを取り込んでください。";
-}
 </script>
 </body>
 </html>
