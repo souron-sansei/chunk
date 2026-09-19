@@ -102,12 +102,13 @@ summary::before{content:"▸ "} details[open] summary::before{content:"▾ "}
 /* ---------- チャンク送り ---------- */
 .flash{min-height:168px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);
  border-radius:14px;padding:18px 14px;margin:10px 0;font-family:var(--serif);font-size:27px;line-height:1.55;
- text-align:center;letter-spacing:.03em}
-.flash.vert{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;text-orientation:mixed;
- min-height:62vh;max-height:62vh;height:62vh;font-size:26px;line-height:1.45;padding:14px 10px}
-@media (min-height:900px){.flash.vert{min-height:56vh;max-height:56vh;height:56vh}}
-.flash.done{font-size:16px;color:var(--muted);font-family:var(--sans);writing-mode:horizontal-tb;
- -webkit-writing-mode:horizontal-tb;min-height:110px;max-height:none;height:auto}
+ text-align:center;letter-spacing:.03em;overflow:hidden}
+.flash.tall{min-height:62vh;height:62vh;padding:14px 10px}
+@media (min-height:900px){.flash.tall{min-height:56vh;height:56vh}}
+.flash.done{font-size:16px;color:var(--muted);font-family:var(--sans);min-height:110px;height:auto;padding:18px 14px}
+#flashText{display:block;text-align:center}
+#flashText.vert{writing-mode:vertical-rl;-webkit-writing-mode:vertical-rl;text-orientation:mixed;
+ font-size:26px;line-height:1.45;letter-spacing:.05em;max-height:100%}
 .prog{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin:6px 0 2px}
 .prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .12s linear}
 input[type=range]{width:100%;accent-color:var(--accent)}
@@ -216,7 +217,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   <div class="card">
     <h2>① チャンク送り</h2>
     <p class="muted" style="margin-top:2px">かたまりが1つずつ出ます。一字ずつ追わず、全体を写真のように見てください。</p>
-    <div class="flash" id="flash">▶ を押すと始まります</div>
+    <div class="flash" id="flash"><span id="flashText">▶ を押すと始まります</span></div>
     <div class="prog"><i id="prog"></i></div>
     <div class="tiny" id="s1Meta"></div>
     <div class="sliderRow">
@@ -353,7 +354,9 @@ function applyWM(){
     if(hi) hi.textContent = v ? "指で左へスワイプすると読み進みます →" : "";
     if(wr&&v) wr.scrollLeft = wr.scrollWidth;
   });
-  $("#flash").classList.toggle("vert", v && !$("#flash").classList.contains("done"));
+  const done=$("#flash").classList.contains("done");
+  $("#flash").classList.toggle("tall", v && !done);
+  $("#flashText").classList.toggle("vert", v && !done);
 }
 $("#wmBtn").addEventListener("click",()=>{ store.wm=isVert()?"h":"v"; saveStore(); applyWM(); });
 $("#themeBtn").addEventListener("click",()=>{
@@ -532,7 +535,8 @@ let s1={chunks:[],i:0,timer:null,playing:false,seen:false};
 function renderS1(){
   if(!cur)return;
   s1.chunks=flat(cur);s1.i=0;stopS1();
-  $("#flash").classList.remove("done");$("#flash").textContent="▶ を押すと始まります";
+  $("#flash").classList.remove("done","tall");$("#flashText").classList.remove("vert");
+  $("#flashText").textContent="▶ を押すと始まります";
   $("#prog").style.width="0%";
   $("#speed").value=Math.min(1200,Math.max(500,Number(store.speed)||500));$("#speedLbl").textContent=$("#speed").value+"字/分";
   updMeta();
@@ -562,13 +566,16 @@ function updMeta(){
 function stepS1(){
   if(s1.i>=s1.chunks.length){
     stopS1();s1.seen=true;
-    $("#flash").classList.add("done");$("#flash").classList.remove("vert");
-    $("#flash").textContent="おわり。下の確認テストへ。";
+    $("#flash").classList.add("done");$("#flash").classList.remove("tall");
+    $("#flashText").classList.remove("vert");
+    $("#flashText").textContent="おわり。下の確認テストへ。";
     $("#prog").style.width="100%";return;
   }
   const c=s1.chunks[s1.i];
-  $("#flash").classList.remove("done");$("#flash").classList.toggle("vert",isVert());
-  $("#flash").textContent=c;
+  $("#flash").classList.remove("done");
+  $("#flash").classList.toggle("tall",isVert());
+  $("#flashText").classList.toggle("vert",isVert());
+  $("#flashText").textContent=c;
   $("#prog").style.width=Math.round((s1.i+1)/s1.chunks.length*100)+"%";
   const ms=Math.max(160,c.length/Number($("#speed").value)*60000);
   s1.i++;s1.timer=setTimeout(stepS1,ms);
@@ -581,7 +588,8 @@ $("#play").addEventListener("click",()=>{
   s1.playing=true;$("#play").textContent="⏸ 一時停止";stepS1();
 });
 $("#reset").addEventListener("click",()=>{stopS1();s1.i=0;$("#prog").style.width="0%";
-  $("#flash").classList.remove("done");$("#flash").textContent="▶ を押すと始まります";applyWM();});
+  $("#flash").classList.remove("done","tall");$("#flashText").classList.remove("vert");
+  $("#flashText").textContent="▶ を押すと始まります";});
 $("#speed").addEventListener("input",e=>{
   store.speed=Number(e.target.value);saveStore();
   $("#speedLbl").textContent=store.speed+"字/分";if(cur)updMeta();
@@ -608,10 +616,10 @@ function makeQuiz(p){
     }
     return pick;
   };
-  /* 1) 穴うめ ×3 */
+  /* 1) 穴うめ ×2 */
   const used=new Set();
   let tries=0;
-  while(items.length<3&&tries++<40){
+  while(items.length<2&&tries++<40){
     const cands=paras.filter(x=>!used.has(x.i)&&x.chunks.some((c,i)=>c.length>=5&&i>0&&i<x.chunks.length-1));
     if(!cands.length)break;
     const pa=cands[rnd(cands.length)];used.add(pa.i);
@@ -625,15 +633,19 @@ function makeQuiz(p){
       :esc(c)).join("");
     items.push({type:"穴うめ",text:shown,options:shuffle([ans].concat(ds)),answer:ans,note:"第"+(pa.i+1)+"段落"});
   }
-  /* 2) どちらが先 ×1 */
+  /* 2) どちらが先 ×2 */
   if(paras.length>=3){
-    let a=rnd(paras.length),b=rnd(paras.length),g=0;
-    while(Math.abs(a-b)<2&&g++<30)b=rnd(paras.length);
-    if(a>b){const x=a;a=b;b=x;}
-    if(a!==b){
+    const seenPair=new Set();let made=0,g2=0;
+    while(made<2&&g2++<60){
+      let a=rnd(paras.length),b=rnd(paras.length);
+      if(Math.abs(a-b)<2)continue;
+      if(a>b){const x=a;a=b;b=x;}
+      const key=a+"-"+b;if(seenPair.has(key))continue;seenPair.add(key);
       const A=paras[a].text.slice(0,20)+"…",B=paras[b].text.slice(0,20)+"…";
+      if(A===B)continue;
       items.push({type:"どちらが先",text:"この文章では、次のどちらが先に出てきましたか。",
         options:shuffle([A,B]),answer:A,note:""});
+      made++;
     }
   }
   /* 3) 筆者の主張 ×1 */
