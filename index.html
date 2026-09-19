@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>チャンク読みトレーナー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface-2:#f0ede6; --line:#ddd7cc;
+  --text:#1f1d1a; --muted:#6d675d; --accent:#1f5f4e; --accent-soft:#e3f0ea;
+  --warn:#a8502a; --warn-soft:#fbeade; --good:#1f5f4e; --shadow:0 1px 3px rgba(0,0,0,.07);
+  --serif:"Noto Serif JP",'Hiragino Mincho ProN',serif;
+  --sans:"Noto Sans JP",'Hiragino Kaku Gothic ProN',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181a; --surface:#1f2225; --surface-2:#282c30; --line:#3a3f45;
+    --text:#e8e6e1; --muted:#9aa0a6; --accent:#6fc2a5; --accent-soft:#1d3a33;
+    --warn:#e0975f; --warn-soft:#3a2a1c; --good:#6fc2a5; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181a; --surface:#1f2225; --surface-2:#282c30; --line:#3a3f45;
+  --text:#e8e6e1; --muted:#9aa0a6; --accent:#6fc2a5; --accent-soft:#1d3a33;
+  --warn:#e0975f; --warn-soft:#3a2a1c; --good:#6fc2a5; --shadow:none;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--sans);
+  font-size:16px; line-height:1.7; padding-bottom:calc(72px + env(safe-area-inset-bottom));
+  overflow-x:hidden;
+}
+header{
+  position:sticky; top:0; z-index:20; background:var(--surface);
+  border-bottom:1px solid var(--line); padding:10px 16px;
+  display:flex; align-items:center; gap:10px;
+}
+header h1{font-size:15px;margin:0;font-weight:700;letter-spacing:.02em;flex:1}
+header .sub{font-size:11px;color:var(--muted);font-weight:400}
+main{padding:16px;max-width:680px;margin:0 auto}
+.view{display:none}
+.view.on{display:block}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card h2{font-size:15px;margin:0 0 4px}
+.card h3{font-size:13px;margin:16px 0 6px;color:var(--muted);font-weight:700;letter-spacing:.04em}
+.card p{margin:6px 0;font-size:14px}
+.muted{color:var(--muted);font-size:13px}
+.tiny{font-size:12px;color:var(--muted);line-height:1.6}
+button{font-family:var(--sans);font-size:15px;cursor:pointer}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  background:var(--accent);color:#fff;border:0;border-radius:10px;
+  padding:12px 16px;font-weight:700;width:100%;margin-top:8px;
+}
+.btn.sec{background:var(--surface-2);color:var(--text);border:1px solid var(--line)}
+.btn.sm{width:auto;padding:8px 14px;font-size:13px;margin-top:0}
+.btn:disabled{opacity:.45}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row .btn{width:auto;flex:1;min-width:120px}
+.pill{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:11px;color:var(--muted);margin:0 4px 4px 0}
+.pill.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+nav{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;background:var(--surface);
+  border-top:1px solid var(--line);display:flex;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+nav button{
+  flex:1;background:none;border:0;padding:9px 2px 10px;color:var(--muted);
+  font-size:10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-weight:500;
+}
+nav button .n{font-size:17px;font-weight:700;line-height:1.1;font-family:var(--serif)}
+nav button.on{color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 4px;text-align:left}
+th{color:var(--muted);font-size:11px;font-weight:700}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.hl{background:var(--accent-soft);border-radius:6px}
+
+/* ---- passage typography ---- */
+.jp{font-family:var(--serif);font-size:17px;line-height:2.1;letter-spacing:.02em}
+.jp p{margin:0 0 1em;font-size:inherit}
+
+/* ---- step1 slash drill ---- */
+.s1sent{font-family:var(--serif);font-size:19px;line-height:2.6;margin:14px 0;padding:10px 6px;background:var(--surface-2);border-radius:10px;user-select:none}
+.s1sent .ch{display:inline-block}
+.s1sent .gap{display:inline-block;width:11px;height:1.6em;vertical-align:-.45em;position:relative;cursor:pointer}
+.s1sent .gap::after{content:"";position:absolute;left:4px;top:.1em;width:2px;height:1.4em;background:transparent;border-radius:1px}
+.s1sent .gap.set::after{background:var(--accent)}
+.s1sent .gap.model::after{background:var(--muted);opacity:.45}
+.s1sent .gap.hit::after{background:var(--good)}
+.s1sent .gap.miss::after{background:var(--warn);opacity:.9}
+.s1sent .gap.extra::after{background:var(--warn);opacity:.35}
+.legend{font-size:11px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap;margin-top:6px}
+.legend i{display:inline-block;width:2px;height:12px;vertical-align:-2px;margin-right:4px}
+
+/* ---- step2 flash ---- */
+.flash{
+  min-height:160px;display:flex;align-items:center;justify-content:center;
+  background:var(--surface-2);border-radius:14px;padding:20px 14px;margin:10px 0;
+  font-family:var(--serif);font-size:26px;line-height:1.5;text-align:center;letter-spacing:.03em;
+}
+.flash.done{font-size:16px;color:var(--muted);font-family:var(--sans)}
+.prog{height:4px;background:var(--surface-2);border-radius:2px;overflow:hidden;margin:6px 0 2px}
+.prog i{display:block;height:100%;background:var(--accent);width:0;transition:width .12s linear}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.sliderRow{display:flex;align-items:center;gap:10px;font-size:13px;margin-top:10px}
+.sliderRow b{font-variant-numeric:tabular-nums;min-width:74px;text-align:right}
+
+/* ---- timer ---- */
+.timer{font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;text-align:center;letter-spacing:.02em;margin:6px 0}
+.verdict{text-align:center;font-size:14px;margin-top:4px}
+.verdict b{font-size:22px}
+textarea{
+  width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;
+  font-family:var(--sans);font-size:15px;background:var(--surface-2);color:var(--text);
+  resize:vertical;min-height:54px;
+}
+details{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+summary{font-size:13px;font-weight:700;color:var(--accent);cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸ ";}
+details[open] summary::before{content:"▾ ";}
+details .body{font-size:13.5px;color:var(--text);padding:6px 0 2px;line-height:1.8}
+.q{font-size:14px;font-weight:700;margin:12px 0 4px}
+.sel{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.sel button{background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;color:var(--text)}
+.sel button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.note{background:var(--warn-soft);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.7;color:var(--text)}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hidden{display:none !important}
+.scrollx{overflow-x:auto}
+</style>
+</head>
+<body>
+<header>
+  <div style="flex:1">
+    <h1>チャンク読みトレーナー</h1>
+    <div class="sub" id="hdrSub">難関中学 国語｜初見速読トレーニング</div>
+  </div>
+  <button class="btn sec sm" id="themeBtn" aria-label="表示切替">◐</button>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="view on" id="v-home">
+  <div class="card">
+    <h2>いまの教材</h2>
+    <div id="curInfo" class="muted" style="margin-top:4px"></div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn sm sec" id="pickBtn" style="flex:1">教材を選ぶ</button>
+      <button class="btn sm sec" id="pasteBtn" style="flex:1">文章を貼る</button>
+      <button class="btn sm" id="genBtn" style="flex:1">AIで作る</button>
+    </div>
+    <div id="genStatus" class="tiny" style="margin-top:8px"></div>
+    <div id="pastePanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+      <div class="tiny">保護者用ジェネレーターで作ったデータ（JSON）を貼ると、チャンク切りの模範解答・要約・設問つきで取り込みます。新聞コラムや塾のテキストをそのまま貼った場合は、自動でチャンク分割します。</div>
+      <textarea id="pasteText" rows="6" placeholder="ここに本文を貼り付け" style="margin-top:8px"></textarea>
+      <input type="text" id="pasteTitle" placeholder="教材名（省略可）" style="width:100%;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);color:var(--text);font-family:var(--sans);font-size:15px">
+      <div class="sel" id="pasteGenre" style="margin-top:8px"></div>
+      <button class="btn" id="pasteGo">この文章を教材にする</button>
+      <div class="tiny" id="pasteMsg" style="margin-top:8px"></div>
+      <div class="tiny" style="margin-top:6px">自動分割のため切れ目は完璧ではありません。①の模範解答は目安として使ってください。要約・設問は自分で作る前提になります。</div>
+    </div>
+    <div id="genPanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+      <div class="tiny">ジャンル</div>
+      <div class="sel" id="genGenre"></div>
+      <div class="tiny">レベル</div>
+      <div class="sel" id="genLevel"></div>
+      <div class="tiny">長さ</div>
+      <div class="sel" id="genLen"></div>
+      <button class="btn" id="genGo">この条件で文章を作る</button>
+      <div class="tiny" style="margin-top:8px">生成には30〜90秒ほどかかります。初回は利用許可の確認が出ます。</div>
+    </div>
+    <div id="pickPanel" class="hidden" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
+      <div id="pickList"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>3ステップの進め方</h2>
+    <p class="muted" style="margin-top:2px">下のタブを ① → ② → ③ の順に。1日15分が上限です。</p>
+    <h3>① スラッシュ入れ</h3>
+    <p>意味のかたまりの切れ目をタップで入れる。「どこで切るか」の感覚を作る段階。</p>
+    <h3>② チャンク送り</h3>
+    <p>かたまりを1回の視線で受け取る練習。速度を上げても要約が崩れないかを確認。</p>
+    <h3>③ 初見タイム測定</h3>
+    <p>スラッシュなしの文章を計測。分速と設問正答で「理解を保った速度」を判定。</p>
+  </div>
+
+  <div class="card">
+    <h2>目標の根拠</h2>
+    <p class="tiny">麻布中の国語は制限時間60分・本文6000〜8000字。指導現場では本文を読む時間は15分以内、分速800字以上が目標とされます。記述が6割を占めるため、読む時間を削れた分がそのまま記述に回せます。</p>
+    <div class="scrollx"><table>
+      <tr><th>読速</th><th>7000字を読む</th><th>解答に残る</th><th></th></tr>
+      <tr><td class="num">400字/分</td><td class="num">17分30秒</td><td class="num">42分30秒</td><td>⚠️</td></tr>
+      <tr><td class="num">500字/分</td><td class="num">14分00秒</td><td class="num">46分00秒</td><td>△</td></tr>
+      <tr><td class="num">600字/分</td><td class="num">11分40秒</td><td class="num">48分20秒</td><td>○</td></tr>
+      <tr><td class="num">700字/分</td><td class="num">10分00秒</td><td class="num">50分00秒</td><td>◎</td></tr>
+      <tr class="hl"><td class="num">800字/分</td><td class="num">8分45秒</td><td class="num">51分15秒</td><td>◎◎</td></tr>
+    </table></div>
+    <div class="note">速度だけ上げても、要約が崩れた速度は本番で記述が書けない速度です。各ステップの要約チェックを必ず通してください。</div>
+  </div>
+</section>
+
+<!-- ============ STEP 1 ============ -->
+<section class="view" id="v-s1">
+  <div class="card">
+    <h2>① スラッシュ入れ</h2>
+    <p class="muted" style="margin-top:2px">文字と文字のすき間をタップして「／」を入れます。1チャンク6〜12字が目安。</p>
+    <div class="tiny" style="margin-top:8px">
+      切る場所の目安：主語のかたまりの後（〜は／〜が）・修飾のかたまりの後・接続語の後（しかし／つまり）・述語の直前
+    </div>
+  </div>
+  <div class="card">
+    <div class="row" style="margin-bottom:6px">
+      <button class="btn sm sec" id="s1Prev" style="flex:0 0 auto">前の文</button>
+      <div class="muted" id="s1Count" style="flex:1;text-align:center;align-self:center;font-size:13px"></div>
+      <button class="btn sm sec" id="s1Next" style="flex:0 0 auto">次の文</button>
+    </div>
+    <div class="s1sent" id="s1Sent"></div>
+    <div class="legend" id="s1Legend"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn sm sec" id="s1Clear">消す</button>
+      <button class="btn sm" id="s1Check">答え合わせ</button>
+    </div>
+    <div id="s1Result" class="tiny" style="margin-top:10px"></div>
+  </div>
+  <div class="card">
+    <div class="tiny">1〜2箇所のずれは正解です。「6〜12字で、意味が壊れていない」なら可。切らなすぎ（1文まるごと）と、意味を無視した切り方だけがNGです。</div>
+  </div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="view" id="v-s2">
+  <div class="card">
+    <h2>② チャンク送り</h2>
+    <p class="muted" style="margin-top:2px">かたまりが1つずつ出ます。一字ずつ追わず、全体を写真のように見てください。</p>
+    <div class="flash" id="s2Flash">▶ を押すと始まります</div>
+    <div class="prog"><i id="s2Prog"></i></div>
+    <div class="tiny" id="s2Meta"></div>
+    <div class="sliderRow">
+      <input type="range" id="s2Speed" min="300" max="1000" step="25" value="450">
+      <b id="s2SpeedLbl">450字/分</b>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn sm" id="s2Play">▶ 開始</button>
+      <button class="btn sm sec" id="s2Reset">最初から</button>
+    </div>
+    <div class="tiny" style="margin-top:8px">まず450字/分で通し、要約が書けたら +50ずつ上げます。崩れたら1段戻す。</div>
+  </div>
+  <div class="card">
+    <h2>スラッシュ表示で自分のペースで読む</h2>
+    <p class="muted" style="margin-top:2px">送りに慣れたら、こちらを「かたまりごとに目を止める」つもりで黙読。</p>
+    <div class="jp" id="s2Slashed" style="margin-top:10px"></div>
+  </div>
+  <div class="card">
+    <h2>要約チェック</h2>
+    <p class="muted" style="margin-top:2px">本文を見ずに書いてから、模範解答を開いてください。</p>
+    <div id="s2Sum"></div>
+  </div>
+</section>
+
+<!-- ============ STEP 3 ============ -->
+<section class="view" id="v-s3">
+  <div class="card">
+    <h2>③ 初見タイム測定</h2>
+    <p class="muted" style="margin-top:2px" id="s3Intro"></p>
+    <div class="timer" id="s3Timer">0:00</div>
+    <div class="row">
+      <button class="btn" id="s3Start">読み始める</button>
+    </div>
+    <div class="note" style="margin-top:10px" id="s3Warn">本文は「読み始める」を押してから表示されます。事前に読まないでください。</div>
+  </div>
+
+  <div class="card hidden" id="s3TextCard">
+    <div class="jp" id="s3Text"></div>
+    <button class="btn" id="s3Stop">読み終わった</button>
+  </div>
+
+  <div class="card hidden" id="s3ResultCard">
+    <h2>結果</h2>
+    <div class="verdict" id="s3Verdict"></div>
+    <div class="scrollx"><table id="s3Table"></table></div>
+    <h3>設問（本文は見ずに）</h3>
+    <div id="s3Qs"></div>
+    <div class="tiny" style="margin-top:10px">設問の方向性が2/3以上合っていれば、その速度は「理解を保った速度」です。1つ以下なら速度を落としてください。</div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn sm" id="s3Save">記録する</button>
+      <button class="btn sm sec" id="s3Again">もう一度</button>
+    </div>
+    <div class="tiny" id="s3SaveMsg" style="margin-top:6px"></div>
+  </div>
+</section>
+
+<!-- ============ RECORDS ============ -->
+<section class="view" id="v-log">
+  <div class="card">
+    <h2>記録</h2>
+    <p class="muted" style="margin-top:2px">この端末のブラウザにだけ保存されます。</p>
+    <div class="scrollx"><table id="logTable"></table></div>
+    <div id="logEmpty" class="tiny"></div>
+    <button class="btn sec sm" id="logClear" style="margin-top:10px">すべて消す</button>
+  </div>
+  <div class="card">
+    <h2>週間メニュー</h2>
+    <div class="scrollx"><table>
+      <tr><th>曜日</th><th>やること</th><th>時間</th></tr>
+      <tr><td>月</td><td>① ＋ ②（既習文章）</td><td class="num">15分</td></tr>
+      <tr><td>火</td><td>③ 初見</td><td class="num">15分</td></tr>
+      <tr><td>水</td><td>② 前日の文章を再読して速度アップ</td><td class="num">10分</td></tr>
+      <tr><td>木</td><td>③ 初見</td><td class="num">15分</td></tr>
+      <tr><td>金</td><td>① 長文でスラッシュ入れ</td><td class="num">10分</td></tr>
+      <tr><td>土</td><td>③ 長文を通しで</td><td class="num">20分</td></tr>
+      <tr><td>日</td><td>休み／記録の振り返り</td><td class="num">5分</td></tr>
+    </table></div>
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button data-v="home" class="on"><span class="n">家</span>ホーム</button>
+  <button data-v="s1"><span class="n">①</span>スラッシュ</button>
+  <button data-v="s2"><span class="n">②</span>チャンク送り</button>
+  <button data-v="s3"><span class="n">③</span>タイム測定</button>
+  <button data-v="log"><span class="n">記</span>記録</button>
+</nav>
+
+<script>
+"use strict";
+
+/* ============================================================
+   SEED PASSAGES — written for this app (original text)
+   paras: array of paragraphs; each paragraph is an array of chunks
+   ============================================================ */
+const SEEDS = [
+{
+  id:"seed-dougu", title:"道具と体", genre:"説明文", level:"標準",
+  paras:[
+    ["道具というものは","人間の体の延長だと","言われることがある。","ハンマーを握れば","腕が長く硬くなったように","感じられるし、","望遠鏡をのぞけば","目が遠くまで","届くようになる。","使い慣れた道具は、","いつのまにか","意識の外側へ出ていき、","まるで最初から","体の一部であったかのように","ふるまいはじめる。"],
+    ["しかし、","ここで注意しなければ","ならないことがある。","道具が体の一部に","なるということは、","同時に、","その道具なしでは","何かができなくなると","いうことでもあるからだ。","計算機を使い続けた人は","暗算をしなくなり、","地図アプリを使い続けた人は","道をおぼえなくなる。","便利さと引きかえに、","私たちは","自分の内側に","あったはずの能力を、","少しずつ外側へ","あずけていく。"],
+    ["これを単純に","「退化」と呼んでしまうのは、","おそらく","早すぎる。","文字を発明したとき、","人間は","長い物語を暗記する能力を","たしかに手放した。","けれども、","そのかわりに、","一人の人間が","一生かかっても","記憶しきれない量の知識を、","世代をこえて","積み上げる力を","手に入れた。","失われたものだけを","数えていては、","この取引の全体像は","見えてこない。"],
+    ["大切なのは、","何を外にあずけ、","何を自分の内側に","残しておくのかを、","自分で選びとることだろう。","すべてを抱えこもうとすれば","前に進めないし、","すべてをあずけてしまえば、","道具が壊れた日に","何も残らない。","道具に使われるのではなく","道具を使うというのは、","つまり","そういう選択を","引き受けるということなのである。"]
+  ],
+  summaries:[
+    "使い慣れた道具は体の一部になる",
+    "便利さと引きかえに能力を外へ預ける",
+    "失うだけでなく得るものもある",
+    "何を預け何を残すかを自分で選ぶ"
+  ],
+  thesis:"道具を使うとは、何を自分の内側に残すかを自分で選び、その選択を引き受けることである。",
+  questions:[
+    {q:"筆者が「退化と呼ぶのは早すぎる」と述べる理由を、文字の例をふまえて50字以内で説明しなさい。",
+     a:"文字によって暗記の能力は手放したが、そのかわりに一人では記憶しきれない知識を世代をこえて積み上げる力を得たから。"},
+    {q:"「すべてをあずけてしまえば、道具が壊れた日に何も残らない」とは、どういうことですか。40字以内で説明しなさい。",
+     a:"能力をすべて道具に任せると、自分の内側には何の力も残らず、道具を失った時に対応できなくなるということ。"},
+    {q:"この文章で筆者が最も言いたいことを、60字以内でまとめなさい。",
+     a:"道具は能力を外部に預けることと引きかえに新しい力を与えるが、何を預け何を自分に残すかは自分で選び、その選択に責任を持つべきだということ。"}
+  ]
+},
+{
+  id:"seed-jitensha", title:"自転車を直す", genre:"物語文", level:"やや難",
+  paras:[
+    ["夏休みの最後の週になって、","ぼくはようやく","自転車を直す気になった。","去年の秋に","チェーンが外れたまま、","物置の奥で","立てかけっぱなしに","なっていたやつだ。","直そうと思えば","いつでも直せた。","ただ、","直してしまうと、","それに乗って","どこかへ行かなければ","ならない気がして、","なんとなく","先延ばしにしていた。"],
+    ["物置の扉を開けると、","乾いた土のにおいがした。","自転車は、","記憶していたよりも","ずっと小さく見えた。","去年まではこれで","坂の上の団地まで","通っていたのに、","今はハンドルの位置が","低すぎて、","またがると膝が","前に出すぎてしまう。","体だけが勝手に大きくなって、","自転車が置いていかれた","みたいだった。"],
+    ["チェーンは思ったより","簡単にはまった。","軍手をはめた指で","ギアに引っかけて、","ペダルをゆっくり逆に回す。","かちり、と音がして、","歯車が噛み合った。","そのとたん、","後輪がなめらかに","空回りをはじめて、","ぼくは思わず手を止めた。","何も変わっていない。","去年と同じ音だ。","壊れていたのは","十秒で直る程度のことで、","それを一年近く","放っておいたのは、","ぼくのほうだった。"],
+    ["「乗らないなら、","そろそろ処分しても","いいんじゃないの」"],
+    ["いつのまにか","母が後ろに立っていた。","責めるような調子ではなく、","洗濯物を干す順番でも","決めるような声だった。","ぼくは軍手のまま","後輪を指ではじいて、","まだ回り続けている","タイヤを見ていた。"],
+    ["「乗るよ」"],
+    ["言ってしまってから、","自分でも少し驚いた。","乗る場所が","あるわけではない。","坂の上の団地には、","もう航太はいない。","三月に引っ越していって、","最初のうちは何度か","メッセージが来たけれど、","夏に入ってからは","ぱたりと止まっていた。","返さなかったのは","ぼくのほうだ。","「元気?」という三文字に、","どう返せばいいのか","わからなかった。","元気だと答えれば、","それで話が終わってしまう","気がした。"],
+    ["母は何も言わずに","家の中へ戻っていった。","ぼくはサドルの高さを","調節するレバーを探した。","ねじが錆びていて、","指の力では動かなかった。","物置の棚から","スパナを取り出して、","少しずつ回す。","二センチ上げて、","またがってみる。","まだ低い。","もう二センチ上げる。","そのくり返しを四度やって、","ようやく足がまっすぐ","下まで伸びるようになった。"],
+    ["ペダルを踏み出すと、","体が思ったよりも","高いところにあった。","景色の見え方が少し違う。","ブロック塀の向こうに、","去年は見えなかった","隣の家の庭木のてっぺんが","見えた。"],
+    ["坂の下まで来て、","ぼくは自転車を止めた。","ここから右に曲がれば","団地へ続く道で、","左に行けばコンビニだ。","右に行っても、","あの部屋にはもう","知らない誰かが住んでいる。","わかっている。","わかっているのに、","ハンドルは右を向いていた。"],
+    ["サドルが高くなった分、","坂はきつく感じた。","去年はもっと楽に","登れたはずなのに、","と思ってから、","そうではないことに気づいた。","去年は航太が横にいて、","しゃべりながら登っていたから、","きつさを数えて","いなかっただけだ。","一人で登る坂は、","ただ坂だった。"],
+    ["団地の前まで来て、","ぼくは自転車に","またがったまま、","五階の角の部屋を見上げた。","ベランダに、","見おぼえのない","水色のタオルが干してあった。","それを確かめたかったのだと、","そのときやっとわかった。","もう誰もいないということを、","画面の文字ではなく、","自分の目で","見ておきたかったのだ。"],
+    ["ポケットからスマホを出して、","三文字を打った。","打って、消して、","もう一度打った。"],
+    ["「元気」ではなく、","「自転車、直した」と送った。"],
+    ["返事を待たずに","ポケットにしまって、","ぼくは坂を下りはじめた。","下りは、","ブレーキをかけなければ","止まらないくらい速かった。"]
+  ],
+  summaries:[
+    "一年放置した自転車を直す気になった",
+    "自転車が小さく見え、体だけ成長していた",
+    "壊れていたのは十秒で直る程度のことだった",
+    "母が処分を提案する",
+    "母の声は責めるものではなかった",
+    "思わず「乗るよ」と答える",
+    "航太の引っ越しと返せなかったメッセージ",
+    "サドルを四度上げて高さを合わせる",
+    "去年は見えなかった景色が見えた",
+    "わかっていながらハンドルは右を向いた",
+    "坂のきつさは一人だからだと気づく",
+    "知らないタオルを見て不在を目で確かめた",
+    "打っては消し、また打つ",
+    "「自転車、直した」と送る",
+    "返事を待たずに坂を下りはじめた"
+  ],
+  thesis:"別れを直視することを避けていた主人公が、自分の目で不在を確かめ、自分から関係を結び直そうとするまでの変化。",
+  questions:[
+    {q:"この文章全体を通しての主人公の心情の変化を、40字以内で説明しなさい。",
+     a:"別れを直視するのを避けていたが、実際に確かめることで受け入れ、自分から関係を結び直そうとする気持ちに変わった。"},
+    {q:"「一人で登る坂は、ただ坂だった」から、主人公が気づいたことは何ですか。50字以内で説明しなさい。",
+     a:"去年の坂の楽しさは坂そのものではなく航太と一緒だったことによるもので、失ったのは道ではなく相手だったということ。"},
+    {q:"主人公が「元気」ではなく「自転車、直した」と送ったのはなぜですか。60字以内で説明しなさい。",
+     a:"「元気?」のような当たり障りのない言葉では会話が終わってしまうため、自分の側から具体的な出来事を伝え、続きのある関係を作ろうとしたから。"}
+  ]
+}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const LSK = "chunkreader.v1";
+let store = { logs:[], generated:[], lastId:null, theme:null, speed:450 };
+let passages = SEEDS.slice();
+let cur = null;
+let sampleFn = null;
+
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(LSK);
+    if(raw){ const o = JSON.parse(raw); if(o && typeof o==="object") store = Object.assign(store,o); }
+  }catch(e){}
+  if(Array.isArray(store.generated)) passages = SEEDS.concat(store.generated);
+  if(store.theme) document.documentElement.setAttribute("data-theme", store.theme);
+}
+function saveStore(){
+  try{ localStorage.setItem(LSK, JSON.stringify(store)); }catch(e){}
+}
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const flat = p => p.paras.flat();
+const plainParas = p => p.paras.map(a=>a.join(""));
+const charCount = p => flat(p).join("").length;
+const fmt = sec => Math.floor(sec/60)+":"+String(Math.floor(sec%60)).padStart(2,"0");
+function speedOf(chars, sec){ return sec>0 ? Math.round(chars/sec*60) : 0; }
+function verdictOf(sp){
+  if(sp>=800) return {mk:"◎◎", t:"難関校目標達成", c:"var(--good)"};
+  if(sp>=700) return {mk:"◎", t:"余裕あり", c:"var(--good)"};
+  if(sp>=600) return {mk:"○", t:"合格ライン", c:"var(--good)"};
+  if(sp>=500) return {mk:"△", t:"あと一歩", c:"var(--warn)"};
+  return {mk:"⚠️", t:"要訓練（②に戻る）", c:"var(--warn)"};
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+$$("nav button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    $$("nav button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on");
+    $$(".view").forEach(v=>v.classList.remove("on"));
+    $("#v-"+b.dataset.v).classList.add("on");
+    window.scrollTo(0,0);
+    if(b.dataset.v==="s1") renderS1();
+    if(b.dataset.v==="s2") renderS2();
+    if(b.dataset.v==="s3") renderS3();
+    if(b.dataset.v==="log") renderLog();
+  });
+});
+
+$("#themeBtn").addEventListener("click", ()=>{
+  const el = document.documentElement;
+  const now = el.getAttribute("data-theme");
+  const next = now==="dark" ? "light" : now==="light" ? null : "dark";
+  if(next) el.setAttribute("data-theme", next); else el.removeAttribute("data-theme");
+  store.theme = next; saveStore();
+});
+
+/* ============================================================
+   PASSAGE PICKER / HOME
+   ============================================================ */
+function setCur(p){
+  cur = p; store.lastId = p.id; saveStore();
+  $("#curInfo").innerHTML =
+    "<b style='color:var(--text);font-size:15px'>"+esc(p.title)+"</b><br>"+
+    "<span class='pill'>"+esc(p.genre)+"</span>"+
+    "<span class='pill'>"+esc(p.level||"標準")+"</span>"+
+    "<span class='pill'>"+charCount(p)+"字</span>"+
+    (p.fresh?"<span class='pill on'>新規生成</span>":"");
+  resetS3();
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function renderPickList(){
+  const el = $("#pickList"); el.innerHTML="";
+  passages.forEach(p=>{
+    const b = document.createElement("button");
+    b.className = "btn sec sm";
+    b.style.cssText="width:100%;justify-content:flex-start;margin-bottom:6px;text-align:left";
+    b.innerHTML = "<span style='flex:1'>"+esc(p.title)+"</span><span class='muted' style='font-size:11px'>"+esc(p.genre)+" / "+charCount(p)+"字</span>";
+    b.addEventListener("click", ()=>{ setCur(p); $("#pickPanel").classList.add("hidden"); });
+    el.appendChild(b);
+  });
+}
+$("#pickBtn").addEventListener("click", ()=>{
+  renderPickList();
+  $("#genPanel").classList.add("hidden");
+  $("#pastePanel").classList.add("hidden");
+  $("#pickPanel").classList.toggle("hidden");
+});
+
+/* ---------- paste your own text ---------- */
+const PGENRE = ["説明文","物語文","随筆文"];
+let pasteGenreSel = "説明文";
+function buildPasteGenre(){
+  const el = $("#pasteGenre"); el.innerHTML="";
+  PGENRE.forEach(v=>{
+    const b=document.createElement("button"); b.textContent=v;
+    if(pasteGenreSel===v) b.classList.add("on");
+    b.addEventListener("click",()=>{ pasteGenreSel=v; buildPasteGenre(); });
+    el.appendChild(b);
+  });
+}
+$("#pasteBtn").addEventListener("click", ()=>{
+  buildPasteGenre();
+  $("#genPanel").classList.add("hidden");
+  $("#pickPanel").classList.add("hidden");
+  $("#pastePanel").classList.toggle("hidden");
+});
+
+/* Japanese chunker: split a paragraph into 6-12 char meaning units */
+const BREAK_AFTER = ["、","。","！","？","」","）"];
+const PARTICLE_TAILS = ["ので","のに","から","まで","より","ては","ても","けれど","ながら","ように","という","こそ","など","ほど","だけ","しか","は","が","を","に","へ","と","で","も","や","ば","て","し"];
+function chunkParagraph(text){
+  const out = [];
+  let buf = "", lastCand = -1;
+  const MIN = 5, IDEAL = 11, MAX = 15;
+  const flush = (upto)=>{
+    if(upto!=null && upto>0 && upto<buf.length){
+      out.push(buf.slice(0,upto)); buf = buf.slice(upto);
+    } else if(buf){ out.push(buf); buf=""; }
+    lastCand = -1;
+  };
+  for(let i=0;i<text.length;i++){
+    const c = text[i];
+    buf += c;
+    if(BREAK_AFTER.includes(c)){
+      // punctuation: pull along a following closing mark
+      const nx = text[i+1];
+      if(nx && (nx==="」"||nx==="』"||nx==="）")) continue;
+      flush(); continue;
+    }
+    if(buf.length >= MIN){
+      for(const t of PARTICLE_TAILS){
+        if(buf.endsWith(t)){
+          const nx = text[i+1];
+          // avoid breaking inside a word: next char should not be a small kana / continuation
+          if(nx && "ぁぃぅぇぉっゃゅょんー".includes(nx)) break;
+          lastCand = buf.length;
+          break;
+        }
+      }
+    }
+    if(buf.length >= IDEAL && lastCand >= MIN){ flush(lastCand); continue; }
+    if(buf.length >= MAX){ flush(lastCand >= MIN ? lastCand : null); }
+  }
+  if(buf) out.push(buf);
+  // merge very short trailing fragments
+  const merged = [];
+  out.forEach(c=>{
+    if(merged.length && c.length <= 2 && merged[merged.length-1].length + c.length <= MAX){
+      merged[merged.length-1] += c;
+    } else merged.push(c);
+  });
+  return merged;
+}
+function passageFromText(raw, title, genre){
+  const clean = String(raw).replace(/\r/g,"").replace(/[ \t\u3000]+/g," ").trim();
+  if(!clean) return null;
+  const paras = clean.split(/\n+/).map(s=>s.trim()).filter(s=>s.length>0);
+  if(!paras.length) return null;
+  const chunked = paras.map(chunkParagraph).filter(a=>a.length);
+  if(!chunked.length) return null;
+  return {
+    id: "paste-"+Date.now(),
+    title: (title||"").trim() || ("貼り付け "+new Date().toISOString().slice(5,10)),
+    genre: genre, level: "自前", pasted: true,
+    paras: chunked,
+    summaries: chunked.map(()=>""),
+    thesis: "",
+    questions: [
+      {q:"この文章の要点を、筆者の主張（物語なら主人公の心情の変化）に注目して60字以内でまとめなさい。", a:"（模範解答なし。塾の解答や保護者の採点と照らしてください）"},
+      {q:"各段落の要点を15字以内で書き出し、つなげて200字要約を作りなさい。", a:"（模範解答なし）"}
+    ]
+  };
+}
+function passageFromJSON(raw){
+  let d;
+  try{ d = JSON.parse(String(raw).trim()); }catch(e){ return null; }
+  if(!d || typeof d!=="object" || !Array.isArray(d.paras)) return null;
+  const paras = d.paras.map(a=>Array.isArray(a)?a.map(String).filter(Boolean):null).filter(a=>a&&a.length);
+  if(!paras.length) return null;
+  let sums = Array.isArray(d.summaries)?d.summaries.map(String):[];
+  while(sums.length<paras.length) sums.push("");
+  const qs = (Array.isArray(d.questions)?d.questions:[]).filter(q=>q&&q.q).map(q=>({q:String(q.q),a:String(q.a||"")}));
+  return {
+    id:"json-"+Date.now(),
+    title:String(d.title||"無題").slice(0,24),
+    genre:String(d.genre||"説明文"),
+    level:String(d.school||d.level||"—"),
+    school:d.school?String(d.school):"",
+    target:Number(d.target)||0,
+    paras, summaries:sums.slice(0,paras.length),
+    thesis:String(d.thesis||""),
+    questions: qs.length?qs:[{q:"この文章の主題を60字以内でまとめなさい。",a:String(d.thesis||"")}]
+  };
+}
+$("#pasteGo").addEventListener("click", ()=>{
+  const raw = $("#pasteText").value;
+  const looksJson = /^\s*\{/.test(raw);
+  const p = looksJson ? passageFromJSON(raw) : passageFromText(raw, $("#pasteTitle").value, pasteGenreSel);
+  if(!p){
+    $("#pasteMsg").textContent = looksJson
+      ? "JSONを読み取れませんでした。ジェネレーターの内容をすべてコピーできているか確認してください。"
+      : "本文が読み取れませんでした。";
+    return;
+  }
+  if(looksJson && $("#pasteTitle").value.trim()) p.title = $("#pasteTitle").value.trim();
+  store.generated = (store.generated||[]).concat([p]).slice(-12);
+  passages = SEEDS.concat(store.generated);
+  saveStore();
+  setCur(p);
+  $("#pasteMsg").textContent = "「"+p.title+"」（"+charCount(p)+"字・"+flat(p).length+"チャンク"+(looksJson?"・模範解答つき":"・自動分割")+"）を教材にしました。";
+  $("#pasteText").value = ""; $("#pasteTitle").value = "";
+});
+
+/* ---------- generation options ---------- */
+const GEN = {
+  genre:["説明文","物語文","随筆文"],
+  level:["標準（四谷偏差55前後）","やや難（偏差60前後）","難関（麻布・武蔵レベル）"],
+  len:["短め 600字","標準 1200字","長め 2000字"]
+};
+let genSel = {genre:"説明文", level:"難関（麻布・武蔵レベル）", len:"標準 1200字"};
+function buildSel(id, arr, key){
+  const el = $(id); el.innerHTML="";
+  arr.forEach(v=>{
+    const b=document.createElement("button");
+    b.textContent=v; if(genSel[key]===v) b.classList.add("on");
+    b.addEventListener("click",()=>{ genSel[key]=v; buildSel(id,arr,key); });
+    el.appendChild(b);
+  });
+}
+$("#genBtn").addEventListener("click", ()=>{
+  buildSel("#genGenre",GEN.genre,"genre");
+  buildSel("#genLevel",GEN.level,"level");
+  buildSel("#genLen",GEN.len,"len");
+  $("#pickPanel").classList.add("hidden");
+  $("#pastePanel").classList.add("hidden");
+  $("#genPanel").classList.toggle("hidden");
+});
+
+const GEN_PROMPT = (g)=>`あなたは中学受験国語の教材作成者です。難関中学（麻布・武蔵・駒場東邦など）の入試で出題されそうな文章を、著作権のある既存作品を一切引用せず、完全な書き下ろしオリジナルとして1本作ってください。
+
+条件:
+- ジャンル: ${g.genre}
+- 難易度: ${g.level}
+- 総字数: ${g.len}（句読点を含む。±15%以内）
+- 説明文なら抽象的・哲学的なテーマ（時間、言葉、記憶、自然と人間、共同体など）。物語文なら小学6年生〜中学生の主人公の、喪失・自立・友人関係の機微を扱う。随筆文なら具体的な体験から一般的な思索へ展開する。
+- 小学6年生が読める漢字と語彙。ただし内容は平易にしすぎない。
+- 会話文は「」で。段落は6〜14個。
+
+出力は次の形のJSONオブジェクトのみ。前後に説明文を付けないこと。
+
+{
+ "title": "8字以内の題",
+ "genre": "${g.genre}",
+ "paras": [ ["チャンク","チャンク", ...], ... ],
+ "summaries": ["各段落の要点15字以内", ...],
+ "thesis": "説明文なら筆者の主張、物語文なら主人公の心情変化を60字以内で",
+ "questions": [ {"q":"設問文","a":"模範解答"}, {"q":"...","a":"..."}, {"q":"...","a":"..."} ]
+}
+
+最重要ルール — "paras" の作り方:
+本文を段落ごとの配列にし、さらに各段落を「意味のかたまり（チャンク）」の配列に分割してください。チャンクを順に連結すると元の本文が一字も欠けずに復元できること。改行や空白は入れない。
+チャンクの分け方:
+- 1チャンクは6〜12字を目安（会話文の短い行はそれ未満でも可）
+- 主語のかたまりの直後（〜は／〜が）、修飾のかたまりの直後、接続語の直後（しかし／つまり／だから）、述語の直前で切る
+- 句点「。」はその直前のチャンクの末尾に含める
+例: ["少年は","黙ったまま","川の向こう岸を","見つめていた。"]
+
+"summaries" は paras と同じ要素数。"questions" は3問で、記述式（30〜60字）にし、うち1問は文章全体の主題を問うこと。`;
+
+async function generate(){
+  if(!sampleFn){ $("#genStatus").textContent = "この画面では文章生成が使えません。内蔵教材をお使いください。"; return; }
+  const st = $("#genStatus");
+  st.innerHTML = '<span class="spin"></span> 生成中…（30〜90秒）';
+  $("#genGo").disabled = true;
+  try{
+    const data = await sampleFn.json(GEN_PROMPT(genSel), {modelTier:"complex", cache:false});
+    const p = normalize(data);
+    if(!p) throw {code:"bad_shape"};
+    p.id = "gen-"+Date.now();
+    p.level = genSel.level;
+    p.fresh = true;
+    store.generated = (store.generated||[]).concat([p]).slice(-12);
+    passages = SEEDS.concat(store.generated);
+    saveStore();
+    setCur(p);
+    st.textContent = "「"+p.title+"」（"+charCount(p)+"字）を作りました。①から始めてください。";
+    $("#genPanel").classList.add("hidden");
+  }catch(e){
+    const code = e && e.code;
+    const msg =
+      code==="not_granted"||code==="sampling_disabled" ? "文章生成の利用が許可されていません。内蔵教材をお使いください。" :
+      code==="rate_limited" ? "回数の上限に達しました。しばらく待ってからお試しください。" :
+      code==="invalid_json"||code==="bad_shape" ? "うまく作れませんでした。もう一度お試しください。" :
+      code==="cancelled" ? "中止しました。" :
+      "生成に失敗しました。もう一度お試しください。";
+    st.textContent = msg;
+  }finally{
+    $("#genGo").disabled = false;
+  }
+}
+function normalize(d){
+  try{
+    if(!d || !Array.isArray(d.paras)) return null;
+    const paras = d.paras
+      .map(a=>Array.isArray(a) ? a.map(x=>String(x)).filter(Boolean) : null)
+      .filter(a=>a && a.length);
+    if(!paras.length) return null;
+    const n = paras.length;
+    let sums = Array.isArray(d.summaries) ? d.summaries.map(String) : [];
+    while(sums.length < n) sums.push("");
+    sums = sums.slice(0,n);
+    const qs = (Array.isArray(d.questions)?d.questions:[])
+      .filter(q=>q && q.q).map(q=>({q:String(q.q), a:String(q.a||"")}));
+    return {
+      title: String(d.title||"無題").slice(0,20),
+      genre: String(d.genre||genSel.genre),
+      paras, summaries:sums,
+      thesis: String(d.thesis||""),
+      questions: qs.length?qs:[{q:"この文章の主題を60字以内でまとめなさい。", a:String(d.thesis||"")}]
+    };
+  }catch(e){ return null; }
+}
+$("#genGo").addEventListener("click", generate);
+
+/* ============================================================
+   STEP 1 — slash drill
+   ============================================================ */
+let s1 = {sents:[], idx:0, set:new Set(), checked:false};
+
+function buildSentences(p){
+  // For each paragraph: chunk-end offsets -> split into sentences at 。 or 」
+  const out = [];
+  p.paras.forEach(chunks=>{
+    const text = chunks.join("");
+    const bnd = new Set();
+    let acc = 0;
+    for(let i=0;i<chunks.length-1;i++){ acc += chunks[i].length; bnd.add(acc); }
+    // sentence split
+    let start = 0;
+    for(let i=0;i<text.length;i++){
+      const c = text[i];
+      const nxt = text[i+1];
+      const isEnd = (c==="。" && nxt!=="」") || (c==="」") || (c==="？") || (c==="！");
+      if(isEnd || i===text.length-1){
+        const s = start, e = i+1;
+        const body = text.slice(s,e);
+        if(body.replace(/[\s]/g,"").length >= 12){
+          const local = [];
+          bnd.forEach(b=>{ if(b>s && b<e) local.push(b-s); });
+          local.sort((a,b)=>a-b);
+          if(local.length>=2) out.push({text:body, model:local});
+        }
+        start = e;
+      }
+    }
+  });
+  return out.slice(0, 12);
+}
+
+function renderS1(){
+  if(!cur) return;
+  s1.sents = buildSentences(cur);
+  if(s1.idx >= s1.sents.length) s1.idx = 0;
+  drawS1();
+}
+function drawS1(){
+  const box = $("#s1Sent");
+  $("#s1Result").textContent = "";
+  $("#s1Legend").innerHTML = "";
+  if(!s1.sents.length){ box.textContent = "この教材では短文が取れませんでした。別の教材を選んでください。"; $("#s1Count").textContent=""; return; }
+  const s = s1.sents[s1.idx];
+  s1.set = new Set(); s1.checked = false;
+  box.innerHTML = "";
+  for(let i=0;i<s.text.length;i++){
+    const ch = document.createElement("span");
+    ch.className="ch"; ch.textContent = s.text[i];
+    box.appendChild(ch);
+    if(i < s.text.length-1){
+      const g = document.createElement("span");
+      g.className="gap"; g.dataset.i = String(i+1);
+      g.addEventListener("click", ()=>{
+        if(s1.checked) return;
+        const k = Number(g.dataset.i);
+        if(s1.set.has(k)){ s1.set.delete(k); g.classList.remove("set"); }
+        else { s1.set.add(k); g.classList.add("set"); }
+      });
+      box.appendChild(g);
+    }
+  }
+  $("#s1Count").textContent = (s1.idx+1)+" / "+s1.sents.length+"　"+s.text.length+"字";
+}
+$("#s1Prev").addEventListener("click", ()=>{ if(!s1.sents.length)return; s1.idx=(s1.idx-1+s1.sents.length)%s1.sents.length; drawS1(); });
+$("#s1Next").addEventListener("click", ()=>{ if(!s1.sents.length)return; s1.idx=(s1.idx+1)%s1.sents.length; drawS1(); });
+$("#s1Clear").addEventListener("click", ()=>{ drawS1(); });
+$("#s1Check").addEventListener("click", ()=>{
+  if(!s1.sents.length || s1.checked) return;
+  const s = s1.sents[s1.idx];
+  const model = new Set(s.model);
+  s1.checked = true;
+  let hit=0, miss=0, extra=0;
+  $$("#s1Sent .gap").forEach(g=>{
+    const k = Number(g.dataset.i);
+    g.classList.remove("set");
+    if(model.has(k) && s1.set.has(k)){ g.classList.add("hit"); hit++; }
+    else if(model.has(k)){ g.classList.add("miss"); miss++; }
+    else if(s1.set.has(k)){ g.classList.add("extra"); extra++; }
+  });
+  $("#s1Legend").innerHTML =
+    "<span><i style='background:var(--good)'></i>一致 "+hit+"</span>"+
+    "<span><i style='background:var(--warn)'></i>模範にあって入れ忘れ "+miss+"</span>"+
+    "<span><i style='background:var(--warn);opacity:.4'></i>模範にない切れ目 "+extra+"</span>";
+  const model2 = s.model.slice();
+  let out="", prev=0;
+  model2.forEach(b=>{ out += s.text.slice(prev,b)+"／"; prev=b; });
+  out += s.text.slice(prev);
+  const rate = model2.length ? Math.round(hit/model2.length*100) : 0;
+  const judge = rate>=70 ? "よい切り方です。" : rate>=40 ? "方向は合っています。もう少し細かく切ってみましょう。" : "1チャンク6〜12字を意識して切り直してみましょう。";
+  $("#s1Result").innerHTML =
+    "<b style='color:var(--text)'>一致率 "+rate+"%</b>　"+judge+
+    "<div style='margin-top:8px;font-family:var(--serif);font-size:15px;line-height:2;color:var(--text)'>【模範】"+esc(out)+"</div>"+
+    "<div style='margin-top:6px'>1〜2箇所のずれは正解です。</div>";
+});
+
+/* ============================================================
+   STEP 2 — chunk flash
+   ============================================================ */
+let s2 = {chunks:[], i:0, timer:null, playing:false};
+
+function renderS2(){
+  if(!cur) return;
+  s2.chunks = flat(cur);
+  s2.i = 0; stopS2();
+  $("#s2Flash").textContent = "▶ を押すと始まります";
+  $("#s2Flash").classList.remove("done");
+  $("#s2Prog").style.width = "0%";
+  $("#s2Speed").value = store.speed || 450;
+  $("#s2SpeedLbl").textContent = ($("#s2Speed").value)+"字/分";
+  const chars = charCount(cur);
+  const sp = Number($("#s2Speed").value);
+  $("#s2Meta").textContent = cur.title+"／"+chars+"字・"+s2.chunks.length+"チャンク　この速度での通読目安 "+fmt(chars/sp*60);
+  // slashed text
+  $("#s2Slashed").innerHTML = cur.paras.map(a=>"<p>"+esc(a.join("／"))+"</p>").join("");
+  // summaries
+  const el = $("#s2Sum"); el.innerHTML="";
+  cur.paras.forEach((a,i)=>{
+    const wrap = document.createElement("div");
+    wrap.style.marginBottom="10px";
+    wrap.innerHTML = "<div class='q'>第"+(i+1)+"段落の要点（15字以内）</div>";
+    const ta = document.createElement("textarea"); ta.rows=1; ta.placeholder="…";
+    wrap.appendChild(ta);
+    const d = document.createElement("details");
+    d.innerHTML = "<summary>模範解答</summary><div class='body'>"+esc(cur.summaries[i]||"（なし）")+"</div>";
+    wrap.appendChild(d);
+    el.appendChild(wrap);
+  });
+  const th = document.createElement("div");
+  th.innerHTML = "<div class='q'>"+(cur.genre==="物語文"?"主人公の心情の変化（60字以内）":"筆者の主張（60字以内）")+"</div>";
+  const ta2 = document.createElement("textarea"); ta2.rows=3; ta2.placeholder="…";
+  th.appendChild(ta2);
+  const d2 = document.createElement("details");
+  d2.innerHTML = "<summary>模範解答</summary><div class='body'>"+esc(cur.thesis||"（なし）")+"</div>";
+  th.appendChild(d2);
+  el.appendChild(th);
+}
+function stepS2(){
+  if(s2.i >= s2.chunks.length){
+    stopS2();
+    $("#s2Flash").classList.add("done");
+    $("#s2Flash").textContent = "おわり。下の要約チェックへ。";
+    $("#s2Prog").style.width = "100%";
+    return;
+  }
+  const c = s2.chunks[s2.i];
+  $("#s2Flash").classList.remove("done");
+  $("#s2Flash").textContent = c;
+  $("#s2Prog").style.width = Math.round((s2.i+1)/s2.chunks.length*100)+"%";
+  const sp = Number($("#s2Speed").value);
+  const ms = Math.max(160, c.length/sp*60000);
+  s2.i++;
+  s2.timer = setTimeout(stepS2, ms);
+}
+function stopS2(){ if(s2.timer){clearTimeout(s2.timer); s2.timer=null;} s2.playing=false; $("#s2Play").textContent="▶ 開始"; }
+$("#s2Play").addEventListener("click", ()=>{
+  if(!cur) return;
+  if(s2.playing){ stopS2(); return; }
+  if(s2.i >= s2.chunks.length) s2.i = 0;
+  s2.playing = true; $("#s2Play").textContent="⏸ 一時停止";
+  stepS2();
+});
+$("#s2Reset").addEventListener("click", ()=>{ stopS2(); s2.i=0; $("#s2Prog").style.width="0%"; $("#s2Flash").classList.remove("done"); $("#s2Flash").textContent="▶ を押すと始まります"; });
+$("#s2Speed").addEventListener("input", e=>{
+  const sp = Number(e.target.value);
+  $("#s2SpeedLbl").textContent = sp+"字/分";
+  store.speed = sp; saveStore();
+  if(cur) $("#s2Meta").textContent = cur.title+"／"+charCount(cur)+"字・"+s2.chunks.length+"チャンク　この速度での通読目安 "+fmt(charCount(cur)/sp*60);
+});
+
+/* ============================================================
+   STEP 3 — timed first read
+   ============================================================ */
+let s3 = {t0:0, tick:null, sec:0};
+
+function renderS3(){
+  if(!cur) return;
+  $("#s3Intro").textContent = cur.title+"／"+charCount(cur)+"字（"+cur.genre+"）　読み終わったらすぐ止めてください。";
+}
+function resetS3(){
+  if(s3.tick){clearInterval(s3.tick); s3.tick=null;}
+  s3.sec=0;
+  $("#s3Timer").textContent="0:00";
+  $("#s3TextCard").classList.add("hidden");
+  $("#s3ResultCard").classList.add("hidden");
+  $("#s3Start").classList.remove("hidden");
+  $("#s3Warn").classList.remove("hidden");
+  $("#s3SaveMsg").textContent="";
+  if(cur) renderS3();
+}
+$("#s3Start").addEventListener("click", ()=>{
+  if(!cur) return;
+  $("#s3Text").innerHTML = plainParas(cur).map(t=>"<p>"+esc(t)+"</p>").join("");
+  $("#s3TextCard").classList.remove("hidden");
+  $("#s3ResultCard").classList.add("hidden");
+  $("#s3Start").classList.add("hidden");
+  $("#s3Warn").classList.add("hidden");
+  s3.t0 = Date.now(); s3.sec = 0;
+  s3.tick = setInterval(()=>{
+    s3.sec = (Date.now()-s3.t0)/1000;
+    $("#s3Timer").textContent = fmt(s3.sec);
+  }, 200);
+  $("#s3TextCard").scrollIntoView({behavior:"smooth", block:"start"});
+});
+$("#s3Stop").addEventListener("click", ()=>{
+  if(s3.tick){clearInterval(s3.tick); s3.tick=null;}
+  s3.sec = (Date.now()-s3.t0)/1000;
+  $("#s3Timer").textContent = fmt(s3.sec);
+  $("#s3TextCard").classList.add("hidden");
+  const chars = charCount(cur);
+  const sp = speedOf(chars, s3.sec);
+  const v = verdictOf(sp);
+  $("#s3Verdict").innerHTML = "<b style='color:"+v.c+"'>"+sp+"字/分</b> "+v.mk+"<br><span class='muted'>"+v.t+"</span>";
+  const rows = [[400,"要訓練"],[500,"あと一歩"],[600,"合格ライン"],[700,"余裕あり"],[800,"難関校目標"]];
+  const tgt0 = Number(cur.target)||0;
+  let html = "<tr><th>読速</th><th>この文章の目標タイム</th><th></th></tr>";
+  rows.forEach(r=>{
+    const tgt = chars/r[0]*60;
+    const on = tgt0 ? (r[0]===tgt0) : (sp>=r[0] && (r[0]===800 || sp<r[0]+100));
+    const label = r[1] + (tgt0===r[0] && cur.school ? "（"+cur.school+"目標）" : "");
+    html += "<tr"+(on?" class='hl'":"")+"><td class='num'>"+r[0]+"字/分</td><td class='num'>"+fmt(tgt)+"</td><td>"+esc(label)+"</td></tr>";
+  });
+  $("#s3Table").innerHTML = html;
+  const qs = $("#s3Qs"); qs.innerHTML="";
+  (cur.questions||[]).forEach((q,i)=>{
+    const w = document.createElement("div"); w.style.marginBottom="12px";
+    w.innerHTML = "<div class='q'>問"+(i+1)+"　"+esc(q.q)+"</div>";
+    const ta = document.createElement("textarea"); ta.rows=3; ta.placeholder="…";
+    w.appendChild(ta);
+    const d = document.createElement("details");
+    d.innerHTML = "<summary>解答の方向性</summary><div class='body'>"+esc(q.a)+"</div>";
+    w.appendChild(d);
+    qs.appendChild(w);
+  });
+  $("#s3ResultCard").classList.remove("hidden");
+  $("#s3ResultCard").scrollIntoView({behavior:"smooth", block:"start"});
+});
+$("#s3Again").addEventListener("click", resetS3);
+$("#s3Save").addEventListener("click", ()=>{
+  const chars = charCount(cur);
+  store.logs = (store.logs||[]).concat([{
+    d: new Date().toISOString().slice(0,10),
+    t: cur.title, c: chars, s: Math.round(s3.sec), sp: speedOf(chars, s3.sec)
+  }]).slice(-60);
+  saveStore();
+  $("#s3SaveMsg").textContent = "記録しました。";
+});
+
+/* ============================================================
+   LOG
+   ============================================================ */
+function renderLog(){
+  const logs = (store.logs||[]).slice().reverse();
+  const t = $("#logTable");
+  if(!logs.length){ t.innerHTML=""; $("#logEmpty").textContent="まだ記録がありません。③で測定して「記録する」を押してください。"; return; }
+  $("#logEmpty").textContent="";
+  let html = "<tr><th>日付</th><th>教材</th><th>字数</th><th>タイム</th><th>読速</th></tr>";
+  logs.forEach(l=>{
+    html += "<tr><td class='num'>"+esc(l.d.slice(5))+"</td><td>"+esc(l.t)+"</td><td class='num'>"+l.c+"</td><td class='num'>"+fmt(l.s)+"</td><td class='num'><b>"+l.sp+"</b></td></tr>";
+  });
+  t.innerHTML = html;
+}
+$("#logClear").addEventListener("click", ()=>{
+  store.logs = []; saveStore(); renderLog();
+});
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+loadStore();
+setCur(passages.find(p=>p.id===store.lastId) || passages[0]);
+
+(async ()=>{
+  try{
+    const s = await window.claude?.use?.("sample");
+    if(s){ sampleFn = s; }
+    else { noSample(); }
+  }catch(e){ noSample(); }
+})();
+function noSample(){
+  const b = $("#genBtn");
+  b.disabled = true; b.textContent = "AI生成（この環境では不可）";
+  $("#genStatus").textContent = "この配置ではAIによる文章生成は使えません。「文章を貼る」から塾のテキストや新聞コラムを取り込んでください。";
+}
+</script>
+</body>
+</html>
