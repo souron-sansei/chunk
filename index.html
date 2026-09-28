@@ -84,8 +84,8 @@ summary::before{content:"▸ "} details[open] summary::before{content:"▾ "}
 .vwrap{display:block;overflow:hidden}
 .vwrap.on{
   overflow-x:auto; overflow-y:hidden;
-  -webkit-overflow-scrolling:touch; touch-action:pan-x;
-  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch; touch-action:pan-x pan-y;
+  overscroll-behavior-x:contain; overscroll-behavior-y:auto;
   height:66vh; min-height:340px; max-height:620px;
   border:1px solid var(--line); border-radius:10px; background:var(--surface-2);
   padding:10px 8px;
@@ -345,6 +345,21 @@ function saveStore(){ try{ localStorage.setItem(LSK,JSON.stringify(store)); }cat
 
 /* ---------- 縦書き／横書き ---------- */
 function isVert(){ return store.wm!=="h"; }
+/* 縦書きの「読み始め」へ寄せる。
+   vertical-rl の scrollLeft の取り方はブラウザによって
+   0〜正 と 負〜0 の二通りがあるため、実際に端を測ってから決める。 */
+function scrollToStart(wr){
+  if(!wr||!wr.classList.contains("on")) return;
+  try{
+    wr.scrollLeft = -1e7; const min = wr.scrollLeft;
+    wr.scrollLeft =  1e7; const max = wr.scrollLeft;
+    wr.scrollLeft = (max >= 0 && min >= 0) ? max : 0;
+  }catch(e){}
+}
+function scrollToStartSoon(wr){
+  scrollToStart(wr);
+  requestAnimationFrame(()=>{ scrollToStart(wr); setTimeout(()=>scrollToStart(wr),60); });
+}
 function applyWM(){
   const v=isVert();
   $("#wmBtn").textContent = v ? "縦" : "横";
@@ -353,7 +368,7 @@ function applyWM(){
     if(wr) wr.classList.toggle("on",v);
     if(el) el.classList.toggle("vert",v);
     if(hi) hi.textContent = v ? "指で左へスワイプすると読み進みます →" : "";
-    if(wr&&v) wr.scrollLeft = wr.scrollWidth;
+    if(wr&&v) scrollToStartSoon(wr);
   });
   const done=$("#flash").classList.contains("done");
   $("#flash").classList.toggle("tall", v && !done);
@@ -552,6 +567,7 @@ function renderS1(){
   $("#speed").value=Math.min(1300,Math.max(700,Number(store.speed)||900));$("#speedLbl").textContent=$("#speed").value+"字/分";
   updMeta();
   $("#slashed").innerHTML=cur.paras.map(a=>"<p>"+esc(a.join("／"))+"</p>").join("");
+  scrollToStartSoon($("#wrap1"));
   const el=$("#sumBox");el.innerHTML="";
   cur.paras.forEach((a,i)=>{
     if(a.join("").length<40)return;
@@ -736,9 +752,10 @@ function resetS2(){
 $("#tStart").addEventListener("click",()=>{
   if(!cur)return;
   $("#readText").innerHTML=plainParas(cur).map(x=>"<p>"+esc(x)+"</p>").join("");
-  applyWM();
   $("#textCard").classList.remove("hidden");$("#resCard").classList.add("hidden");
   $("#tStart").classList.add("hidden");$("#tWarn").classList.add("hidden");
+  applyWM();
+  scrollToStartSoon($("#wrap2"));
   t.t0=Date.now();t.sec=0;
   t.tick=setInterval(()=>{t.sec=(Date.now()-t.t0)/1000;$("#timer").textContent=fmt(t.sec);},200);
   $("#textCard").scrollIntoView({behavior:"smooth",block:"start"});
